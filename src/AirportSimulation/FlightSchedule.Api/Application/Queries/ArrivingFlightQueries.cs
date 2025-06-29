@@ -2,9 +2,9 @@
 
 namespace FlightSchedule.Api.Application.Queries;
 
-public class FlightQueries : IFlightQueries
+public class ArrivingFlightQueries : IFlightQueries
 {
-    public Task<Flight> GetFlightDetailsAsync(string number)
+    public Task<DepartingFlight> GetFlightDetailsAsync(string number)
     {
         throw new NotImplementedException();
     }

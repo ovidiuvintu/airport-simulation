@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("TodoDb");
 builder.Services.AddDbContext<FlightsDbContext>(options =>
-        options.UseSqlite(connectionString));
+    options.UseSqlite(builder.Configuration["ConnectionStrings:FlightScheduleDb"]),
+    ServiceLifetime.Scoped);
 
 var withApiVersioning = builder.Services.AddApiVersioning();
 builder.AddDefaultOpenApi(withApiVersioning);

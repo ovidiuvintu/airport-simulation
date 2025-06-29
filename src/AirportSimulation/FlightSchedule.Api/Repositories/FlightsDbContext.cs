@@ -3,11 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlightSchedule.Api.Repositories;
 
-public sealed class FlightsDbContext : DbContext
+public sealed class FlightsDbContext(DbContextOptions<FlightsDbContext> options) : DbContext(options)
 {
-    public FlightsDbContext(DbContextOptions<FlightsDbContext> options) : base(options) { }
+    public DbSet<DepartingFlight> Arrivals { get; set; }
 
-    public DbSet<Flight> Arrivals { get; set; }
-
-    public DbSet<Flight> Departures { get; set; }
+    public DbSet<DepartingFlight> Departures { get; set; }
 }
