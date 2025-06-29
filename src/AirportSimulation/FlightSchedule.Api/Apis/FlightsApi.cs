@@ -1,6 +1,7 @@
 ﻿using FlightSchedule.Api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace FlightSchedule.Api;
 
@@ -59,7 +60,35 @@ public static class FlightsApi
             .WithDescription("Get a list of departing flights details over a time range.")
             .WithTags("Flights");
 
+        v1.MapGet("/departingflights/stop", StopAllDepartingFlights)
+            .WithName("StopAllDepartingFlights")
+            .WithSummary("Stop all departing flights.")
+            .WithDescription("Stops all departing flights processing.")
+            .WithTags("Flights");
+
+        v1.MapGet("/departingflights/resume", ResumeAllDepartingFlights)
+            .WithName("ResumeAllDepartingFlights")
+            .WithSummary("Resume all departing flights.")
+            .WithDescription("Resume all departing flights processing.")
+            .WithTags("Flights");
+
         return app;
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task ResumeAllDepartingFlights()
+    {
+        Log.Information("ResumeAllDepartingFlights");
+        await Task.CompletedTask;
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task StopAllDepartingFlights()
+    {
+        Log.Information("StopAllDepartingFlights");
+        await Task.CompletedTask;
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
@@ -68,6 +97,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetAllDepartingFlights");
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights);
         }
@@ -83,6 +113,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetDepartingFlightByFlightNumber");
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights.FirstOrDefault(departingFlight=>departingFlight.Flight == flightNumber));
         }
@@ -98,6 +129,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetDepartingFlightsByDestination");
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights.Where(departingFlight => departingFlight.To == city));
         }
@@ -113,6 +145,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetDepartingFlightsByTimespan");
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights.Where(departingFlight => departingFlight.Time >= start && departingFlight.Time <= end));
         }
@@ -128,6 +161,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetDepartingFlightsByTimespan");
             var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingFlights);
         }
@@ -143,6 +177,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetArrivingFlightByFlightNumber");
             var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingFlights.FirstOrDefault(arrivingFlight => arrivingFlight.Flight == flightNumber));
         }
@@ -158,6 +193,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetArrivingFlightsByOrigin");
             var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingFlights.Where(arrivingFlight => arrivingFlight.From == city));
         }
@@ -173,6 +209,7 @@ public static class FlightsApi
     {
         try
         {
+            Log.Information("GetArrivingFlightsByTimespan");
             var arrivingflights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingflights.Where(arrivingFlight => arrivingFlight.Time >= start && arrivingFlight.Time <= end));
         }
