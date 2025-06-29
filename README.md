@@ -17,3 +17,5 @@
 
 #### Access the api with scalar https://localhost:32808/scalar/
 
+#### https://www.meziantou.net/fire-and-forget-a-task-in-dotnet.htm
+

@@ -9,8 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IArrivingFlightsQueries, ArrivingFlightsQueries>();
 builder.Services.AddSingleton<IDepartingFlightsQueries, DepartingFlightsQueries>();
 
-builder.Services.AddHostedService<ArrivingFlightsSchedulerProcessor>();
-builder.Services.AddHostedService<DepartingFlightsSchedulerProcessor>();
+builder.Services.AddHostedService<FlightsSchedulerProcessor>();
 
 builder.Services.AddDbContext<FlightsDbContext>(options =>
     options.UseSqlite(builder.Configuration["ConnectionStrings:FlightScheduleDb"]),
@@ -26,4 +25,4 @@ app.MapAirlinesApi();
 app.MapFlightsApi();
 app.UseDefaultOpenApi();
 
-app.Run();
+await app.RunAsync();
