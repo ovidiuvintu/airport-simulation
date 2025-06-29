@@ -2,4 +2,5 @@
 
 public class Airline
 {
+    public string? Name { get; set; }
 }

@@ -14,7 +14,7 @@ public static class FlightsApi
         v1.MapGet("/arrivingflights", GetAllArrivingFlights)
             .WithName("ListArrivingFlights")
             .WithSummary("List all arriving flights.")
-            .WithDescription("Get a paginated list of all arriving flights.")
+            .WithDescription("Get a list of all arriving flights.")
             .WithTags("Flights");
 
         v1.MapGet("/arrivingflights/bynumber/{number:minlength(1)}", GetArrivingFlightByFlightNumber)
@@ -23,22 +23,22 @@ public static class FlightsApi
             .WithDescription("Get arriving flight details.")
             .WithTags("Flights");
 
-        v1.MapGet("/arrivingflights/bydeparture/{city:minlength(1)}", GetArrivingFlightsByDepartureCity)
-            .WithName("ListArrivingFlightsByDepartureCity")
+        v1.MapGet("/arrivingflights/byorigin/{city:minlength(1)}", GetArrivingFlightsByOrigin)
+            .WithName("ListArrivingFlightsByOrigin")
             .WithSummary("List flights details by departure city.")
-            .WithDescription("Get flights details by departure city.")
+            .WithDescription("Get a list of flights details by departure city.")
             .WithTags("Flights");
 
         v1.MapGet("/arrivingflights/bytimespan/{start:DateTime}/{end:DateTime}", GetArrivingFlightsByTimespan)
             .WithName("ListArrivingFlightsByTimeSpan")
-            .WithSummary("List arriving flights details by time span.")
-            .WithDescription("Get arriving flights details by time span.")
+            .WithSummary("List arriving flights details over a time range.")
+            .WithDescription("Get a list of arriving flights details over a time range.")
             .WithTags("Flights");
 
         v1.MapGet("/departingflights", GetAllDepartingFlights)
             .WithName("ListDepartingFlights")
             .WithSummary("List all departing flights.")
-            .WithDescription("Get a paginated list of all departing flights.")
+            .WithDescription("Get a list of all departing flights.")
             .WithTags("Flights");
 
         v1.MapGet("/departingflights/bynumber/{number:minlength(1)}", GetDepartingFlightByFlightNumber)
@@ -47,21 +47,22 @@ public static class FlightsApi
             .WithDescription("Get departing flight details.")
             .WithTags("Flights");
 
-        v1.MapGet("/departingflights/byarrival/{city:minlength(1)}", GetDepartingFlightsByArrivalCity)
-            .WithName("ListDepartingFlightsByArrivalCity")
+        v1.MapGet("/departingflights/bydestination/{city:minlength(1)}", GetDepartingFlightsByDestination)
+            .WithName("ListDepartingFlightsByDestination")
             .WithSummary("List flights details by arrival city.")
-            .WithDescription("Get flights details by arrival city.")
+            .WithDescription("Get a list of flights details by arrival city.")
             .WithTags("Flights");
 
         v1.MapGet("/departingflights/bytimespan/{start:DateTime}/{end:DateTime}", GetDepartingFlightsByTimespan)
             .WithName("ListDepartingFlightsByTimeSpan")
-            .WithSummary("List departing flights details by time span.")
-            .WithDescription("Get departing flights details by time span.")
+            .WithSummary("List departing flights details over a time range.")
+            .WithDescription("Get a list of departing flights details over a time range.")
             .WithTags("Flights");
 
         return app;
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     private static async Task<Ok<IEnumerable<DepartingFlight>>> GetAllDepartingFlights([AsParameters] FlightServices services)
     {
@@ -76,8 +77,9 @@ public static class FlightsApi
         }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<DepartingFlight>> GetDepartingFlightByFlightNumber(string flightNumber, [AsParameters] FlightServices services)
+    public static async Task<Ok<DepartingFlight>> GetDepartingFlightByFlightNumber([FromQuery]string flightNumber, [AsParameters] FlightServices services)
     {
         try
         {
@@ -90,22 +92,37 @@ public static class FlightsApi
         }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetDepartingFlightsByArrivalCity(string city)
+    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetDepartingFlightsByDestination([FromQuery] string city, [AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        IEnumerable<DepartingFlight> flights = [];
-        return TypedResults.Ok(flights);
+        try
+        {
+            var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
+            return TypedResults.Ok(departingflights.Where(departingFlight => departingFlight.To == city));
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetDepartingFlightsByTimespan(DateTime start, DateTime end)
+    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetDepartingFlightsByTimespan([FromQuery] DateTime start, [FromQuery] DateTime end, [AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        IEnumerable<DepartingFlight> flights = [];
-        return TypedResults.Ok(flights);
+        try
+        {
+            var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
+            return TypedResults.Ok(departingflights.Where(departingFlight => departingFlight.Time >= start && departingFlight.Time <= end));
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     private static async Task<Ok<IEnumerable<ArrivingFlight>>> GetAllArrivingFlights([AsParameters] FlightServices services)
     {
@@ -120,8 +137,9 @@ public static class FlightsApi
         }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<ArrivingFlight>> GetArrivingFlightByFlightNumber(string flightNumber, [AsParameters] FlightServices services)
+    public static async Task<Ok<ArrivingFlight>> GetArrivingFlightByFlightNumber([FromQuery] string flightNumber, [AsParameters] FlightServices services)
     {
         try
         {
@@ -134,19 +152,33 @@ public static class FlightsApi
         }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetArrivingFlightsByDepartureCity(string city)
+    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetArrivingFlightsByOrigin([FromQuery] string city, [AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        IEnumerable<ArrivingFlight> flights = [];
-        return TypedResults.Ok(flights);
+        try
+        {
+            var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
+            return TypedResults.Ok(arrivingFlights.Where(arrivingFlight => arrivingFlight.From == city));
+        }
+        catch
+        {
+            throw;
+        }
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetArrivingFlightsByTimespan(DateTime start, DateTime end)
+    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetArrivingFlightsByTimespan([FromQuery] DateTime start, [FromQuery] DateTime end, [AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        IEnumerable<ArrivingFlight> flights = [];
-        return TypedResults.Ok(flights);
+        try
+        {
+            var arrivingflights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
+            return TypedResults.Ok(arrivingflights.Where(arrivingFlight => arrivingFlight.Time >= start && arrivingFlight.Time <= end));
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }

@@ -19,8 +19,11 @@ public static partial class Extensions
 
         app.MapScalarApiReference(options =>
         {
-            // Disable default fonts to avoid download unnecessary fonts
             options.DefaultFonts = false;
+            options.WithTitle("Flight schedule API")
+                   .WithModels()
+                   .WithTheme(ScalarTheme.Default)
+                   .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
         });
         app.MapGet("/", () => Results.Redirect("/scalar/v1")).ExcludeFromDescription();
 

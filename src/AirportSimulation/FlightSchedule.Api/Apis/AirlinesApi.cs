@@ -20,6 +20,7 @@ public static class AirlinesApi
         return app;
     }
 
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     public static async Task<Ok<IEnumerable<Airline>>> GetAllAirlines()
     {

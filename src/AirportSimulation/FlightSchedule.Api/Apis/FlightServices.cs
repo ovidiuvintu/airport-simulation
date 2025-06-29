@@ -1,5 +1,4 @@
 ﻿using FlightSchedule.Api.Application.Queries;
-using MediatR;
 
 namespace FlightSchedule.Api;
 

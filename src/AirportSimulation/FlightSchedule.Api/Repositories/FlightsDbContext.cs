@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlightSchedule.Api.Repositories;
 
-public sealed class FlightsDbContext(DbContextOptions<FlightsDbContext> options) : DbContext(options)
+public class FlightsDbContext(DbContextOptions<FlightsDbContext> options) : DbContext(options)
 {
     public DbSet<ArrivingFlight> Arrivals { get; set; }
 
