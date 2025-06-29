@@ -37,6 +37,18 @@ public static class FlightsApi
             .WithDescription("Get a list of arriving flights details over a time range.")
             .WithTags("Flights");
 
+        v1.MapGet("/arrivingflights/stop", StopAllArrivingFlights)
+            .WithName("StopAllArrivingFlights")
+            .WithSummary("Stop all arriving flights.")
+            .WithDescription("Stops all arriving flights processing.")
+            .WithTags("Flights");
+
+        v1.MapGet("/arrivingflights/resume", ResumeAllArrivingFlights)
+            .WithName("ResumeAllArrivingFlights")
+            .WithSummary("Resume all arriving flights.")
+            .WithDescription("Resume all arriving flights processing.")
+            .WithTags("Flights");
+
         v1.MapGet("/departingflights", GetAllDepartingFlights)
             .WithName("ListDepartingFlights")
             .WithSummary("List all departing flights.")
@@ -158,6 +170,22 @@ public static class FlightsApi
             Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task ResumeAllArrivingFlights()
+    {
+        Log.Information("ResumeAllArrivingFlights");
+        await Task.CompletedTask;
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task StopAllArrivingFlights()
+    {
+        Log.Information("StopAllArrivingFlights");
+        await Task.CompletedTask;
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized, "application/problem+json")]
