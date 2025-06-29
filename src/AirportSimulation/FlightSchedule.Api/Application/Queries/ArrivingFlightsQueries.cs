@@ -21,6 +21,6 @@ public class ArrivingFlightsQueries : IArrivingFlightsQueries
     public async Task<ArrivingFlight?> GetArrivingFlightDetailsAsync(string number)
     {
         var arrivals = await _context.Arrivals.ToListAsync();
-        return arrivals.FirstOrDefault(arrival => arrival.Number == number);
+        return arrivals.FirstOrDefault(arrival => arrival.Flight == number);
     }
 }

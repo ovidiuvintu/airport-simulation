@@ -6,10 +6,10 @@
 ##### .open C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\flightschedule.db
 ##### .mode csv
 #### Create the arrivals table
-##### .import --skip 2 C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\arrivals.csv arrivals
+##### .import C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\arrivals.csv arrivals
 ##### .schema
 #### Create the departures table
-##### .import --skip 2 C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\departures.csv departures
+##### .import  C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\departures.csv departures
 ##### .schema
 ##### .quit
 

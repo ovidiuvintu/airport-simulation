@@ -4,6 +4,6 @@ namespace FlightSchedule.Api.Application.Queries;
 
 public interface IDepartingFlightsQueries
 {
-    Task<DepartingFlight> GetDepartingFlightDetailsAsync();
-    Task<DepartingFlight> GetDepartingFlightDetailsAsync(string number);
+    Task<IEnumerable<DepartingFlight>> GetDepartingFlightsAsync();
+    Task<DepartingFlight?> GetDepartureFlightDetailsAsync(string number);
 }

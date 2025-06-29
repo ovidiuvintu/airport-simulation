@@ -4,11 +4,11 @@ using MediatR;
 namespace FlightSchedule.Api;
 
 public class FlightServices(
-    IMediator mediator,
-    IArrivingFlightsQueries queries,
+    IArrivingFlightsQueries arrivingFlightsQueries,
+    IDepartingFlightsQueries departingFlightsQueries,
     ILogger<FlightServices> logger)
 {
-    public IMediator Mediator { get; set; } = mediator;
     public ILogger<FlightServices> Logger { get; } = logger;
-    public IArrivingFlightsQueries Queries { get; } = queries;
+    public IArrivingFlightsQueries ArrivingFlightsQueries { get; } = arrivingFlightsQueries;
+    public IDepartingFlightsQueries DepartingFlightsQueries { get; } = departingFlightsQueries;
 }

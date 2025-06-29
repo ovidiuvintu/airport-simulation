@@ -63,19 +63,31 @@ public static class FlightsApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<IEnumerable<DepartingFlight>>> GetAllDepartingFlights()
+    private static async Task<Ok<IEnumerable<DepartingFlight>>> GetAllDepartingFlights([AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        IEnumerable<DepartingFlight> flights = [];
-        return TypedResults.Ok(flights);
+        try
+        {
+            var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
+            return TypedResults.Ok(departingflights);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<DepartingFlight>> GetDepartingFlightByFlightNumber(string flightNumber)
+    public static async Task<Ok<DepartingFlight>> GetDepartingFlightByFlightNumber(string flightNumber, [AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        var flight = new DepartingFlight();
-        return TypedResults.Ok(flight);
+        try
+        {
+            var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
+            return TypedResults.Ok(departingflights.FirstOrDefault(departingFlight=>departingFlight.Flight == flightNumber));
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
@@ -95,19 +107,31 @@ public static class FlightsApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetAllArrivingFlights()
+    private static async Task<Ok<IEnumerable<ArrivingFlight>>> GetAllArrivingFlights([AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        IEnumerable<ArrivingFlight> flights = [];
-        return TypedResults.Ok(flights);
+        try
+        {
+            var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
+            return TypedResults.Ok(arrivingFlights);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<ArrivingFlight>> GetArrivingFlightByFlightNumber(string flightNumber)
+    public static async Task<Ok<ArrivingFlight>> GetArrivingFlightByFlightNumber(string flightNumber, [AsParameters] FlightServices services)
     {
-        await Task.CompletedTask;
-        var flight = new ArrivingFlight();
-        return TypedResults.Ok(flight);
+        try
+        {
+            var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
+            return TypedResults.Ok(arrivingFlights.FirstOrDefault(arrivingFlight => arrivingFlight.Flight == flightNumber));
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]

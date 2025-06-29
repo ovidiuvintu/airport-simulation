@@ -1,8 +1,15 @@
 using FlightSchedule.Api;
+using FlightSchedule.Api.Application.Queries;
 using FlightSchedule.Api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IArrivingFlightsQueries, ArrivingFlightsQueries>();
+builder.Services.AddScoped<IDepartingFlightsQueries, DepartingFlightsQueries>();
+
+//builder.Services.AddScoped<IFlightsRepository, FlightsRepository>();
+
 
 builder.Services.AddDbContext<FlightsDbContext>(options =>
     options.UseSqlite(builder.Configuration["ConnectionStrings:FlightScheduleDb"]),

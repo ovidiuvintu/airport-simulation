@@ -5,9 +5,10 @@ namespace FlightSchedule.Api.Models;
 public class ArrivingFlight
 {
     [Key]
-    public string? Number { get; set; }
-    public DateTime Scheduled { get; set; }
-    public string? Origin { get; set; }
+    public string? Flight { get; set; }
+    public DateTime Time { get; set; }
+    public string? From { get; set; }
     public string? Airline { get; set; }
+    public string? Aircraft { get; set; }
     public string? Status { get; set; }
 }
