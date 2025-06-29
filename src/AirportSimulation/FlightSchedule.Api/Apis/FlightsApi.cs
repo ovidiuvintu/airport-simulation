@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Data;
 
 namespace FlightSchedule.Api;
 
@@ -101,8 +102,9 @@ public static class FlightsApi
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights);
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -117,8 +119,9 @@ public static class FlightsApi
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights.FirstOrDefault(departingFlight=>departingFlight.Flight == flightNumber));
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -133,8 +136,9 @@ public static class FlightsApi
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights.Where(departingFlight => departingFlight.To == city));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -149,8 +153,9 @@ public static class FlightsApi
             var departingflights = await services.DepartingFlightsQueries.GetDepartingFlightsAsync();
             return TypedResults.Ok(departingflights.Where(departingFlight => departingFlight.Time >= start && departingFlight.Time <= end));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -165,8 +170,9 @@ public static class FlightsApi
             var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingFlights);
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -181,8 +187,9 @@ public static class FlightsApi
             var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingFlights.FirstOrDefault(arrivingFlight => arrivingFlight.Flight == flightNumber));
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -197,8 +204,9 @@ public static class FlightsApi
             var arrivingFlights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingFlights.Where(arrivingFlight => arrivingFlight.From == city));
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Error("GetDepartingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
@@ -213,8 +221,9 @@ public static class FlightsApi
             var arrivingflights = await services.ArrivingFlightsQueries.GetArrivingFlightsAsync();
             return TypedResults.Ok(arrivingflights.Where(arrivingFlight => arrivingFlight.Time >= start && arrivingFlight.Time <= end));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Log.Error("GetArrivingFlightsByTimespan: {0}", ex);
             throw;
         }
     }
