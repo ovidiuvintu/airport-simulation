@@ -37,7 +37,11 @@ public class ArrivingFlightsSchedulerProcessor : IHostedLifecycleService
             {
                 while (await _timer.WaitForNextTickAsync(cancellationToken).ConfigureAwait(false) && !cancellationToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation("ArrivingFlightsSchedulerProcessor Current Time:{0}", DateTime.Now);
+                    var arrivingFlights = await _arrivingFlightsQueries.GetArrivingFlightsAsync(DateTime.Now, DateTime.Now.AddMinutes(5.0));
+                    foreach (var flight in arrivingFlights)
+                    {
+                        _logger.LogInformation("ArrivingFlightsSchedulerProcessor Current Time:{0} Flight:{1}", DateTime.Now, flight.From);
+                    }
                 }
             });
         }
@@ -56,6 +60,11 @@ public class ArrivingFlightsSchedulerProcessor : IHostedLifecycleService
     public async Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("ArrivingFlightsSchedulerProcessor stop");
+        if (_timer != null)
+        {
+            _timer.Dispose();
+        }
+
         await Task.CompletedTask;
     }
 

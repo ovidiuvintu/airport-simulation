@@ -37,7 +37,11 @@ public class DepartingFlightsSchedulerProcessor : IHostedLifecycleService
             {
                 while (await _timer.WaitForNextTickAsync(cancellationToken).ConfigureAwait(false) && !cancellationToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation("DepartingFlightsSchedulerProcessor Current Time:{0}", DateTime.Now);
+                    var departingFlights = await _departingFlightsQueries.GetDepartingFlightsAsync(DateTime.Now, DateTime.Now.AddMinutes(5.0));
+                    foreach (var flight in departingFlights)
+                    {
+                        _logger.LogInformation("DepartingFlightsSchedulerProcessor Current Time:{0} Flight:{1}", DateTime.Now, flight.To);
+                    }
                 }
             });
         }

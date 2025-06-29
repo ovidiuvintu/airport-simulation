@@ -23,4 +23,15 @@ public class ArrivingFlightsQueries : IArrivingFlightsQueries
         var arrivals = await _context.Arrivals.ToListAsync();
         return arrivals.FirstOrDefault(arrival => arrival.Flight == number);
     }
+
+    public async Task<IEnumerable<ArrivingFlight>> GetArrivingFlightsAsync(DateTime start, DateTime end)
+    {
+        var arrivals = await _context.Arrivals.ToListAsync();
+        return arrivals.Where(arrival => arrival.Time.TimeOfDay >= start.TimeOfDay && arrival.Time.TimeOfDay < end.TimeOfDay);
+    }
+
+    public Task<IEnumerable<ArrivingFlight>> GetArrivingFlightsAsync(string city)
+    {
+        throw new NotImplementedException();
+    }
 }
