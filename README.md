@@ -1,12 +1,15 @@
 # airport-simulation
 
-## Convert a csv file to a sql lite database
+## Convert a csv file to a sql lite table
 ### sqlite3
-#### .open C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\flightschedule.db
-#### .mode csv
-#### .import --skip 2 C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\arrivals.csv arrivals
-#### .schema
-#### .import --skip 2 C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\departures.csv departures
-#### .schema
-#### .quit
+#### Open or create the database
+##### .open C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\flightschedule.db
+##### .mode csv
+#### Create the arrivals table
+##### .import --skip 2 C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\arrivals.csv arrivals
+##### .schema
+#### Create the departures table
+##### .import --skip 2 C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api\Data\departures.csv departures
+##### .schema
+##### .quit
 
