@@ -95,34 +95,34 @@ public static class FlightsApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetAllArrivingFlights()
+    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetAllArrivingFlights()
     {
         await Task.CompletedTask;
-        IEnumerable<DepartingFlight> flights = [];
+        IEnumerable<ArrivingFlight> flights = [];
         return TypedResults.Ok(flights);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<DepartingFlight>> GetArrivingFlightByFlightNumber(string flightNumber)
+    public static async Task<Ok<ArrivingFlight>> GetArrivingFlightByFlightNumber(string flightNumber)
     {
         await Task.CompletedTask;
-        var flight = new DepartingFlight();
+        var flight = new ArrivingFlight();
         return TypedResults.Ok(flight);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetArrivingFlightsByDepartureCity(string city)
+    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetArrivingFlightsByDepartureCity(string city)
     {
         await Task.CompletedTask;
-        IEnumerable<DepartingFlight> flights = [];
+        IEnumerable<ArrivingFlight> flights = [];
         return TypedResults.Ok(flights);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    public static async Task<Ok<IEnumerable<DepartingFlight>>> GetArrivingFlightsByTimespan(DateTime start, DateTime end)
+    public static async Task<Ok<IEnumerable<ArrivingFlight>>> GetArrivingFlightsByTimespan(DateTime start, DateTime end)
     {
         await Task.CompletedTask;
-        IEnumerable<DepartingFlight> flights = [];
+        IEnumerable<ArrivingFlight> flights = [];
         return TypedResults.Ok(flights);
     }
 }

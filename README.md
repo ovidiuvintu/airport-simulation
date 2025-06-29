@@ -13,3 +13,7 @@
 ##### .schema
 ##### .quit
 
+#### dotnet ef migrations add --startup-project C:\Development\airport-simulation\src\AirportSimulation\FlightSchedule.Api --context FlightsDbContext Initial
+
+#### Access the api with scalar https://localhost:32808/scalar/
+

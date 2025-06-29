@@ -1,7 +1,10 @@
-﻿namespace FlightSchedule.Api.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FlightSchedule.Api.Models;
 
 public class ArrivingFlight
 {
+    [Key]
     public string? Number { get; set; }
     public DateTime Scheduled { get; set; }
     public string? Origin { get; set; }

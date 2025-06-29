@@ -5,10 +5,10 @@ namespace FlightSchedule.Api;
 
 public class FlightServices(
     IMediator mediator,
-    IFlightQueries queries,
+    IArrivingFlightsQueries queries,
     ILogger<FlightServices> logger)
 {
     public IMediator Mediator { get; set; } = mediator;
     public ILogger<FlightServices> Logger { get; } = logger;
-    public IFlightQueries Queries { get; } = queries;
+    public IArrivingFlightsQueries Queries { get; } = queries;
 }
