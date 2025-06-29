@@ -7,6 +7,7 @@ public class ArrivingFlightsSchedulerProcessor : IHostedLifecycleService
 {
     private readonly IArrivingFlightsQueries _arrivingFlightsQueries;
     private readonly ILogger<ArrivingFlightsSchedulerProcessor> _logger;
+    private PeriodicTimer _timer = new(TimeSpan.FromSeconds(1));
 
     public ArrivingFlightsSchedulerProcessor(IArrivingFlightsQueries arrivingFlights,
                                              ILogger<ArrivingFlightsSchedulerProcessor> logger)
@@ -30,6 +31,25 @@ public class ArrivingFlightsSchedulerProcessor : IHostedLifecycleService
     public async Task StartingAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("ArrivingFlightsSchedulerProcessor starting");
+        try
+        {
+            _ = Task.Run(async () =>
+            {
+                while (await _timer.WaitForNextTickAsync(cancellationToken).ConfigureAwait(false) && !cancellationToken.IsCancellationRequested)
+                {
+                    _logger.LogInformation("ArrivingFlightsSchedulerProcessor Current Time:{0}", DateTime.Now);
+                }
+            });
+        }
+        catch (OperationCanceledException exception)
+        {
+            _logger.LogError(exception, "");
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "");
+        }
+
         await Task.CompletedTask;
     }
 
