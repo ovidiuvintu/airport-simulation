@@ -9,10 +9,10 @@ public class DepartingFlightsSchedulerProcessor : IHostedLifecycleService
     private readonly ILogger<DepartingFlightsSchedulerProcessor> _logger;
     private PeriodicTimer _timer = new(TimeSpan.FromSeconds(1));
 
-    public DepartingFlightsSchedulerProcessor(IDepartingFlightsQueries arrivingFlights,
+    public DepartingFlightsSchedulerProcessor(IDepartingFlightsQueries departingFlights,
                                              ILogger<DepartingFlightsSchedulerProcessor> logger)
     {
-        _departingFlightsQueries = arrivingFlights;
+        _departingFlightsQueries = departingFlights;
         _logger = logger;
     }
 
