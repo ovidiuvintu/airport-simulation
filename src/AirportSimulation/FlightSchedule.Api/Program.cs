@@ -3,6 +3,7 @@ using FlightSchedule.Api.Application.Queries;
 using FlightSchedule.Api.Application.Scheduler;
 using FlightSchedule.Api.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +17,14 @@ builder.Services.AddDbContext<FlightsDbContext>(options =>
     ServiceLifetime.Singleton);
 
 var withApiVersioning = builder.Services.AddApiVersioning();
-builder.AddDefaultOpenApi(withApiVersioning);       
+builder.AddDefaultOpenApi(withApiVersioning);
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 
 var app = builder.Build();
 
+app.UseSerilogRequestLogging();
 //app.UseHttpsRedirection();
 app.MapAirlinesApi();
 app.MapFlightsApi();
