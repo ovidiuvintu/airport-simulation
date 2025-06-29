@@ -25,8 +25,8 @@
             {
                 try
                 {
-                    // No need to resume on the original SynchronizationContext, so use ConfigureAwait(false)
-                    await task.ConfigureAwait(false);
+                    // https://www.meziantou.net/fire-and-forget-a-task-in-dotnet.htm
+                    await task.ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
                 }
                 catch
                 {
