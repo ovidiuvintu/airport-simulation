@@ -1,23 +1,30 @@
 ﻿
-namespace FlightSchedule.Api.Apis;
+using FlightSchedule.Api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FlightSchedule.Api;
 
 public static class AirlinesApi
 {
-    public static RouteGroupBuilder MapAirlinesApi(this IEndpointRouteBuilder app)
+    public static IEndpointRouteBuilder MapAirlinesApi(this IEndpointRouteBuilder app)
     {
-        var api = app.MapGroup("api/airlines").HasApiVersion(1, 0);
-        api.MapGet("/airlines", GetAllAirlines)
+        var vApi = app.NewVersionedApi("Operator");
+        var v1 = vApi.MapGroup("api/operator").HasApiVersion(1, 0);
+        v1.MapGet("/airlines", GetAllAirlines)
             .WithName("ListAirlines")
-            .WithSummary("List all airlines")
+            .WithSummary("List all airlines.")
             .WithDescription("Get a paginated list of operating airlines.")
             .WithTags("Airlines")
             .WithOpenApi();
-        return api;
+        return app;
     }
 
-    private static async Task GetAllAirlines(HttpContext context)
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    public static async Task<Ok<IEnumerable<Airline>>> GetAllAirlines()
     {
-        //throw new NotImplementedException();
         await Task.CompletedTask;
+        IEnumerable<Airline> airlines = [];
+        return TypedResults.Ok(airlines);
     }
 }

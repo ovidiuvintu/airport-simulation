@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using Scalar.AspNetCore;
 
-namespace eShop.ServiceDefaults;
+namespace FlightSchedule.Api;
 
 public static partial class Extensions
 {
