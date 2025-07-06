@@ -3,12 +3,12 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 
-
+// Color design tokens
+// Use Tailwindshades to generate shades of a color
 export const tokens = (mode) => ({
     ...(mode === "dark"
     ? {
-        // Color design tokens
-        gray: {
+        grey: {
                 100: "#e0e0e0",
                 200: "#c2c2c2",
                 300: "#a3a3a3",
@@ -23,12 +23,12 @@ export const tokens = (mode) => ({
                 100: "#d0d1f6",
                 200: "#a1a4ed",
                 300: "#7276e4",
-                400: "#4349db",
-                500: "#141bd2",
-                600: "#1016a8",
-                700: "#0c107e",
-                800: "#080b54",
-                900: "#04052a"
+                400: "#434957",
+                500: "#141b2d",
+                600: "#101624",
+                700: "#0c101b",
+                800: "#080b12",
+                900: "#040509"
         }, //primary color
         greenAccent: {
                 100: "#dbf5ee",
@@ -66,7 +66,7 @@ export const tokens = (mode) => ({
 
 } : {
     // Color design tokens
-        gray: {
+        grey: {
                 100: "#141414",
                 200: "#292929",
                 300: "#3d3d3d",
@@ -81,7 +81,7 @@ export const tokens = (mode) => ({
                 100: "#04052a",
                 200: "#080b54",
                 300: "#0c107e",
-                400: "#1016a8",
+                400: "#f2f0f0",
                 500: "#141bd2",
                 600: "#4349db",
                 700: "#7276e4",
@@ -140,9 +140,9 @@ export const themeSettings = (mode) => {
                         main: colors.greenAccent[500],
                     },
                     neutral: {
-                        dark: colors.gray[700],
-                        main: colors.gray[500],
-                        light: colors.gray[100],
+                        dark: colors.grey[700],
+                        main: colors.grey[500],
+                        light: colors.grey[100],
                     },
                     background: {
                         default: colors.primary[500],
@@ -156,9 +156,9 @@ export const themeSettings = (mode) => {
                         main: colors.greenAccent[500],
                     },
                     neutral: {
-                        dark: colors.gray[700],
-                        main: colors.gray[500],
-                        light: colors.gray[100],
+                        dark: colors.grey[700],
+                        main: colors.grey[500],
+                        light: colors.grey[100],
                     },
                     background: {
                         default: "#fcfcfc",
