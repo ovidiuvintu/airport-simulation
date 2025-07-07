@@ -1,9 +1,9 @@
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-// import Arrivals from "./scenes/arrivals";
-// import Departures from "./scenes/departures";
-// import Airlines from "./scenes/airlines";
+import Arrivals from "./scenes/arrivals";
+import Departures from "./scenes/departures";
+import Airlines from "./scenes/airlines";
 
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -23,6 +23,9 @@ function App() {
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/arrivals" element={<Arrivals />} />
+              <Route path="/departures" element={<Departures />} />
+              <Route path="/airlines" element={<Airlines />} />
             </Routes>
           </main>
         </div>

@@ -1,8 +1,10 @@
 import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
+import { DataGrid } from "@mui/x-data-grid";
+import { mockDataArrivals } from "../../data/mockData";
 import Header from "../../components/Header";
 
-const Dashboard = () => {
+const Arrivals = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -10,7 +12,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="ARRIVALS" subtitle="List of Arriving Flights" />
       </Box>
 
       {/* GRID & CHARTS */}
@@ -25,4 +27,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Arrivals;
