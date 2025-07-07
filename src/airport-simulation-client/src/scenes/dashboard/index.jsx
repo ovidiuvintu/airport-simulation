@@ -20,6 +20,13 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
+         <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        ></Box>
       </Box>
     </Box>
   );
