@@ -43,9 +43,13 @@ const Arrivals = () => {
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
             backgroundColor: colors.blueAccent[700],
-          }
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
         }}>
         <DataGrid
+              checkboxSelection
               rows={MockArrivalData}
               columns={columns}
               getRowId={(row) => row.flight}
@@ -53,7 +57,6 @@ const Arrivals = () => {
                 pagination: { paginationModel: { pageSize: 10 } },
               }}
               pageSizeOptions={[10, 15, 20, 50, 100]} 
-              checkboxSelection
             />
       </Box>
     </Box>

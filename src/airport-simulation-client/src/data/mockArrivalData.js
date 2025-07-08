@@ -128,14 +128,6 @@ const MockArrivalData = [
         status: "Unknown"
     },
     {
-        flight: "CX2091",
-        time: "2025-07-07T04:15:00",
-        from: "Dallas (DFW)",
-        airline: "Cathay Pacific",
-        aircraft: "74N",
-        status: "Unknown"
-    },
-    {
         flight: "DL543",
         time: "2025-07-07T04:29:00",
         from: "Santa Ana (SNA)",
@@ -9990,14 +9982,6 @@ const MockArrivalData = [
         airline: "Delta Air Lines",
         aircraft: "B752 (N709TW)",
         status: "Diverted to DFW"
-    },
-    {
-        flight: "DL488",
-        time: "2025-07-07T21:58:00",
-        from: "Raleigh-Durham (RDU)",
-        airline: "Delta Air Lines",
-        aircraft: "A320 (N350NA)",
-        status: "Scheduled"
     },
     {
         flight: "DL488",
