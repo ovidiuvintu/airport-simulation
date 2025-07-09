@@ -21,9 +21,10 @@ const Departures = () => {
     <Box m="20px">
       <Header title="DEPARTURES" subtitle="List of Departing Flights" />
       {/* GRID & CHARTS */}
-      <Box m="40px 0 0 0" 
-           height="75vh"
-           sx={{
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
           "& .MuiDataGrid-root": {
             border: "none",
           },
@@ -47,7 +48,8 @@ const Departures = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
-        }}>
+        }}
+        >
         <DataGrid
               checkboxSelection={false}
               disableColumnSorting

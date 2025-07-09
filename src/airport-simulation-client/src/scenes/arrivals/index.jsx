@@ -9,21 +9,22 @@ const Arrivals = () => {
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-        { field: "flight", headerName: "Flight", flex: 1, cellClassName: "name-column--cell" },
-        { field: "time", headerName: "Time", flex: 1, cellClassName: "name-column--cell" },
-        { field: "from", headerName: "From", flex: 1, cellClassName: "name-column--cell" },
-        { field: "airline", headerName: "Airline", flex: 1, cellClassName: "name-column--cell" },
-        { field: "aircraft", headerName: "Aircraft", flex: 1, cellClassName: "name-column--cell" },
-        { field: "status", headerName: "Status", flex: 1, cellClassName: "name-column--cell" },
+        { field: "flight", headerName: "Flight", flex: 1 },
+        { field: "time", headerName: "Time", flex: 1 },
+        { field: "from", headerName: "From", flex: 1 },
+        { field: "airline", headerName: "Airline", flex: 1 },
+        { field: "aircraft", headerName: "Aircraft", flex: 1 },
+        { field: "status", headerName: "Status", flex: 1 },
       ];
 
   return (
     <Box m="20px">
       <Header title="ARRIVALS" subtitle="List of Arriving Flights" />
       {/* GRID & CHARTS */}
-      <Box m="40px 0 0 0" 
-           height="75vh"
-           sx={{
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
           "& .MuiDataGrid-root": {
             border: "none",
           },
@@ -47,8 +48,9 @@ const Arrivals = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
-        }}>
-        <DataGrid
+        }}
+          >
+          <DataGrid
               checkboxSelection={false}
               disableColumnSorting
               rows={MockArrivalData}
@@ -59,7 +61,7 @@ const Arrivals = () => {
               }}
               pageSizeOptions={[10, 15, 20, 50, 100]} 
             />
-      </Box>
+        </Box>
     </Box>
   );
 };
