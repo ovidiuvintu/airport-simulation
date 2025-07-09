@@ -9,12 +9,12 @@ const Departures = () => {
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-        { field: "flight", headerName: "Flight", flex: 1, cellClassName: "name-column--cell" },
-        { field: "time", headerName: "Time", flex: 1, cellClassName: "name-column--cell" },
-        { field: "to", headerName: "To", flex: 1, cellClassName: "name-column--cell" },
-        { field: "airline", headerName: "Airline", flex: 1, cellClassName: "name-column--cell" },
-        { field: "aircraft", headerName: "Aircraft", flex: 1, cellClassName: "name-column--cell" },
-        { field: "status", headerName: "Status", flex: 1, cellClassName: "name-column--cell" },
+        { field: "flight", headerName: "Flight", flex: 1 },
+        { field: "time", headerName: "Time", flex: 1 },
+        { field: "to", headerName: "From", flex: 1 },
+        { field: "airline", headerName: "Airline", flex: 1 },
+        { field: "aircraft", headerName: "Aircraft", flex: 1 },
+        { field: "status", headerName: "Status", flex: 1 },
       ];
 
   return (
@@ -49,8 +49,8 @@ const Departures = () => {
             color: `${colors.greenAccent[200]} !important`,
           },
         }}
-        >
-        <DataGrid
+          >
+          <DataGrid
               checkboxSelection={false}
               disableColumnSorting
               rows={MockDepartureData}
@@ -61,7 +61,7 @@ const Departures = () => {
               }}
               pageSizeOptions={[10, 15, 20, 50, 100]} 
             />
-      </Box>
+        </Box>
     </Box>
   );
 };
