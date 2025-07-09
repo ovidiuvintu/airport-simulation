@@ -49,8 +49,8 @@ const Departures = () => {
           },
         }}>
         <DataGrid
+              checkboxSelection={false}
               disableColumnSorting
-              checkboxSelection
               rows={MockDepartureData}
               columns={columns}
               getRowId={(row) => row.flight}
