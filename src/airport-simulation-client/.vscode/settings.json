@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e77b9b8b-8053-4cf6-9faf-2e14ee74746d/resourceGroups/AirportSimulationRG/providers/Microsoft.Web/sites/airportsimulation",
+    "appService.deploySubpath": "build"
+}
