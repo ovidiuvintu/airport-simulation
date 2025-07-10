@@ -36,7 +36,7 @@ const Departures = () => {
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
+            borderBottom: "none"
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.primary[400],
@@ -51,6 +51,7 @@ const Departures = () => {
         }}
           >
           <DataGrid
+              disableColumnFilter
               checkboxSelection={false}
               disableColumnSorting
               rows={MockDepartureData}
