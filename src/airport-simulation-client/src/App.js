@@ -5,6 +5,8 @@ import Arrivals from "./scenes/arrivals";
 import Departures from "./scenes/departures";
 import Airlines from "./scenes/airlines";
 
+
+
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route } from 'react-router-dom'
