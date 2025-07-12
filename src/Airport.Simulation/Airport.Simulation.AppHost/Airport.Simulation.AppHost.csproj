@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>772d3ab6-cde9-4395-bc01-76aa3c5e3e06</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Airport.Scheduler\Airport.Scheduler.csproj" />
+    <ProjectReference Include="..\Airport.Server\Airport.Server.csproj" />
+    <ProjectReference Include="..\Gate.Simulator\Gate.Simulator.csproj" />
+    <ProjectReference Include="..\RunwaySimulator\Runway.Simulator.csproj" />
+    <ProjectReference Include="..\TaxiSimulator\Taxi.Simulator.csproj" />
+  </ItemGroup>
+
+</Project>
