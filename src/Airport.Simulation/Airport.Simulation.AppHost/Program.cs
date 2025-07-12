@@ -10,11 +10,7 @@ builder.AddProject<Projects.Taxi_Simulator>("taxi-simulator");
 
 var airportServerApi = builder.AddProject<Projects.Airport_Server>("airport-server");
 
-builder.AddNpmApp("react", "../AspireJavaScript.React")
-    .WithReference(airportServerApi)
-    .WithEnvironment("BROWSER", "none") // Disable opening browser on npm start
-    .WithHttpEndpoint(env: "PORT")
-    .WithExternalHttpEndpoints()
-    .PublishAsDockerFile();
+var reactApp = builder.AddNpmApp("airport-client", "../../Airport.Client/airport-client", "npm start");
+reactApp.WithReference(airportServerApi);
 
 builder.Build().Run();
