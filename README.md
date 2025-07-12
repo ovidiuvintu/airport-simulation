@@ -19,3 +19,5 @@
 
 #### npm run build, npm start dev
 
+#### docker run -p 3000:3000 image-name
+
