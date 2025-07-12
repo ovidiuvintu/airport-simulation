@@ -1,0 +1,6 @@
+@RunwaySimulator_HostAddress = http://localhost:5163
+
+GET {{RunwaySimulator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

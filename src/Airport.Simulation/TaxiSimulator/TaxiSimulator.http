@@ -1,0 +1,6 @@
+@TaxiSimulator_HostAddress = http://localhost:5033
+
+GET {{TaxiSimulator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
