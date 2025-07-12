@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runway.Simulator", "RunwayS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airport.Server", "Airport.Server\Airport.Server.csproj", "{3172DC5C-E397-4B61-A290-F568E3F971EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gate.Simulator", "Gate.Simulator\Gate.Simulator.csproj", "{B3E19890-AA76-4F81-9336-3D7383CA4136}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3172DC5C-E397-4B61-A290-F568E3F971EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3172DC5C-E397-4B61-A290-F568E3F971EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3172DC5C-E397-4B61-A290-F568E3F971EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E19890-AA76-4F81-9336-3D7383CA4136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E19890-AA76-4F81-9336-3D7383CA4136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E19890-AA76-4F81-9336-3D7383CA4136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E19890-AA76-4F81-9336-3D7383CA4136}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

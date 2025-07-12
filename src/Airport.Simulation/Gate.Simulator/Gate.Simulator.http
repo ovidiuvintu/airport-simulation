@@ -1,0 +1,6 @@
+@Gate.Simulator_HostAddress = http://localhost:5062
+
+GET {{Gate.Simulator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
