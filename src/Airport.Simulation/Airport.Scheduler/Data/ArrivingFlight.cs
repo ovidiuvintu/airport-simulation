@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Airport.Scheduler.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Data;
 
@@ -11,5 +12,13 @@ public sealed class ArrivingFlight
 
     public string? FlightNumber { get; set; }
 
+    public Carrier? Carrier { get; set; }
+
     public string? Origin { get; set; }
+
+    public DateTime ScheduledArrivalTime { get; set; }
+
+    public DateTime ActualArrivalTime { get; set; }
+
+    public FlightStatus? FlightStatus { get; set; }
 }

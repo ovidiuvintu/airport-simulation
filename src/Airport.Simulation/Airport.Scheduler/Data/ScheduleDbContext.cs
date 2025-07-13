@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Airport.Scheduler.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Airport.Data;
@@ -7,6 +8,7 @@ public sealed class ScheduleDbContext(DbContextOptions<ScheduleDbContext> option
 {
     public DbSet<ArrivingFlight> ArrivingFlights { get; set; }
     public DbSet<DepartingFlight> DepartingFlights { get; set; }
+    public DbSet<Carrier> Carrier { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

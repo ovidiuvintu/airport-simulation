@@ -3,6 +3,6 @@
 public enum FlightStatus
 {
     None = 0,
-    AtGate,
-    Taxi,
+    Scheduled,
+    Cancelled
 }
