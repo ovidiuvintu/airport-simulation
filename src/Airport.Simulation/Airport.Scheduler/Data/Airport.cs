@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Scheduler.Data;
+namespace Airport.Data;
 
 public class Airport
 {
