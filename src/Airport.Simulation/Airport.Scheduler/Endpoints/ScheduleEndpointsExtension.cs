@@ -69,11 +69,13 @@ public static class ScheduleEndpointsExtension
             async (Guid requestId, AddArrivingFlightRequest arrivingFlightRequest, IScheduleServices scheduleservices) =>
                 await AddArrivingFlightAsync(requestId, arrivingFlightRequest, scheduleservices));
 
-        app.MapPut("/flights/{airportcode:alpha}/{flightnumber:alpha}", UpdateFlightAsync)
-           .WithParameterValidation(requireParameterAttribute: true);
+        app.MapPut("/flights/{airportcode:alpha}/{flightnumber:alpha}",
+            async (Guid requestId, UpdateFlightRequest updateflightrequest, IScheduleServices scheduleservices) =>
+                await UpdateFlightAsync(requestId, updateflightrequest, scheduleservices));
 
-        app.MapDelete("/flights/{airportcode:alpha}/{flightnumber:alpha}", RemoveFlightAsync)
-           .WithParameterValidation(requireParameterAttribute: true);
+        app.MapDelete("/flights/{airportcode:alpha}/{flightnumber:alpha}",
+            async (Guid requestId, DeleteFlightRequest deleteflightrequest, IScheduleServices scheduleservices) =>
+                await DeleteFlightAsync(requestId, deleteflightrequest, scheduleservices));
 
         return app;
     }
@@ -88,84 +90,120 @@ public static class ScheduleEndpointsExtension
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsAsync(
-Guid requestId, string airportcode, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        [Validate] string airportcode,
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByDestinationAsync(
-Guid requestId, string airportcode, string destination, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string destination, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByTimeFrameAsync(
-Guid requestId, string airportcode, DateTime start, DateTime end, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        DateTime start, 
+        DateTime end, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByGateAsync(
-Guid requestId, string airportcode, string gatenumber, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string gatenumber, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByFlightNumberAsync(
-Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string flightnumber, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByAirlineAsync(
-Guid requestId, string airportcode, string airlinename, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string airlinename, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsAsync(
-Guid requestId, string airportcode, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsyOriginAsync(
-Guid requestId, string airportcode, string origin, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string origin, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByTimeFrameAsync(
-Guid requestId, string airportcode, DateTime start, DateTime end, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        DateTime start, 
+        DateTime end, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByGateAsync(
-Guid requestId, string airportcode, string gatenumber, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string gatenumber, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByFlightNumberAsync(
-Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId, 
+        [Validate] string airportcode, 
+        [Validate] string flightnumber, 
+        IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByAirlineAsync(
-Guid requestId, string airportcode, string airlinename, IScheduleServices scheduleServices)
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        [Validate] string airportcode,
+        [Validate] string airlinename,
+        [AsParameters] IScheduleServices scheduleServices)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -189,13 +227,19 @@ Guid requestId, string airportcode, string airlinename, IScheduleServices schedu
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> UpdateFlightAsync(HttpContext context)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> UpdateFlightAsync(
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        [Validate] UpdateFlightRequest request,
+        [AsParameters] IScheduleServices services)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> RemoveFlightAsync(HttpContext context)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> DeleteFlightAsync(
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        [Validate] DeleteFlightRequest request,
+        [AsParameters] IScheduleServices services)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
