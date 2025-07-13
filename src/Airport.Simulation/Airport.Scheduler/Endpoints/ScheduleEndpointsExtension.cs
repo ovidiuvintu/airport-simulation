@@ -1,6 +1,8 @@
-﻿using Airport.Scheduler.Moldel;
+﻿using Airport.Data;
+using Airport.Scheduler.Moldel;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MinimalApis.Extensions.Filters;
 
 namespace Airport.Endpoints;
@@ -86,18 +88,17 @@ public static class ScheduleEndpointsExtension
         IScheduleServices scheduleServices,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsAsync(
+    private static async Task<Results<Ok<List<DepartingFlight>>, BadRequest<string>, ValidationProblem>> GetDepartingFlightsAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] string airportcode,
         IScheduleServices scheduleServices,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        return TypedResults.Ok();
+        var departingFlights = await scheduleServices.DbContext.DepartingFlights.ToListAsync();
+        return TypedResults.Ok(departingFlights);
     }
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByDestinationAsync(
