@@ -74,8 +74,8 @@ public static class ScheduleEndpointsExtension
                 await UpdateFlightAsync(requestId, updateflightrequest, scheduleservices));
 
         app.MapDelete("/flights/{airportcode:alpha}/{flightnumber:alpha}",
-            async (Guid requestId, DeleteFlightRequest deleteflightrequest, IScheduleServices scheduleservices) =>
-                await DeleteFlightAsync(requestId, deleteflightrequest, scheduleservices));
+            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleservices) =>
+                await DeleteFlightAsync(requestId, airportcode, flightnumber, scheduleservices));
 
         return app;
     }
@@ -238,7 +238,8 @@ public static class ScheduleEndpointsExtension
 
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> DeleteFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
-        [Validate] DeleteFlightRequest request,
+        [Validate] string airportcode,
+        [Validate] string flightnumber,
         [AsParameters] IScheduleServices services)
     {
         await Task.CompletedTask;
