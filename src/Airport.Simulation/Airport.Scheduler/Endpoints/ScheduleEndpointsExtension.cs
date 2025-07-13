@@ -61,18 +61,19 @@ public static class ScheduleEndpointsExtension
             async (string airportcode, string airlinename, IScheduleServices scheduleServices) =>
                 await GetArrivingFlightsByAirlineAsync(airportcode, airlinename, scheduleServices));
 
-        //app.MapPost("/flights/{airport:airportcode}/departing",
-        //    async (Guid requestId, AddDepartingFlightRequest departingflightrequest, IScheduleServices scheduleservices) =>
-        //        await AddDepartingFlightAsync(requestId, departingflightrequest, scheduleservices));
+        app.MapPost("/flights/{airport:alpha}/departing",
+            async (Guid requestId, AddDepartingFlightRequest departingflightrequest, IScheduleServices scheduleservices) =>
+                await AddDepartingFlightAsync(requestId, departingflightrequest, scheduleservices));
 
-        //app.MapPost("/flights/{airport:airportcode}/arriving", AddArrivingFlightAsync)
-        //   .WithParameterValidation(requireParameterAttribute: true);
+        app.MapPost("/flights/{airport:airportcode}/arriving",
+            async (Guid requestId, AddArrivingFlightRequest arrivingFlightRequest, IScheduleServices scheduleservices) =>
+                await AddArrivingFlightAsync(requestId, arrivingFlightRequest, scheduleservices));
 
-        //app.MapPut("/flights/{airport:airportcode}/{flight:flightnumber}", UpdateFlightAsync)
-        //   .WithParameterValidation(requireParameterAttribute: true);
+        app.MapPut("/flights/{airport:airportcode}/{flight:flightnumber}", UpdateFlightAsync)
+           .WithParameterValidation(requireParameterAttribute: true);
 
-        //app.MapDelete("/flights/{airport:airportcode}/{flight:flightnumber}", RemoveFlightAsync)
-        //   .WithParameterValidation(requireParameterAttribute: true);
+        app.MapDelete("/flights/{airport:airportcode}/{flight:flightnumber}", RemoveFlightAsync)
+           .WithParameterValidation(requireParameterAttribute: true);
 
         return app;
     }
@@ -181,7 +182,7 @@ public static class ScheduleEndpointsExtension
     public static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> AddArrivingFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] AddArrivingFlightRequest request,
-        [AsParameters] ScheduleServices services)
+        [AsParameters] IScheduleServices services)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
