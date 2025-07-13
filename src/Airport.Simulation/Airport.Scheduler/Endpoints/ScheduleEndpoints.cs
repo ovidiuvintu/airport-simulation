@@ -1,5 +1,4 @@
-﻿
-using Airport.Scheduler.Moldel;
+﻿using Airport.Scheduler.Moldel;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApis.Extensions.Filters;
@@ -14,51 +13,51 @@ public static class ScheduleEndpoints
             async (string airportcode) =>
                 await GetFlightsAsync(airportcode));
 
-        app.MapGet("/flights/{airportcode:alpha}/departing", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/departing", 
             async (string airportcode) =>
                 await GetDepartingFlightsAsync(airportcode));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/departing/bydestination/{destination:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/departing/bydestination/{destination:minlength(1)}", 
             async (string airportcode, string destination) =>
                await GetDepartingFlightsByDestinationAsync(airportcode, destination));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/departing/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/departing/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
             async (string airportcode, DateTime start, DateTime end) =>
                 await GetDepartingFlightsByTimeFrameAsync(airportcode, start, end));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/departing/bygate/{gatenumber:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/departing/bygate/{gatenumber:minlength(1)}", 
             async (string airportcode, string gatenumber) =>
                 await GetDepartingFlightsByGateAsync(airportcode, gatenumber));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/departing/byflight/{flightnumber:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/departing/byflight/{flightnumber:minlength(1)}", 
             async (string airportcode, string flightnumber) =>
                 await GetDepartingFlightsByFlightNumberAsync(airportcode, flightnumber));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/departing/byairline/{airlinename:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/departing/byairline/{airlinename:minlength(1)}", 
             async (string airportcode, string airlinename) => 
                 await GetDepartingFlightsByAirlineAsync(airportcode, airlinename));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/arriving", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/arriving", 
             async (string airportcode) =>
                 await GetArrivingFlightsAsync(airportcode));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/arriving/byorigin/{origin:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/byorigin/{origin:minlength(1)}", 
             async (string airportcode, string origin) =>
                 await GetArrivingFlightsyOriginAsync(airportcode, origin));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/arriving/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
              async (string airportcode, DateTime start, DateTime end) =>
                 await GetArrivingFlightsByTimeFrameAsync(airportcode, start, end));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/arriving/bygate/{gatenumber:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/bygate/{gatenumber:minlength(1)}", 
             async (string airportcode, string gatenumber) => 
                 await GetArrivingFlightsByGateAsync(airportcode, gatenumber));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/arriving/byflightnumber/{flightnumber:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/byflightnumber/{flightnumber:minlength(1)}", 
             async (string airportcode, string flightnumber) =>
                 await GetArrivingFlightsByFlightNumberAsync(airportcode, flightnumber));
 
-        app.MapGet("/flights/airport/{airportcode:alpha}/arriving/byairline/{airlinname:alpha}", 
+        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/byairline/{airlinname:minlength(1)}", 
             async (string airportcode, string airlinename) =>
                 await GetArrivingFlightsByAirlineAsync(airportcode, airlinename));
 
