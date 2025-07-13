@@ -3,79 +3,79 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApis.Extensions.Filters;
 
-namespace Airport.Scheduler.Apis;
+namespace Airport.Endpoints;
 
 public static class ScheduleEndpointsExtension
 {
     public static IEndpointRouteBuilder MapScheduleEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet("/flights/{airportcode:alpha}", 
-            async (Guid requestId, string airportcode, IScheduleServices scheduleServices) =>
-                await GetFlightsAsync(requestId, airportcode, scheduleServices));
+            async (Guid requestId, string airportcode, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetFlightsAsync(requestId, airportcode, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/departing", 
-            async (Guid requestId, string airportcode, IScheduleServices scheduleServices) =>
-                await GetDepartingFlightsAsync(requestId, airportcode, scheduleServices));
+            async (Guid requestId, string airportcode, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetDepartingFlightsAsync(requestId, airportcode, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/departing/bydestination/{destination:alpha}", 
-            async (Guid requestId, string airportcode, string destination, IScheduleServices scheduleServices) =>
-               await GetDepartingFlightsByDestinationAsync(requestId, airportcode, destination, scheduleServices));
+            async (Guid requestId, string airportcode, string destination, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+               await GetDepartingFlightsByDestinationAsync(requestId, airportcode, destination, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/departing/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
-            async (Guid requestId, string airportcode, DateTime start, DateTime end, IScheduleServices scheduleServices) =>
-                await GetDepartingFlightsByTimeFrameAsync(requestId, airportcode, start, end, scheduleServices));
+            async (Guid requestId, string airportcode, DateTime start, DateTime end, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetDepartingFlightsByTimeFrameAsync(requestId, airportcode, start, end, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/departing/bygate/{gatenumber:alpha}", 
-            async (Guid requestId, string airportcode, string gatenumber, IScheduleServices scheduleServices) =>
-                await GetDepartingFlightsByGateAsync(requestId, airportcode, gatenumber, scheduleServices));
+            async (Guid requestId, string airportcode, string gatenumber, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetDepartingFlightsByGateAsync(requestId, airportcode, gatenumber, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/departing/byflight/{flightnumber:alpha}", 
-            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleServices) =>
-                await GetDepartingFlightsByFlightNumberAsync(requestId, airportcode, flightnumber, scheduleServices));
+            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetDepartingFlightsByFlightNumberAsync(requestId, airportcode, flightnumber, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/departing/byairline/{airlinename:alpha}", 
-            async (Guid requestId, string airportcode, string airlinename, IScheduleServices scheduleServices) => 
-                await GetDepartingFlightsByAirlineAsync(requestId, airportcode, airlinename, scheduleServices));
+            async (Guid requestId, string airportcode, string airlinename, IScheduleServices scheduleServices, CancellationToken cancellationToken) => 
+                await GetDepartingFlightsByAirlineAsync(requestId, airportcode, airlinename, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/arriving", 
-            async (Guid requestId, string airportcode, IScheduleServices scheduleServices) =>
-                await GetArrivingFlightsAsync(requestId, airportcode, scheduleServices));
+            async (Guid requestId, string airportcode, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetArrivingFlightsAsync(requestId, airportcode, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/arriving/byorigin/{origin:alpha}", 
-            async (Guid requestId, string airportcode, string origin, IScheduleServices scheduleServices) =>
-                await GetArrivingFlightsyOriginAsync(requestId, airportcode, origin, scheduleServices));
+            async (Guid requestId, string airportcode, string origin, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetArrivingFlightsyOriginAsync(requestId, airportcode, origin, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/arriving/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
-             async (Guid requestId, string airportcode, DateTime start, DateTime end, IScheduleServices scheduleServices) =>
-                await GetArrivingFlightsByTimeFrameAsync(requestId, airportcode, start, end, scheduleServices));
+             async (Guid requestId, string airportcode, DateTime start, DateTime end, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetArrivingFlightsByTimeFrameAsync(requestId, airportcode, start, end, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/arriving/bygate/{gatenumber:alpha}", 
-            async (Guid requestId, string airportcode, string gatenumber, IScheduleServices scheduleServices) => 
-                await GetArrivingFlightsByGateAsync(requestId, airportcode, gatenumber, scheduleServices));
+            async (Guid requestId, string airportcode, string gatenumber, IScheduleServices scheduleServices, CancellationToken cancellationToken) => 
+                await GetArrivingFlightsByGateAsync(requestId, airportcode, gatenumber, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/arriving/byflightnumber/{flightnumber:alpha}", 
-            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleServices) =>
-                await GetArrivingFlightsByFlightNumberAsync(requestId, airportcode, flightnumber, scheduleServices));
+            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetArrivingFlightsByFlightNumberAsync(requestId, airportcode, flightnumber, scheduleServices, cancellationToken));
 
         app.MapGet("/flights/{airportcode:alpha}/arriving/byairline/{airlinname:alpha}", 
-            async (Guid requestId, string airportcode, string airlinename, IScheduleServices scheduleServices) =>
-                await GetArrivingFlightsByAirlineAsync(requestId, airportcode, airlinename, scheduleServices));
+            async (Guid requestId, string airportcode, string airlinename, IScheduleServices scheduleServices, CancellationToken cancellationToken) =>
+                await GetArrivingFlightsByAirlineAsync(requestId, airportcode, airlinename, scheduleServices, cancellationToken));
 
         app.MapPost("/flights/{airport:alpha}/departing",
-            async (Guid requestId, AddDepartingFlightRequest departingflightrequest, IScheduleServices scheduleservices) =>
-                await AddDepartingFlightAsync(requestId, departingflightrequest, scheduleservices));
+            async (Guid requestId, AddDepartingFlightRequest departingflightrequest, IScheduleServices scheduleservices, CancellationToken cancellationToken) =>
+                await AddDepartingFlightAsync(requestId, departingflightrequest, scheduleservices, cancellationToken));
 
         app.MapPost("/flights/{airportcode:alpha}/arriving",
-            async (Guid requestId, AddArrivingFlightRequest arrivingFlightRequest, IScheduleServices scheduleservices) =>
-                await AddArrivingFlightAsync(requestId, arrivingFlightRequest, scheduleservices));
+            async (Guid requestId, AddArrivingFlightRequest arrivingFlightRequest, IScheduleServices scheduleservices, CancellationToken cancellationToken) =>
+                await AddArrivingFlightAsync(requestId, arrivingFlightRequest, scheduleservices, cancellationToken));
 
         app.MapPut("/flights/{airportcode:alpha}/{flightnumber:alpha}",
-            async (Guid requestId, UpdateFlightRequest updateflightrequest, IScheduleServices scheduleservices) =>
-                await UpdateFlightAsync(requestId, updateflightrequest, scheduleservices));
+            async (Guid requestId, UpdateFlightRequest updateflightrequest, IScheduleServices scheduleservices, CancellationToken cancellationToken) =>
+                await UpdateFlightAsync(requestId, updateflightrequest, scheduleservices, cancellationToken));
 
         app.MapDelete("/flights/{airportcode:alpha}/{flightnumber:alpha}",
-            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleservices) =>
-                await DeleteFlightAsync(requestId, airportcode, flightnumber, scheduleservices));
+            async (Guid requestId, string airportcode, string flightnumber, IScheduleServices scheduleservices, CancellationToken cancellationToken) =>
+                await DeleteFlightAsync(requestId, airportcode, flightnumber, scheduleservices, cancellationToken));
 
         return app;
     }
@@ -83,7 +83,8 @@ public static class ScheduleEndpointsExtension
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetFlightsAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] string airportcode,
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -92,7 +93,8 @@ public static class ScheduleEndpointsExtension
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] string airportcode,
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -102,7 +104,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string destination, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -113,7 +116,8 @@ public static class ScheduleEndpointsExtension
         [Validate] string airportcode, 
         DateTime start, 
         DateTime end, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -123,7 +127,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string gatenumber, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -133,7 +138,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string flightnumber, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -143,7 +149,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string airlinename, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -152,7 +159,8 @@ public static class ScheduleEndpointsExtension
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -162,7 +170,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string origin, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -173,7 +182,8 @@ public static class ScheduleEndpointsExtension
         [Validate] string airportcode, 
         DateTime start, 
         DateTime end, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -183,7 +193,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string gatenumber, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -193,7 +204,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId, 
         [Validate] string airportcode, 
         [Validate] string flightnumber, 
-        IScheduleServices scheduleServices)
+        IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -203,7 +215,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] string airportcode,
         [Validate] string airlinename,
-        [AsParameters] IScheduleServices scheduleServices)
+        [AsParameters] IScheduleServices scheduleServices,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -212,7 +225,8 @@ public static class ScheduleEndpointsExtension
     public static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> AddDepartingFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,                                                                                                       
         [Validate] AddDepartingFlightRequest request,                                                                                                       
-        [AsParameters] IScheduleServices services)
+        [AsParameters] IScheduleServices services,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -221,7 +235,8 @@ public static class ScheduleEndpointsExtension
     public static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> AddArrivingFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] AddArrivingFlightRequest request,
-        [AsParameters] IScheduleServices services)
+        [AsParameters] IScheduleServices services,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -230,7 +245,8 @@ public static class ScheduleEndpointsExtension
     private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> UpdateFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] UpdateFlightRequest request,
-        [AsParameters] IScheduleServices services)
+        [AsParameters] IScheduleServices services,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -240,7 +256,8 @@ public static class ScheduleEndpointsExtension
         [FromHeader(Name = "x-requestid")] Guid requestId,
         [Validate] string airportcode,
         [Validate] string flightnumber,
-        [AsParameters] IScheduleServices services)
+        [AsParameters] IScheduleServices services,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();

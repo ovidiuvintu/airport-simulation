@@ -1,6 +1,6 @@
-﻿namespace Airport.Scheduler.Apis;
+﻿namespace Airport.Endpoints;
 
-public static class AirportEndpoints
+public static class AirportEndpointsExtension
 {
     public static IEndpointRouteBuilder MapAirportEndpoints(this IEndpointRouteBuilder app)
     {
