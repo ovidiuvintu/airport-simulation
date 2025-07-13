@@ -5,7 +5,7 @@ using MinimalApis.Extensions.Filters;
 
 namespace Airport.Scheduler.Apis;
 
-public static class ScheduleEndpoints
+public static class ScheduleEndpointsExtension
 {
     public static IEndpointRouteBuilder MapScheduleEndpoints(this IEndpointRouteBuilder app)
     {
