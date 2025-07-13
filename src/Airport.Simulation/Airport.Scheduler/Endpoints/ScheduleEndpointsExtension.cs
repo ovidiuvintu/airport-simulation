@@ -9,60 +9,60 @@ public static class ScheduleEndpointsExtension
 {
     public static IEndpointRouteBuilder MapScheduleEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/flights/{airportcode:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}", 
             async (string airportcode) =>
                 await GetFlightsAsync(airportcode));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/departing", 
+        app.MapGet("/flights/{airportcode:alpha}/departing", 
             async (string airportcode) =>
                 await GetDepartingFlightsAsync(airportcode));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/departing/bydestination/{destination:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/departing/bydestination/{destination:alpha}", 
             async (string airportcode, string destination) =>
                await GetDepartingFlightsByDestinationAsync(airportcode, destination));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/departing/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
+        app.MapGet("/flights/{airportcode:alpha}/departing/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
             async (string airportcode, DateTime start, DateTime end) =>
                 await GetDepartingFlightsByTimeFrameAsync(airportcode, start, end));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/departing/bygate/{gatenumber:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/departing/bygate/{gatenumber:alpha}", 
             async (string airportcode, string gatenumber) =>
                 await GetDepartingFlightsByGateAsync(airportcode, gatenumber));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/departing/byflight/{flightnumber:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/departing/byflight/{flightnumber:alpha}", 
             async (string airportcode, string flightnumber) =>
                 await GetDepartingFlightsByFlightNumberAsync(airportcode, flightnumber));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/departing/byairline/{airlinename:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/departing/byairline/{airlinename:alpha}", 
             async (string airportcode, string airlinename) => 
                 await GetDepartingFlightsByAirlineAsync(airportcode, airlinename));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/arriving", 
+        app.MapGet("/flights/{airportcode:alpha}/arriving", 
             async (string airportcode) =>
                 await GetArrivingFlightsAsync(airportcode));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/byorigin/{origin:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/arriving/byorigin/{origin:alpha}", 
             async (string airportcode, string origin) =>
                 await GetArrivingFlightsyOriginAsync(airportcode, origin));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
+        app.MapGet("/flights/{airportcode:alpha}/arriving/bytimeframe/starttime/{start:DateTime}/endtime/{end:datetime}", 
              async (string airportcode, DateTime start, DateTime end) =>
                 await GetArrivingFlightsByTimeFrameAsync(airportcode, start, end));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/bygate/{gatenumber:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/arriving/bygate/{gatenumber:alpha}", 
             async (string airportcode, string gatenumber) => 
                 await GetArrivingFlightsByGateAsync(airportcode, gatenumber));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/byflightnumber/{flightnumber:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/arriving/byflightnumber/{flightnumber:alpha}", 
             async (string airportcode, string flightnumber) =>
                 await GetArrivingFlightsByFlightNumberAsync(airportcode, flightnumber));
 
-        app.MapGet("/flights/{airportcode:minlength(1)}/arriving/byairline/{airlinname:minlength(1)}", 
+        app.MapGet("/flights/{airportcode:alpha}/arriving/byairline/{airlinname:alpha}", 
             async (string airportcode, string airlinename) =>
                 await GetArrivingFlightsByAirlineAsync(airportcode, airlinename));
 
         //app.MapPost("/flights/{airport:airportcode}/departing",
-        //    async (Guid requestId, AddDepartingFlightRequest departingflightrequest, ScheduleServices scheduleservices) =>
+        //    async (Guid requestId, AddDepartingFlightRequest departingflightrequest, IScheduleServices scheduleservices) =>
         //        await AddDepartingFlightAsync(requestId, departingflightrequest, scheduleservices));
 
         //app.MapPost("/flights/{airport:airportcode}/arriving", AddArrivingFlightAsync)
@@ -77,79 +77,92 @@ public static class ScheduleEndpointsExtension
         return app;
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetFlightsAsync(string airportcode)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetFlightsAsync(
+        string airportcode)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsAsync(string airportcode)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsAsync(
+        string airportcode)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByDestinationAsync(string airportcode, string destination)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByDestinationAsync(
+        string airportcode, string destination)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByTimeFrameAsync(string airportcode, DateTime start, DateTime end)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByTimeFrameAsync(
+        string airportcode, DateTime start, DateTime end)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByGateAsync(string airportcode, string gatenumber)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByGateAsync(
+        string airportcode, string gatenumber)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByFlightNumberAsync(string airportcode, string flightnumber)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByFlightNumberAsync(
+        string airportcode, string flightnumber)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByAirlineAsync(string airportcode, string airlinename)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetDepartingFlightsByAirlineAsync(
+        string airportcode, string airlinename)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsAsync(string airportcode)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsAsync(
+        string airportcode)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsyOriginAsync(string airportcode, string origin)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsyOriginAsync(
+        string airportcode, string origin)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByTimeFrameAsync(string airportcode, DateTime start, DateTime end)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByTimeFrameAsync(
+        string airportcode, DateTime start, DateTime end)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByGateAsync(string airportcode, string gatenumber)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByGateAsync(
+        string airportcode, string gatenumber)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByFlightNumberAsync(string airportcode, string flightnumber)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByFlightNumberAsync(
+        string airportcode, string flightnumber)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
-    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByAirlineAsync(string airportcode, string airlinename)
+    private static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> GetArrivingFlightsByAirlineAsync(
+        string airportcode, string airlinename)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
@@ -158,7 +171,7 @@ public static class ScheduleEndpointsExtension
     public static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> AddDepartingFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,                                                                                                       
         [Validate] AddDepartingFlightRequest request,                                                                                                       
-        [AsParameters] ScheduleServices services)
+        [AsParameters] IScheduleServices services)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();

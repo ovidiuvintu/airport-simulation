@@ -1,4 +1,5 @@
 using Airport.Scheduler.Apis;
+using Airport.Scheduler.Moldel;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.AddServiceDefaults();
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+//builder.Services.AddTransient<IScheduleServices, ScheduleServices>();
 
 var app = builder.Build();
 
