@@ -89,6 +89,7 @@ public static class ScheduleEndpointsExtension
         IScheduleServices scheduleServices,
         CancellationToken cancellationToken)
     {
+        await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
@@ -238,20 +239,20 @@ public static class ScheduleEndpointsExtension
             Carrier = new Carrier
             {
                 CarrierCode = request.CarrierCode,
-                Name = request.CarrierName,
-                Description = request.CarrierDescription,
+                CarrierName = request.CarrierName,
+                CarrierDescription = request.CarrierDescription,
             },
-            Destination = new Scheduler.Data.Airport
+            Destination = new Airport.Scheduler.Data.Airport
             {
                 AirportCode = request?.DestinationAirportCode,
-                Name = request?.DestinationAirportName,
-                Description = request?.DestinationAirportDescription,
+                AirportName = request?.DestinationAirportName,
+                AirportDescription = request?.DestinationAirportDescription,
             },
-            Origin = new Scheduler.Data.Airport
+            Origin = new Airport.Scheduler.Data.Airport
             {
                 AirportCode = request?.OriginAirportCode,
-                Name = request?.OriginAirportName,
-                Description = request?.OriginAirportDescription,
+                AirportName = request?.OriginAirportName,
+                AirportDescription = request?.OriginAirportDescription,
             },
             FlightNumber = request?.FlightNumber,
             ScheduledDepartureTime = request != null ? request.ScheduledDepartureTime : DateTime.MinValue,

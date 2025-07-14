@@ -2,14 +2,14 @@
 
 namespace Airport.Scheduler.Data;
 
-public class Airport
+public sealed class Airport
 {
     public int Id { get; set; }
 
     [Required]
-    public string? Name { get; set; }
+    public string? AirportName { get; set; }
 
-    public string? Description { get; set; }
+    public string? AirportDescription { get; set; }
 
     [Required]
     public string? AirportCode { get; set; }
