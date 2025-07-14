@@ -21,8 +21,4 @@ public sealed class DepartingFlight
     [Required]
     public DateTime ScheduledDepartureTime { get; set; }
 
-    public FlightStatus? FlightStatus { get; set; }
-
-    public CancellationReason? ReasonOfCancelation { get; set; }
-
 }
