@@ -1,4 +1,5 @@
-﻿using Airport.Data;
+﻿
+using Airport.Scheduler.Data;
 using Microsoft.Extensions.Options;
 
 namespace Airport.Scheduler.Moldel;

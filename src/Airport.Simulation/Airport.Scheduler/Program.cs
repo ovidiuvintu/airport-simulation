@@ -1,4 +1,4 @@
-using Airport.Data;
+using Airport.Scheduler.Data;
 using Airport.Endpoints;
 using Airport.Scheduler.Moldel;
 using Microsoft.EntityFrameworkCore;

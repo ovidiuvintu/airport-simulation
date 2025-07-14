@@ -1,8 +1,7 @@
-﻿using Airport.Scheduler.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airport.Data;
+namespace Airport.Scheduler.Data;
 
 public sealed class ScheduleDbContext(DbContextOptions<ScheduleDbContext> options) : DbContext(options)
 {

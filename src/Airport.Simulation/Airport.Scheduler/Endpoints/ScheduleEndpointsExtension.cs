@@ -1,4 +1,5 @@
-﻿using Airport.Data;
+﻿
+using Airport.Scheduler.Data;
 using Airport.Scheduler.Moldel;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -97,7 +98,7 @@ public static class ScheduleEndpointsExtension
         IScheduleServices scheduleServices,
         CancellationToken cancellationToken)
     {
-        var departingFlights = await scheduleServices.DbContext.DepartingFlights.ToListAsync();
+        var departingFlights = await scheduleServices.DbContext.DepartingFlights.ToListAsync(cancellationToken);
         return TypedResults.Ok(departingFlights);
     }
 
@@ -223,14 +224,42 @@ public static class ScheduleEndpointsExtension
         return TypedResults.Ok();
     }
 
-    public static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> AddDepartingFlightAsync(
+    public static async Task<Results<Created, BadRequest<string>, Conflict<string>, ValidationProblem>> AddDepartingFlightAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,                                                                                                       
         [Validate] AddDepartingFlightRequest request,                                                                                                       
         [AsParameters] IScheduleServices services,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        return TypedResults.Ok();
+        if (requestId == Guid.Empty)
+            return TypedResults.BadRequest("RequestId is missing.");
+
+        var departingflight = new DepartingFlight
+        {
+            Carrier = new Carrier
+            {
+                CarrierCode = request.CarrierCode,
+                Name = request.CarrierName,
+                Description = request.CarrierDescription,
+            },
+            Destination = new Scheduler.Data.Airport
+            {
+                AirportCode = request?.DestinationAirportCode,
+                Name = request?.DestinationAirportName,
+                Description = request?.DestinationAirportDescription,
+            },
+            Origin = new Scheduler.Data.Airport
+            {
+                AirportCode = request?.OriginAirportCode,
+                Name = request?.OriginAirportName,
+                Description = request?.OriginAirportDescription,
+            },
+            FlightNumber = request?.FlightNumber,
+            ScheduledDepartureTime = request != null ? request.ScheduledDepartureTime : DateTime.MinValue,
+        };
+
+        await services.DbContext.DepartingFlights.AddAsync(departingflight);
+        await services.DbContext.SaveChangesAsync();
+        return TypedResults.Created();
     }
 
     public static async Task<Results<Ok, BadRequest<string>, ValidationProblem>> AddArrivingFlightAsync(

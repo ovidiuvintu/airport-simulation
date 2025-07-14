@@ -1,7 +1,6 @@
-﻿using Airport.Scheduler.Data;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Data;
+namespace Airport.Scheduler.Data;
 
 public sealed class DepartingFlight
 {
@@ -16,8 +15,10 @@ public sealed class DepartingFlight
     [Required]
     public Carrier? Carrier { get; set; }
 
+    [Required]
     public Airport? Destination { get; set; }
 
+    [Required]
     public DateTime ScheduledDepartureTime { get; set; }
 
     public FlightStatus? FlightStatus { get; set; }

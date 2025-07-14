@@ -1,7 +1,7 @@
 ﻿using Airport.Scheduler.Data;
 using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Data;
+namespace Airport.Scheduler.Data;
 
 public sealed class ArrivingFlight
 {
