@@ -1,3 +1,9 @@
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -36,6 +42,21 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    Log.Information("Schedue service started");
+});
+
+app.Lifetime.ApplicationStopping.Register(() =>
+{
+    Log.Information("Schedule service stoping");
+});
+
+app.Lifetime.ApplicationStopped.Register(() =>
+{
+    Log.Information("Schedule service stopped");
+});
 
 app.Run();
 
