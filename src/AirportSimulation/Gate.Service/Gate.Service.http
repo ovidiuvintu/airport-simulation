@@ -1,0 +1,6 @@
+@Gate.Service_HostAddress = http://localhost:5090
+
+GET {{Gate.Service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

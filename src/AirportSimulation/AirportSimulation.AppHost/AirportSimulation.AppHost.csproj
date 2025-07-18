@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>c8aeb2e1-37dc-4724-ad7a-61e7942fa407</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gate.Service\Gate.Service.csproj" />
+    <ProjectReference Include="..\Runway.Service\Runway.Service.csproj" />
+    <ProjectReference Include="..\Schedule.Service\Schedule.Service.csproj" />
+    <ProjectReference Include="..\Taxi.Service\Taxi.Service.csproj" />
+  </ItemGroup>
+
+</Project>
