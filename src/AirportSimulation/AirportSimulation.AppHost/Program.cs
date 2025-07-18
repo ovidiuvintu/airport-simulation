@@ -10,9 +10,13 @@ var runwayApi = builder.AddProject<Projects.Runway_Service>("runway-service");
 
 builder.AddNpmApp("airport-simulation", "../airport-simulation")
     .WithReference(scheduleApi)
+    .WaitFor(scheduleApi)
     .WithReference(taxiApi)
+    .WaitFor(taxiApi)
     .WithReference(gateApi)
+    .WaitFor(gateApi)
     .WithReference(runwayApi)
+    .WaitFor(runwayApi)
     .WithEnvironment("BROWSER", "none") // Disable opening browser on npm start
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
