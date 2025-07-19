@@ -20,18 +20,18 @@ public static class AirportApi
            .WithDescription("Get a list of airports")
            .WithTags("Airports");
 
-        v1.MapGet("/airports/byname/{name:minlength(1)}", GetAirportsAsync)
+        v1.MapGet("/airports/byname/{name:minlength(1)}", GetAirportsByNameAsync)
            .WithName("GetAirportByName")
            .WithSummary("List airport by name")
            .WithDisplayName("GetAirportByName")
            .WithDescription("Get airport by name")
            .WithTags("Airports");
 
-        v1.MapGet("/airports/byiatacode/{code:minlength(3)}", GetAirportsAsync)
-           .WithName("GetAirportByAirportCode")
-           .WithSummary("List airport by code")
-           .WithDisplayName("GetAirportByCode")
-           .WithDescription("Get airport by code")
+        v1.MapGet("/airports/bycode/{iatacode:minlength(3)}", GetAirportsByIataCodeAsync)
+           .WithName("GetAirportByAirportIataCode")
+           .WithSummary("List airport by IATA code")
+           .WithDisplayName("GetAirportByIataCode")
+           .WithDescription("Get airport by IATA code")
            .WithTags("Airports");
 
         v1.MapPost("/airports", AddAirportAsync)
@@ -70,10 +70,24 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<List<Entities.Airport>>> GetAirportsAsync()
+    private static async Task<Ok<List<Entities.Airport>>> GetAirportsAsync(HttpContext context)
     {
         await Task.CompletedTask;
         return TypedResults.Ok(new List<Entities.Airport>());
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task<Ok<Entities.Airport>> GetAirportsByIataCodeAsync()
+    {
+        await Task.CompletedTask;
+        return TypedResults.Ok(new Entities.Airport());
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task<Ok<Entities.Airport>> GetAirportsByNameAsync()
+    {
+        await Task.CompletedTask;
+        return TypedResults.Ok(new Entities.Airport());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
