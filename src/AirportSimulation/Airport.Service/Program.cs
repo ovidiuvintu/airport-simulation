@@ -1,4 +1,5 @@
-using Scalar.AspNetCore;
+using Airport.Service.Apis;
+using AirportSimulation.ServiceDefaults;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -11,39 +12,18 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+var withApiVersioning = builder.Services.AddApiVersioning();
+builder.AddDefaultOpenApi(withApiVersioning);
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.MapScalarApiReference();
-}
+app.UseStatusCodePages();
 
-app.UseHttpsRedirection();
+app.MapAirportApi();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.UseDefaultOpenApi();
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
@@ -61,8 +41,3 @@ app.Lifetime.ApplicationStopped.Register(() =>
 });
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

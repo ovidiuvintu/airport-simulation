@@ -1,9 +1,8 @@
 ﻿using Infrastructure.Interfaces;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public class Entity : IEntity<Guid>
 {
-    public class Entity : IEntity<int>
-    {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    }
+    public Guid Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }

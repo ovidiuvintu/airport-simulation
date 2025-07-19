@@ -2,7 +2,7 @@
 
 namespace Airport.Service.Entities;
 
-public class Gate : Entity
+public class Runway : Entity
 {
     public string? Name { get; set; }
 }
