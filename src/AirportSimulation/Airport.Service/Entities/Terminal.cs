@@ -4,5 +4,6 @@ namespace Airport.Service.Entities;
 
 public class Terminal : Entity
 {
-    public IEnumerable<Gate>? Gates { get; set; }
+    public string? Name { get; set; }
+    public Concourse? Concourse { get; set; }
 }

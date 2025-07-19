@@ -27,12 +27,12 @@ public static class AirportApi
            .WithDescription("Get a list of airports.")
            .WithTags("Airports");
 
-        //v1.MapGet("/airports/bycode/{code:string}", GetAirportsAsync)
-        //   .WithName("GetAirportByAirportCode")
-        //   .WithSummary("List airport by name")
-        //   .WithDisplayName("GetAllAirports")
-        //   .WithDescription("Get a list of airports.")
-        //   .WithTags("Airports");
+        v1.MapGet("/airports/byiatacode/{code:string}", GetAirportsAsync)
+           .WithName("GetAirportByAirportCode")
+           .WithSummary("List airport by name")
+           .WithDisplayName("GetAllAirports")
+           .WithDescription("Get a list of airports.")
+           .WithTags("Airports");
 
         v1.MapPost("/airports", AddAirportAsync)
            .WithName("AddAirport")
@@ -60,7 +60,7 @@ public static class AirportApi
             .WithDescription("Get a paginated list of terminals in the airport.")
             .WithTags("Terminals");
 
-        v1.MapGet("/terminals/by/{name:minlength(1)}/gates", GetGatesByTerminalNameAsync)
+        v1.MapGet("airports/terminals/by/{name:minlength(1)}/gates", GetGatesByTerminalNameAsync)
             .WithName("GetGates")
             .WithSummary("List gates terminal")
             .WithDescription("Get a paginated list of gates in the terminal.")
