@@ -8,3 +8,8 @@ public class Result : IResult
 
     public string? Error { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 }
+
+public class Result<T> : Result
+{
+    public T? Data { get; set; }
+}

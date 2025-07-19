@@ -17,47 +17,47 @@ public static class AirportApi
            .WithName("GetAirports")
            .WithSummary("List airports")
            .WithDisplayName("GetAllAirports")
-           .WithDescription("Get a list of airports.")
+           .WithDescription("Get a list of airports")
            .WithTags("Airports");
 
         v1.MapGet("/airports/byname/{name:minlength(1)}", GetAirportsAsync)
            .WithName("GetAirportByName")
            .WithSummary("List airport by name")
-           .WithDisplayName("GetAirport")
-           .WithDescription("Get a list of airports.")
+           .WithDisplayName("GetAirportByName")
+           .WithDescription("Get airport by name")
            .WithTags("Airports");
 
-        v1.MapGet("/airports/byiatacode/{code:string}", GetAirportsAsync)
+        v1.MapGet("/airports/byiatacode/{code:minlength(3)}", GetAirportsAsync)
            .WithName("GetAirportByAirportCode")
-           .WithSummary("List airport by name")
-           .WithDisplayName("GetAllAirports")
-           .WithDescription("Get a list of airports.")
+           .WithSummary("List airport by code")
+           .WithDisplayName("GetAirportByCode")
+           .WithDescription("Get airport by code")
            .WithTags("Airports");
 
         v1.MapPost("/airports", AddAirportAsync)
            .WithName("AddAirport")
            .WithSummary("Add a new airport")
            .WithDisplayName("AddAirport")
-           .WithDescription("Add a new airport.")
+           .WithDescription("Add a new airport")
            .WithTags("Airports");
 
         v1.MapPut("/airports/{name:minlength(1)}", UpdateAirportAsync)
            .WithName("UpdateAirport")
-           .WithSummary("Updates an airport")
+           .WithSummary("Update an airport")
            .WithDisplayName("UpdateAirport")
-           .WithDescription("Updates an airport.")
+           .WithDescription("Update an airport")
            .WithTags("Airports");
 
         v1.MapGet("airports/by/{id:Guid}/terminals", GetTerminalsByAirportIdAsync)
             .WithName("GetTerminals")
-            .WithSummary("List airport terminals")
-            .WithDescription("Get a paginated list of terminals in the airport.")
+            .WithSummary("List airport terminals by airport code")
+            .WithDescription("Get airport terminals by airport code")
             .WithTags("Terminals");
 
         v1.MapGet("airports/by/{name:minlength(1)}/terminals", GetTerminalsByAirportNameAsync)
             .WithName("GetTerminalByName")
-            .WithSummary("List airport terminals")
-            .WithDescription("Get a paginated list of terminals in the airport.")
+            .WithSummary("List airport terminals by airport name")
+            .WithDescription("Get airport terminals by airport name")
             .WithTags("Terminals");
 
         v1.MapGet("airports/terminals/by/{name:minlength(1)}/gates", GetGatesByTerminalNameAsync)

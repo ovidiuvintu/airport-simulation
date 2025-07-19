@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\Terminal\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

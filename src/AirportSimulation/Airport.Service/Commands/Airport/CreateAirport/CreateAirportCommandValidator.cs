@@ -6,5 +6,7 @@ public sealed class CreateAirportCommandValidator : AbstractValidator<CreateAirp
 {
     public CreateAirportCommandValidator()
     {
+        RuleFor(airport => airport.AirportCode).NotNull().NotEmpty();
+        RuleFor(airport => airport.AirportCode).Length(3);
     }
 }
