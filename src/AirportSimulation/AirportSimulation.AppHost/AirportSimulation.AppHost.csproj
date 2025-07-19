@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Airport.Service\Airport.Service.csproj" />
     <ProjectReference Include="..\Gate.Service\Gate.Service.csproj" />
     <ProjectReference Include="..\Runway.Service\Runway.Service.csproj" />
     <ProjectReference Include="..\Schedule.Service\Schedule.Service.csproj" />

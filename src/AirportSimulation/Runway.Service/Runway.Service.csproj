@@ -19,4 +19,13 @@
     <ProjectReference Include="..\AirportSimulation.ServiceDefaults\AirportSimulation.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Data\Context\" />
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Data\Repository\" />
+    <Folder Include="Events\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,10 @@ var gateApi = builder.AddProject<Projects.Gate_Service>("gate-service");
 
 var runwayApi = builder.AddProject<Projects.Runway_Service>("runway-service");
 
+var airportApi = builder.AddProject<Projects.Airport_Service>("airport-service")
+    .WaitFor(gateApi)
+    .WaitFor(runwayApi);
+
 builder.AddNpmApp("airport-simulation", "../airport-simulation")
     .WithReference(scheduleApi)
     .WaitFor(scheduleApi)
@@ -17,6 +21,8 @@ builder.AddNpmApp("airport-simulation", "../airport-simulation")
     .WaitFor(gateApi)
     .WithReference(runwayApi)
     .WaitFor(runwayApi)
+    .WithReference(airportApi)
+    .WaitFor(airportApi)
     .WithEnvironment("BROWSER", "none") // Disable opening browser on npm start
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
