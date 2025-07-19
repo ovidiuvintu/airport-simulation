@@ -22,16 +22,16 @@ public static class AirportApi
 
         v1.MapGet("/airports/byname/{name:minlength(1)}", GetAirportsByNameAsync)
            .WithName("GetAirportByName")
-           .WithSummary("List airport by name")
+           .WithSummary("List airport details by airport name")
            .WithDisplayName("GetAirportByName")
-           .WithDescription("Get airport by name")
+           .WithDescription("Get airport details by airport name")
            .WithTags("Airports");
 
         v1.MapGet("/airports/bycode/{iatacode:minlength(3)}", GetAirportsByIataCodeAsync)
            .WithName("GetAirportByAirportIataCode")
-           .WithSummary("List airport by IATA code")
+           .WithSummary("List airport details by airport IATA code")
            .WithDisplayName("GetAirportByIataCode")
-           .WithDescription("Get airport by IATA code")
+           .WithDescription("Get airport details by airport IATA code")
            .WithTags("Airports");
 
         v1.MapPost("/airports", AddAirportAsync)
@@ -41,11 +41,18 @@ public static class AirportApi
            .WithDescription("Add a new airport")
            .WithTags("Airports");
 
-        v1.MapPut("/airports/{name:minlength(1)}", UpdateAirportAsync)
-           .WithName("UpdateAirport")
-           .WithSummary("Update an airport")
+        v1.MapPut("/airports/byname/{name:minlength(1)}", UpdateAirportAsync)
+           .WithName("UpdateAirportByName")
+           .WithSummary("Update airport by name")
            .WithDisplayName("UpdateAirport")
-           .WithDescription("Update an airport")
+           .WithDescription("Update airport by name")
+           .WithTags("Airports");
+
+        v1.MapPut("/airports/bycode/{iatacode:minlength(1)}", UpdateAirportAsync)
+           .WithName("UpdateAirportByIataCode")
+           .WithSummary("Update airport by IATA code")
+           .WithDisplayName("UpdateAirport")
+           .WithDescription("Update airport by IATA code")
            .WithTags("Airports");
 
         v1.MapGet("airports/by/{id:Guid}/terminals", GetTerminalsByAirportIdAsync)
@@ -70,10 +77,10 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<List<Entities.Airport>>> GetAirportsAsync(HttpContext context)
+    private static async Task<Ok<IEnumerable<Entities.Airport>>> GetAirportsAsync()
     {
         await Task.CompletedTask;
-        return TypedResults.Ok(new List<Entities.Airport>());
+        return TypedResults.Ok<IEnumerable<Entities.Airport>>(new List<Entities.Airport>());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
@@ -99,10 +106,10 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Created> UpdateAirportAsync(string airportCode)
+    private static async Task<Ok> UpdateAirportAsync(string airportCode)
     {
         await Task.CompletedTask;
-        return TypedResults.Created($"/api/airports/someid");
+        return TypedResults.Ok();
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
@@ -117,18 +124,6 @@ public static class AirportApi
     {
         await Task.CompletedTask;
         return TypedResults.Ok(new List<Terminal>());
-    }
-
-    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task GetTerminalByNameAsync(HttpContext context)
-    {
-        await Task.CompletedTask;
-    }
-
-    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task GetGatesByTerminalIdAsync(HttpContext context)
-    {
-        await Task.CompletedTask;
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
