@@ -14,6 +14,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AirportSimulation.ServiceDefaults\AirportSimulation.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

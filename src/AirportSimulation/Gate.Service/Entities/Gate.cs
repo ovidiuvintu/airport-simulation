@@ -1,6 +1,5 @@
-﻿namespace Gate.Service.Entities
+﻿namespace Gate.Service.Entities;
+
+public class Gate
 {
-    public class Gate
-    {
-    }
 }
