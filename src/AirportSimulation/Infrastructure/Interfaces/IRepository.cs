@@ -1,7 +1,5 @@
-﻿using Ardalis.Specification;
+﻿namespace Infrastructure.Interfaces;
 
-namespace Infrastructure.Interfaces;
-
-public interface IRepository<T> : IRepositoryBase<T> where T : class
+public interface IRepository<T> : IDisposable  where T : class
 {
 }
