@@ -4,5 +4,10 @@ namespace Infrastructure;
 
 public class Entity : IEntity<Guid>
 {
-    public Guid Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public Entity()
+    {
+        Id = Guid.NewGuid();
+    }
+
+    public Guid Id { get; }
 }

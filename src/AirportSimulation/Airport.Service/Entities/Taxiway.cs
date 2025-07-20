@@ -1,6 +1,9 @@
-﻿namespace Airport.Service.Entities
+﻿using Infrastructure;
+
+namespace Airport.Service.Entities
 {
-    public class Taxiway
+    public class Taxiway : Entity
     {
+        public string? Name { get; set; }
     }
 }

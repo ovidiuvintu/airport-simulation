@@ -1,6 +1,8 @@
 using Airport.Service.Apis;
+using Airport.Service.Repository;
 using AirportSimulation.ServiceDefaults;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -12,12 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 var withApiVersioning = builder.Services.AddApiVersioning();
 builder.AddDefaultOpenApi(withApiVersioning);
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Airport.Service.Repository.AirportRepository<>));
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string"
+        + "'DefaultConnection' not found.");
+
+builder.Services.AddDbContext<AirportContext>(options =>
+    options.UseSqlite(connectionString));
 
 var app = builder.Build();
 

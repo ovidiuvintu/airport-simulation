@@ -1,9 +1,16 @@
 ﻿using Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.Entities;
 
 public class Terminal : Entity
 {
-    public string? Name { get; set; }
-    public Concourse? Concourse { get; set; }
+    [Required]
+    public Guid AirportId { get; set; }
+    [Required]
+    public required Airport Airport { get; set; } // Navigation property
+    [Required]
+    public required string Name { get; set; }
+    [Required]
+    public required IEnumerable<Concourse> Concourses { get; set; }
 }
