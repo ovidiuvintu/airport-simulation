@@ -2,7 +2,7 @@
 
 namespace Infrastructure;
 
-public class Entity : IEntity<Guid>
+public class Entity : IEntity
 {
     public Entity()
     {

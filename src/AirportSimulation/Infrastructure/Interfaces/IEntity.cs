@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Interfaces;
 
-public interface IEntity<TKey>
+public interface IEntity
 {
-    public TKey Id { get; }
+    public Guid Id { get; }
 }

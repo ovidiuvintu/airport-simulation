@@ -1,6 +1,7 @@
 using Airport.Service.Apis;
 using Airport.Service.Repository;
 using AirportSimulation.ServiceDefaults;
+using Infrastructure;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -17,14 +18,16 @@ builder.AddServiceDefaults();
 var withApiVersioning = builder.Services.AddApiVersioning();
 builder.AddDefaultOpenApi(withApiVersioning);
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(AirportRepository<>));
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<AirportContext>(options =>
     options.UseSqlite(connectionString));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IRepository<>), 
+                           typeof(Repository<>));
 
 var app = builder.Build();
 

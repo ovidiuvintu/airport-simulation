@@ -1,15 +1,11 @@
-﻿using Infrastructure.Interfaces;
+﻿using Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Service.Repository;
 
-public class AirportRepository<T> : IRepository<T> where T : class
+public class AirportRepository : Repository<Repository.Entities.Airport>
 {
-    public AirportRepository(AirportContext dbContext)
+    public AirportRepository(DbContext dbContext):base(dbContext)
     {
-    }
-
-    public void Dispose()
-    {
-        throw new NotImplementedException();
     }
 }
