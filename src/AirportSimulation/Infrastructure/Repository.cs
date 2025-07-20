@@ -6,12 +6,10 @@ namespace Infrastructure;
 public class Repository<TEntity> : IRepository<TEntity>
        where TEntity : class, IEntity
 {
-    private readonly DbContext _context;
     private readonly DbSet<TEntity> _dbSet;
 
     public Repository(DbContext context)
     {
-        _context = context;
         _dbSet = context.Set<TEntity>();
     }
 
