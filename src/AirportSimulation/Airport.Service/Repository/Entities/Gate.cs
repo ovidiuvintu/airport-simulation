@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Service.Entities;
+namespace Airport.Service.Repository.Entities;
 
 public enum GateType
 {
@@ -17,7 +17,7 @@ public class Gate : Entity
     [Required]
     public required Concourse Concourse { get; set; }
     [Required]
-    public required string Name { get; set; }
+    public required string Name { get; set; } //A-38
     [Required]
     public GateType GateType { get; set; }
     [Required]

@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Service.Entities;
+namespace Airport.Service.Repository.Entities;
 
 public class Terminal : Entity
 {

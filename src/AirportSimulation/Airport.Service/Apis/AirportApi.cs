@@ -1,5 +1,5 @@
 ﻿
-using Airport.Service.Entities;
+using Airport.Service.Repository.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -86,28 +86,28 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<IEnumerable<Entities.Airport>>> GetAirportsAsync()
+    private static async Task<Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>> GetAirportsAsync()
     {
         await Task.CompletedTask;
-        return TypedResults.Ok<IEnumerable<Entities.Airport>>(new List<Entities.Airport>());
+        return TypedResults.Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>(new List<Airport.Service.Repository.Entities.Airport>());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<Entities.Airport>> GetAirportByIataCodeAsync([FromRoute] string iatacode)
+    private static async Task<Ok<Airport.Service.Repository.Entities.Airport>> GetAirportByIataCodeAsync([FromRoute] string iatacode)
     {
         await Task.CompletedTask;
-        return TypedResults.Ok(new Entities.Airport());
+        return TypedResults.Ok(new Airport.Service.Repository.Entities.Airport());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<Entities.Airport>> GetAirportByNameAsync([FromRoute] string name)
+    private static async Task<Ok<Airport.Service.Repository.Entities.Airport>> GetAirportByNameAsync([FromRoute] string name)
     {
         await Task.CompletedTask;
-        return TypedResults.Ok(new Entities.Airport());
+        return TypedResults.Ok(new Airport.Service.Repository.Entities.Airport());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Created> AddAirportAsync([FromBody] Entities.Airport airport)
+    private static async Task<Created> AddAirportAsync([FromBody] Airport.Service.Repository.Entities.Airport airport)
     {
         await Task.CompletedTask;
         return TypedResults.Created($"/api/airports/{airport.Id}");
@@ -128,7 +128,7 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<List<Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] string airportId)
+    private static async Task<Ok<List<Airport.Service.Repository.Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] string airportId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok(new List<Terminal>());
@@ -149,7 +149,7 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> DeleteAirportTerminalAsync(Guid terminalId)
+    private static async Task<Ok> DeleteAirportTerminalAsync([FromRoute] string airportId, [FromRoute] Guid terminalId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="Commands\Terminal\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Repository\Migrations\" />
   </ItemGroup>
 
 </Project>

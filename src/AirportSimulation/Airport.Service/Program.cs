@@ -17,7 +17,7 @@ builder.AddServiceDefaults();
 var withApiVersioning = builder.Services.AddApiVersioning();
 builder.AddDefaultOpenApi(withApiVersioning);
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Airport.Service.Repository.AirportRepository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(AirportRepository<>));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string"
