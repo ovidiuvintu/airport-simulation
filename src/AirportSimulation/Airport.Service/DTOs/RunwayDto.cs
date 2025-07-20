@@ -10,7 +10,7 @@ public enum Position
     Center
 }
 
-public class RunwayDto : Entity
+public class RunwayDto : BaseDto
 {
     [Required]
     public string? Name { get; set; } 

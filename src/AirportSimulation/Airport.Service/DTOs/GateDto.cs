@@ -10,7 +10,7 @@ public enum GateType
     Transfer
 }
 
-public class GateDto : Entity
+public class GateDto : BaseDto
 {
     [Required]
     public Guid ConcourseId { get; set; }

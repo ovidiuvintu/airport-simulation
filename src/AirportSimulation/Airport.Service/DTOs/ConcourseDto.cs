@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.DTOs;
 
-public class ConcourseDto : Entity
+public class ConcourseDto : BaseDto
 {
     [Required]
     public Guid TerminalId { get; set; }
