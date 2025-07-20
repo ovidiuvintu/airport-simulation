@@ -18,6 +18,8 @@ public partial class AirportContext
                 .HasMaxLength(120);
             builder.Property(c => c.Description)
                 .HasMaxLength(200);
+
+            builder.ToTable("Airport");
         }
     }
 }

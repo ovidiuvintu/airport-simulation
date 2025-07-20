@@ -18,6 +18,8 @@ public partial class AirportContext
             builder.HasOne(p => p.Terminal) // A concourse has one Terminal
                    .WithMany(c => c.Concourses) // An Terminal has many concourses
                    .HasForeignKey(p => p.TerminalId); // Specify TerminalId as the foreign key
+
+            builder.ToTable("Concourse");
         }
     }
 }
