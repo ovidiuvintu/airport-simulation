@@ -89,7 +89,7 @@ public static class AirportApi
     private static async Task<Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>> GetAirportsAsync()
     {
         await Task.CompletedTask;
-        return TypedResults.Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>(new List<Airport.Service.Repository.Entities.Airport>());
+        return TypedResults.Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>([]);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]

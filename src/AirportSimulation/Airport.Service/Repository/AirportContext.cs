@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Airport.Service.Repository.Config;
 
+//dotnet ef migrations add InitialCreate
+//To undo this action, use 'ef migrations remove'
+//dotnet ef database update
 namespace Airport.Service.Repository;
 
 public partial class AirportContext : DbContext
@@ -15,6 +19,8 @@ public partial class AirportContext : DbContext
     public DbSet<Entities.Terminal> Terminals { get; set; }
     public DbSet<Entities.Concourse> Concourses { get; set; }
     public DbSet<Entities.Gate> Gates { get; set; }
+    public DbSet<Entities.Taxiway> Taxyways { get; set; }
+    public DbSet<Entities.Runway> Runways { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -25,5 +31,7 @@ public partial class AirportContext : DbContext
         builder.ApplyConfiguration(new TerminalConfiguration());
         builder.ApplyConfiguration(new ConcourseConfiguration());
         builder.ApplyConfiguration(new GateConfiguration());
+        builder.ApplyConfiguration(new TaxiwayConfiguration());
+        builder.ApplyConfiguration(new RunwayConfiguration());
     }
 }
