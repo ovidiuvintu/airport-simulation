@@ -1,0 +1,119 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Airport.Service.Migrations
+{
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Airport",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    AirportCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Airport", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Concourse",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    TerminalId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Concourse", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Gate",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ConcourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
+                    GateType = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsInternational = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gate", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Runway",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    MagneticHeading = table.Column<int>(type: "INTEGER", nullable: true),
+                    IsParallel = table.Column<bool>(type: "INTEGER", nullable: true),
+                    Position = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Runway", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Taxiway",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Taxiway", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Terminal",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AirportId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Terminal", x => x.Id);
+                });
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Airport");
+
+            migrationBuilder.DropTable(
+                name: "Concourse");
+
+            migrationBuilder.DropTable(
+                name: "Gate");
+
+            migrationBuilder.DropTable(
+                name: "Runway");
+
+            migrationBuilder.DropTable(
+                name: "Taxiway");
+
+            migrationBuilder.DropTable(
+                name: "Terminal");
+        }
+    }
+}

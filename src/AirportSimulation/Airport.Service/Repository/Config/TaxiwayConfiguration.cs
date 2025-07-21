@@ -9,6 +9,7 @@ internal sealed class TaxiwayConfiguration : IEntityTypeConfiguration<Taxiway>
     public void Configure(EntityTypeBuilder<Taxiway> builder)
     {
         builder.HasKey(c => c.Id); // Set the primary key
+        builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
         builder.ToTable("Taxiway");
     }

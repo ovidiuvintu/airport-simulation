@@ -7,15 +7,15 @@ internal sealed class TerminalConfiguration : IEntityTypeConfiguration<Entities.
 {
     public void Configure(EntityTypeBuilder<Entities.Terminal> builder)
     {
-        builder.HasKey(c => c.Id); // Set the primary key
+        builder.HasKey(c => c.Id);// Set the primary key
+        builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
         builder.Property(c => c.Name)
             .IsRequired()
             .HasMaxLength(120);
 
-        builder.HasOne(p => p.Airport) // A terminal has one Airport
-               .WithMany(c => c.Terminals) // An airport has many terminals
-               .HasForeignKey(p => p.AirportId); // Specify AirportId as the foreign key
+        builder.Property(c => c.AirportId)
+           .IsRequired();
 
         builder.ToTable("Terminal");
     }

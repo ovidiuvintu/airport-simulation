@@ -9,6 +9,7 @@ internal sealed class RunwayConfiguration : IEntityTypeConfiguration<Runway>
     public void Configure(EntityTypeBuilder<Runway> builder)
     {
         builder.HasKey(c => c.Id); // Set the primary key
+        builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
         builder.ToTable("Runway");
     }

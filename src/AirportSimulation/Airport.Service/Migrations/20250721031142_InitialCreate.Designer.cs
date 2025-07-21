@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Airport.Service.Migrations
 {
     [DbContext(typeof(AirportContext))]
-    [Migration("20250720190943_InitialCreate")]
+    [Migration("20250721031142_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,8 +61,6 @@ namespace Airport.Service.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TerminalId");
-
                     b.ToTable("Concourse", (string)null);
                 });
 
@@ -88,8 +86,6 @@ namespace Airport.Service.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConcourseId");
-
                     b.ToTable("Gate", (string)null);
                 });
 
@@ -97,9 +93,6 @@ namespace Airport.Service.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("AirportId")
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("IsParallel")
@@ -117,8 +110,6 @@ namespace Airport.Service.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AirportId");
-
                     b.ToTable("Runway", (string)null);
                 });
 
@@ -128,15 +119,10 @@ namespace Airport.Service.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("AirportId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AirportId");
 
                     b.ToTable("Taxiway", (string)null);
                 });
@@ -157,75 +143,7 @@ namespace Airport.Service.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AirportId");
-
                     b.ToTable("Terminal", (string)null);
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Concourse", b =>
-                {
-                    b.HasOne("Airport.Service.Repository.Entities.Terminal", "Terminal")
-                        .WithMany("Concourses")
-                        .HasForeignKey("TerminalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Terminal");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Gate", b =>
-                {
-                    b.HasOne("Airport.Service.Repository.Entities.Concourse", "Concourse")
-                        .WithMany("Gates")
-                        .HasForeignKey("ConcourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Concourse");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Runway", b =>
-                {
-                    b.HasOne("Airport.Service.Repository.Entities.Airport", null)
-                        .WithMany("Runways")
-                        .HasForeignKey("AirportId");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Taxiway", b =>
-                {
-                    b.HasOne("Airport.Service.Repository.Entities.Airport", null)
-                        .WithMany("Taxiways")
-                        .HasForeignKey("AirportId");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Terminal", b =>
-                {
-                    b.HasOne("Airport.Service.Repository.Entities.Airport", "Airport")
-                        .WithMany("Terminals")
-                        .HasForeignKey("AirportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Airport");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Airport", b =>
-                {
-                    b.Navigation("Runways");
-
-                    b.Navigation("Taxiways");
-
-                    b.Navigation("Terminals");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Concourse", b =>
-                {
-                    b.Navigation("Gates");
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Terminal", b =>
-                {
-                    b.Navigation("Concourses");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,14 +8,17 @@ internal sealed class GateConfiguration : IEntityTypeConfiguration<Entities.Gate
     public void Configure(EntityTypeBuilder<Entities.Gate> builder)
     {
         builder.HasKey(c => c.Id); // Set the primary key
+        builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
         builder.Property(c => c.Name)
             .IsRequired()
             .HasMaxLength(120);
 
-        builder.HasOne(p => p.Concourse) // A gate has one Concourse
-               .WithMany(c => c.Gates) // A Concourse has many gates
-               .HasForeignKey(p => p.ConcourseId); // Specify ConcourseId as the foreign key
+        builder.Property(c => c.ConcourseId)
+            .IsRequired();
+
+        builder.Property(c => c.IsInternational)
+            .IsRequired();
 
         builder.ToTable("Gate");
     }

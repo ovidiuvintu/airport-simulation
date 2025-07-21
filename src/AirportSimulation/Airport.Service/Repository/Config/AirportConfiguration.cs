@@ -8,6 +8,8 @@ internal sealed class AirportConfiguration : IEntityTypeConfiguration<Entities.A
     public void Configure(EntityTypeBuilder<Entities.Airport> builder)
     {
         builder.HasKey(c => c.Id); // Set the primary key
+        builder.Property(x => x.Id).ValueGeneratedOnAdd();
+
         builder.Property(c => c.AirportCode)
             .IsRequired()
             .HasMaxLength(3);

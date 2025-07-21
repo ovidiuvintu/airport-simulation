@@ -32,6 +32,7 @@
   <ItemGroup>
     <Folder Include="Commands\Terminal\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
