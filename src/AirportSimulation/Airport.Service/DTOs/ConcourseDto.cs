@@ -7,10 +7,6 @@ public class ConcourseDto : BaseDto
 {
     [Required]
     public Guid TerminalId { get; set; }
-    [Required]
-    public required TerminalDto Terminal { get; set; } // Navigation property
     [Required]                                                
     public required string Name { get; set; } //concourse A (gates 1-20)
-    [Required]
-    public required IEnumerable<GateDto> Gates { get; set; }
 }

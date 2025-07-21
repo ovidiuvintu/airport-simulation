@@ -15,8 +15,6 @@ public class GateDto : BaseDto
     [Required]
     public Guid ConcourseId { get; set; }
     [Required]
-    public required ConcourseDto Concourse { get; set; }
-    [Required]
     public required string Name { get; set; } //A-38
     [Required]
     public GateType GateType { get; set; }
