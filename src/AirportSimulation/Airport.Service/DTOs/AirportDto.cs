@@ -6,8 +6,13 @@ namespace Airport.Service.DTOs;
 public class AirportDto : BaseDto
 {
     [Required]
-    public string? Name { get; set; }
+    public required string? Name { get; set; }
+
     public string? Description { get; set; }
     [Required]
-    public string? AirportCode { get; set; }
+    public required string? AirportCode { get; set; }
+    [Required]
+    public required DateTime DateCreated { get; set; }
+    [Required]
+    public required DateTime DateUpdated { get; set; }
 }

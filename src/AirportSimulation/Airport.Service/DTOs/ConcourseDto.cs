@@ -6,7 +6,12 @@ namespace Airport.Service.DTOs;
 public class ConcourseDto : BaseDto
 {
     [Required]
-    public Guid TerminalId { get; set; }
+    public required Guid TerminalId { get; set; }
     [Required]                                                
     public required string Name { get; set; } //concourse A (gates 1-20)
+
+    [Required]
+    public required DateTime DateCreated { get; set; }
+    [Required]
+    public required DateTime DateUpdated { get; set; }
 }

@@ -13,11 +13,15 @@ public enum GateType
 public class GateDto : BaseDto
 {
     [Required]
-    public Guid ConcourseId { get; set; }
+    public required Guid ConcourseId { get; set; }
     [Required]
     public required string Name { get; set; } //A-38
     [Required]
-    public GateType GateType { get; set; }
+    public required GateType GateType { get; set; }
     [Required]
-    public bool IsInternational { get; set; }
+    public required bool IsInternational { get; set; }
+    [Required]
+    public required DateTime DateCreated { get; set; }
+    [Required]
+    public required DateTime DateUpdated { get; set; }
 }

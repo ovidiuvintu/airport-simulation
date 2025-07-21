@@ -6,7 +6,12 @@ namespace Airport.Service.DTOs;
 public class TerminalDto : BaseDto
 {
     [Required]
-    public Guid AirportId { get; set; }
+    public required Guid AirportId { get; set; }
     [Required]
     public required string Name { get; set; }
+    [Required]
+    public required DateTime DateCreated { get; set; }
+    [Required]
+    public required DateTime DateUpdated { get; set; }
+
 }
