@@ -1,12 +1,22 @@
 ﻿
+using Airport.Service.Commands.Airport.CreateAirport;
 using Airport.Service.Repository.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Airport.Service.Apis;
 
 public static class AirportApi
 {
+    //app.MapPost("/products", async(IMediator mediator, CreateProductCommand command) =>
+    //{
+    //    var productId = await mediator.Send(command);
+    //    return Results.Created($"/products/{productId}", productId);
+    //});
+
     public static IEndpointRouteBuilder MapAirportApi(this IEndpointRouteBuilder app)
     {
         var vApi = app.NewVersionedApi("AirportSpecification");
@@ -107,9 +117,14 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Created> AddAirportAsync([FromBody] Airport.Service.Repository.Entities.Airport airport)
+    private static async Task<Created> AddAirportAsync([FromBody] Airport.Service.Repository.Entities.Airport airport,
+        IMediator mediator)
     {
-        await Task.CompletedTask;
+        CreateAirportCommand createAirportCommand = new CreateAirportCommand();
+        createAirportCommand.AirportCode = airport.AirportCode;
+        createAirportCommand.Description = airport.Description;
+        createAirportCommand.Name = airport.Name;
+        await mediator.Publish(createAirportCommand);
         return TypedResults.Created($"/api/airports/{airport.Id}");
     }
 

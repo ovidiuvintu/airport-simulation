@@ -1,8 +1,10 @@
 using Airport.Service.Apis;
+using Airport.Service.Commands.Airport.CreateAirport;
 using Airport.Service.Repository;
 using AirportSimulation.ServiceDefaults;
 using Infrastructure;
 using Infrastructure.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -29,6 +31,8 @@ builder.Services.AddScoped<DbContext, AirportContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), 
                            typeof(Repository<>));
+builder.Services.AddScoped<CreateAirportCommandHandler>();
+builder.Services.AddMediatR(typeof(Program).Assembly); 
 
 
 var app = builder.Build();
