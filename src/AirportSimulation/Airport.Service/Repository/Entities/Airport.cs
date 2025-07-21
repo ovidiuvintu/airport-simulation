@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.Repository.Entities;
 
-public class Airport : Entity
+public class Airport : BaseEntity
 {
     [Required]
     public string? Name { get; set; }

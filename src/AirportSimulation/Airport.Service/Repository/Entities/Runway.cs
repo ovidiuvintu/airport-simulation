@@ -10,7 +10,7 @@ public enum Position
     Center
 }
 
-public class Runway : Entity
+public class Runway : BaseEntity
 {
     [Required]
     public string? Name { get; set; } 

@@ -25,9 +25,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AirportContext>(options =>
     options.UseSqlite(connectionString));
 
+builder.Services.AddScoped<DbContext, AirportContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), 
                            typeof(Repository<>));
+
 
 var app = builder.Build();
 

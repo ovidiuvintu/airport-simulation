@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.Repository.Entities;
 
-public class Concourse : Entity
+public class Concourse : BaseEntity
 {
     [Required]
     public Guid TerminalId { get; set; }

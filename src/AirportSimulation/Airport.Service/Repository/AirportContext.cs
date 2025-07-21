@@ -6,11 +6,8 @@ using Airport.Service.Repository.Config;
 //dotnet ef database update
 namespace Airport.Service.Repository;
 
-public partial class AirportContext : DbContext
+public class AirportContext : DbContext
 {
-    public AirportContext()
-    { }
-
     public AirportContext(DbContextOptions<AirportContext> options) : base(options)
     {
     }

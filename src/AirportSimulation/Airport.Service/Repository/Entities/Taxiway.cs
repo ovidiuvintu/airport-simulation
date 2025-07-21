@@ -2,7 +2,7 @@
 
 namespace Airport.Service.Repository.Entities;
 
-public class Taxiway : Entity
+public class Taxiway : BaseEntity
 {
     public string? Name { get; set; }
 }

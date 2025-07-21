@@ -2,9 +2,9 @@
 
 namespace Infrastructure;
 
-public class Entity : IEntity
+public class BaseEntity : IEntity
 {
-    public Entity()
+    public BaseEntity()
     {
         Id = Guid.NewGuid();
     }
