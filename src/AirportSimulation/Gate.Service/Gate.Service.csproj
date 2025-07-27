@@ -9,6 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Events\**" />
+    <Compile Remove="Queries\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Events\**" />
+    <Content Remove="Queries\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Events\**" />
+    <EmbeddedResource Remove="Queries\**" />
+    <None Remove="Data\**" />
+    <None Remove="Events\**" />
+    <None Remove="Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.6.3" />
@@ -17,14 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AirportSimulation.ServiceDefaults\AirportSimulation.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Context\" />
-    <Folder Include="Data\Migrations\" />
-    <Folder Include="Data\Repository\" />
-    <Folder Include="Events\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>
