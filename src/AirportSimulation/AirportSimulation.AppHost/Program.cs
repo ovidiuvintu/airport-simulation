@@ -12,7 +12,7 @@ var airportApi = builder.AddProject<Projects.Airport_Service>("airport-service")
     .WaitFor(gateApi)
     .WaitFor(runwayApi);
 
-builder.AddNpmApp("airport-simulation", "../airport-simulation")
+builder.AddNpmApp("airport-simulation", "../airport-simulation-client")
     .WithReference(scheduleApi)
     .WaitFor(scheduleApi)
     .WithReference(taxiApi)
