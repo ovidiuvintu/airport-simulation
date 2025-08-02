@@ -1,6 +1,7 @@
 import { Box, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
+import Header from "../../components/Header";
 
 const Dashboard = () => {
   const theme = useTheme();
