@@ -1,46 +1,70 @@
-import {
-    Box,
-    Typography,
-    useTheme,
-} from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import { tokens } from "../../theme";
 import { DataGrid } from "@mui/x-data-grid";
-import { useContext } from "react";
-import { ColorModeContext, tokens } from "../../theme";
+import MockDepartureData from "../../data/MockDepartureData";
 import Header from "../../components/Header";
 
-const rows = [
-  { id: 1, name: "John Doe", age: 25 },
-  { id: 2, name: "Jane Smith", age: 30 },
-  { id: 3, name: "Sam Wilson", age: 35 },
-];
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "name", headerName: "Name", width: 150 },
-  { field: "age", headerName: "Age", width: 100 },
-];
-
 const Departures = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const colorMode = useContext(ColorModeContext);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-    return (
-        <Box m="20px">
-            <Header title="Departures" subtitle="Departures Interactive Page" />
-            <Box display="flex" justifyContent="space-between">
-                {/* DEPARTURES SIDEBAR */}
-                <Box
-                    flex="1 1 20%"
-                    backgroundColor={colors.primary[400]}
-                    p="15px"
-                    borderRadius="4px"
-                >
-                    <Typography variant="h5">Events</Typography>
-                    <DataGrid rows={rows} columns={columns}/>
-                </Box>
-            </Box>
+  const columns = [
+        { field: "flight", headerName: "Flight", flex: 1 },
+        { field: "time", headerName: "Time", flex: 1 },
+        { field: "to", headerName: "To", flex: 1 },
+        { field: "airline", headerName: "Airline", flex: 1 },
+        { field: "aircraft", headerName: "Aircraft", flex: 1 },
+        { field: "status", headerName: "Status", flex: 1 },
+      ];
+
+  return (
+    <Box m="20px">
+      <Header title="DEPARTURES" subtitle="List of Departing Flights" />
+      {/* GRID & CHARTS */}
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.greenAccent[300],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: "none"
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.blueAccent[700],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+        }}
+          >
+          <DataGrid
+              disableColumnFilter
+              checkboxSelection={false}
+              disableColumnSorting
+              rows={MockDepartureData}
+              columns={columns}
+              getRowId={(row) => row.flight}
+              initialState={{
+                pagination: { paginationModel: { pageSize: 10 } },
+              }}
+              pageSizeOptions={[10, 15, 20, 50, 100]} 
+            />
         </Box>
-    );
+    </Box>
+  );
 };
 
 export default Departures;
