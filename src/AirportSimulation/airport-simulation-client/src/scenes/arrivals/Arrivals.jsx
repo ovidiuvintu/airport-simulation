@@ -3,9 +3,21 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import Header from "../../components/Header";
+
+const rows = [
+  { id: 1, name: "John Doe", age: 25 },
+  { id: 2, name: "Jane Smith", age: 30 },
+  { id: 3, name: "Sam Wilson", age: 35 },
+];
+const columns = [
+  { field: "id", headerName: "ID", width: 70 },
+  { field: "name", headerName: "Name", width: 150 },
+  { field: "age", headerName: "Age", width: 100 },
+];
 
 const Arrivals = () => {
     const theme = useTheme();
@@ -24,6 +36,7 @@ const Arrivals = () => {
                     borderRadius="4px"
                 >
                     <Typography variant="h5">Events</Typography>
+                    <DataGrid columns={columns} rows={rows}/>
                 </Box>
             </Box>
         </Box>
