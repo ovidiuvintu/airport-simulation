@@ -141,8 +141,8 @@ const Sidebar = () => {
               Airlines
             </Typography>
             <Item
-              title="Page1"
-              to="/page1"
+              title="Airlines List"
+              to="/airlines"
               icon={<AirlinesOutlined />}
               selected={selected}
               setSelected={setSelected}

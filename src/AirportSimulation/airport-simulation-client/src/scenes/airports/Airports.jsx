@@ -26,7 +26,7 @@ const Airports = () => {
 
     return (
         <Box m="20px">
-            <Header title="Airports" subtitle="Airports Interactive Page" />
+            <Header title="Airports Served" subtitle="Airports Interactive Page" />
             <Box display="flex" justifyContent="space-between">
                 {/* AIRLINES SIDEBAR */}
                 <Box
