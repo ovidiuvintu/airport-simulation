@@ -1,8 +1,5 @@
-import {
-    Box,
-    useTheme,
-} from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Box, useTheme } from "@mui/material";
+import { DataGrid } from '@mui/x-data-grid';
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -19,9 +16,8 @@ const Airlines = () => {
   const colors = tokens(theme.palette.mode);
 
   return (
-      <Box m="20px">
-      <Header title="Airlines" subtitle="List of Airlines serving this airport" />
-      {/* GRID & CHARTS */}
+    <Box m="20px">
+      <Header title="Airlines" subtitle="Managing the Airlines" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -50,20 +46,13 @@ const Airlines = () => {
             color: `${colors.greenAccent[200]} !important`,
           },
         }}
-          >
-          <DataGrid
-              disableColumnFilter
-              checkboxSelection={false}
-              disableColumnSorting
-              rows={MockAirlinesData}
-              columns={columns}
-              getRowId={(row) => row.airlineCode}
-              initialState={{
-                pagination: { paginationModel: { pageSize: 10 } },
-              }}
-              pageSizeOptions={[10, 15, 20, 50, 100]} 
-            />
-        </Box>
+      >
+        <DataGrid 
+          showToolbar
+          rows={MockAirlinesData} 
+          columns={columns} 
+          getRowId={(row) => row.airlineCode}/>
+      </Box>
     </Box>
   );
 };
