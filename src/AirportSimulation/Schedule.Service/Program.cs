@@ -25,7 +25,7 @@ app.UseDefaultOpenApi();
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
-    Log.Information("Schedue service started");
+    Log.Information("Schedule service started");
 });
 
 app.Lifetime.ApplicationStopping.Register(() =>
