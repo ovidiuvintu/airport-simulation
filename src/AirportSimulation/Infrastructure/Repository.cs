@@ -7,9 +7,11 @@ public class Repository<TEntity> : IRepository<TEntity>
        where TEntity : class, IEntity
 {
     private readonly DbSet<TEntity> _dbSet;
+    private readonly DbContext _dbContext;
 
     public Repository(DbContext context)
     {
+        _dbContext = context;
         _dbSet = context.Set<TEntity>();
     }
 
@@ -23,9 +25,10 @@ public class Repository<TEntity> : IRepository<TEntity>
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task AddAsync(TEntity entity)
+    public async Task<int> AddAsync(TEntity entity)
     {
         await _dbSet.AddAsync(entity);
+        return await _dbContext.SaveChangesAsync();
     }
 
     public void Update(TEntity entity)

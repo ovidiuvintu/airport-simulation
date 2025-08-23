@@ -105,10 +105,11 @@ public static class AirportApi
     private static async Task<Ok<Repository.Entities.Airport>> GetAirportByNameAsync([FromRoute] string name)
     {
         await Task.CompletedTask;
-        return TypedResults.Ok(new Airport.Service.Repository.Entities.Airport());
+        return TypedResults.Ok(new Repository.Entities.Airport());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DTOs.AirportDto))]
     private static async Task<IResult> AddAirportAsync([FromBody] DTOs.AirportDto airport,
         IMediator mediator)
     {
@@ -144,7 +145,7 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<List<Airport.Service.Repository.Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] string airportId)
+    private static async Task<Ok<List<Repository.Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] string airportId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok(new List<Terminal>());

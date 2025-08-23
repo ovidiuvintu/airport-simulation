@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Airport.Service.Commands.Airport.CreateAirport;
 
-internal sealed class CreateAirportCommandHandler : RequestHandler<CreateAirportCommand, Result>
+internal sealed class CreateAirportCommandHandler : IRequestHandler<CreateAirportCommand, Result>
 {
     private readonly IAirportService _airportService;
 
@@ -12,8 +12,12 @@ internal sealed class CreateAirportCommandHandler : RequestHandler<CreateAirport
     {
         _airportService = airportService;
     }
-    protected override Result Handle(CreateAirportCommand request)
+
+    public Task<Result> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Repository.Entities.Airport airport = new Repository.Entities.Airport();
+        airport.AirportCode = request.AirportCode;
+        airport.Name = request.Name;
+        return _airportService.AddAirportAsync(airport);
     }
 }

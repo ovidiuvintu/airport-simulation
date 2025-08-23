@@ -4,9 +4,9 @@ namespace Infrastructure;
 
 public class Result : IResult
 {
-    public bool Success => throw new NotImplementedException();
+    public bool Success { get; set; }
 
-    public string? Error { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+    public string? Error { get; set; }
 }
 
 public class Result<T> : Result

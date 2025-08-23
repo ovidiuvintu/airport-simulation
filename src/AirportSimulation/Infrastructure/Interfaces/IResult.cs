@@ -2,6 +2,6 @@
 
 public interface IResult
 {
-    bool Success { get; }
-    string? Error { get; init; }
+    bool Success { get; set; }
+    string? Error { get; set; }
 }
