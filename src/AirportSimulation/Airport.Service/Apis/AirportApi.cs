@@ -1,6 +1,7 @@
 ﻿
 using Airport.Service.Commands.Airport.CreateAirport;
 using Airport.Service.Repository.Entities;
+using Infrastructure.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -109,14 +110,16 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DTOs.AirportDto))]
-    private static async Task<IResult> AddAirportAsync([FromBody] DTOs.AirportDto airport,
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    private static async Task<IResult> AddAirportAsync([FromBody] AirportDTO airport,
         IMediator mediator)
     {
-        CreateAirportCommand createAirportCommand = new CreateAirportCommand();
-        createAirportCommand.AirportCode = airport.AirportCode;
-        createAirportCommand.Description = airport.Description;
-        createAirportCommand.Name = airport.Name;
+        CreateAirportCommand createAirportCommand = new()
+        {
+            AirportCode = airport.AirportCode,
+            Description = airport.Description,
+            Name = airport.Name
+        };
 
         var response = await mediator.Send(createAirportCommand);
         if (response != null && response.Success)

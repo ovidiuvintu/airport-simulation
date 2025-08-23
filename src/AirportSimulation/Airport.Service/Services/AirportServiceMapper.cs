@@ -1,10 +1,10 @@
-﻿using Airport.Service.DTOs;
+﻿using Infrastructure.DTOs;
 
 namespace Airport.Service.Services;
 
 public class AirportServiceMapper
 {
-    public Repository.Entities.Airport MapAirportDTOToAirportEntity(AirportDto airportDto)
+    public Repository.Entities.Airport MapAirportDTOToAirportEntity(AirportDTO airportDto)
     {
         return new Repository.Entities.Airport
         {
@@ -14,16 +14,13 @@ public class AirportServiceMapper
         };
     }
 
-    public AirportDto MapAirportEntityToAirportDTO(Repository.Entities.Airport airportEntity)
+    public AirportDTO MapAirportEntityToAirportDTO(Repository.Entities.Airport airportEntity)
     {
-        return new AirportDto
-        {
-            AirportCode = airportEntity.AirportCode,
-            Description = airportEntity.Description,
-            Name = airportEntity.Name,
-            DateUpdated = DateTime.UtcNow,
-            DateCreated = DateTime.UtcNow,
-            Timestamp = DateTime.UtcNow
-        };
+        return new AirportDTO(airportEntity.Id,
+                              airportEntity.Name,
+                              airportEntity.Description,
+                              airportEntity.AirportCode,
+                              airportEntity.Created,
+                              airportEntity.Updated);       
     }
 }

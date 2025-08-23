@@ -3,17 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
-public class Repository<TEntity> : IRepository<TEntity>
+public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
        where TEntity : class, IEntity
 {
-    private readonly DbSet<TEntity> _dbSet;
-    private readonly DbContext _dbContext;
-
-    public Repository(DbContext context)
-    {
-        _dbContext = context;
-        _dbSet = context.Set<TEntity>();
-    }
+    private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
     public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
@@ -28,7 +21,7 @@ public class Repository<TEntity> : IRepository<TEntity>
     public async Task<int> AddAsync(TEntity entity)
     {
         await _dbSet.AddAsync(entity);
-        return await _dbContext.SaveChangesAsync();
+        return await context.SaveChangesAsync();
     }
 
     public void Update(TEntity entity)
