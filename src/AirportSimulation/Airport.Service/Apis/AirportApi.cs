@@ -88,28 +88,28 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>> GetAirportsAsync()
+    private static async Task<Ok<IEnumerable<Repository.Entities.Airport>>> GetAirportsAsync()
     {
         await Task.CompletedTask;
-        return TypedResults.Ok<IEnumerable<Airport.Service.Repository.Entities.Airport>>([]);
+        return TypedResults.Ok<IEnumerable<Repository.Entities.Airport>>([]);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<Airport.Service.Repository.Entities.Airport>> GetAirportByIataCodeAsync([FromRoute] string iatacode)
+    private static async Task<Ok<Repository.Entities.Airport>> GetAirportByIataCodeAsync([FromRoute] string iatacode)
+    {
+        await Task.CompletedTask;
+        return TypedResults.Ok(new Repository.Entities.Airport());
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task<Ok<Repository.Entities.Airport>> GetAirportByNameAsync([FromRoute] string name)
     {
         await Task.CompletedTask;
         return TypedResults.Ok(new Airport.Service.Repository.Entities.Airport());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<Airport.Service.Repository.Entities.Airport>> GetAirportByNameAsync([FromRoute] string name)
-    {
-        await Task.CompletedTask;
-        return TypedResults.Ok(new Airport.Service.Repository.Entities.Airport());
-    }
-
-    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<IResult> AddAirportAsync([FromBody] Airport.Service.DTOs.AirportDto airport,
+    private static async Task<IResult> AddAirportAsync([FromBody] DTOs.AirportDto airport,
         IMediator mediator)
     {
         CreateAirportCommand createAirportCommand = new CreateAirportCommand();

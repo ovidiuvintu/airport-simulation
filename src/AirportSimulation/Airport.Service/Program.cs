@@ -1,6 +1,7 @@
 using Airport.Service.Apis;
 using Airport.Service.Commands.Airport.CreateAirport;
 using Airport.Service.Repository;
+using Airport.Service.Services;
 using AirportSimulation.ServiceDefaults;
 using Infrastructure;
 using Infrastructure.Interfaces;
@@ -31,7 +32,8 @@ builder.Services.AddScoped<DbContext, AirportContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), 
                            typeof(Repository<>));
-builder.Services.AddScoped<CreateAirportCommandHandler>();
+
+builder.Services.AddTransient<IAirportService, AirportService>();
 builder.Services.AddMediatR(typeof(Program).Assembly); 
 
 
