@@ -13,7 +13,7 @@ public enum Position
 public class Runway : BaseEntity
 {
     [Required]
-    public string? Name { get; set; } 
+    public string Name { get; set; } 
     
     public int? MagneticHeading { get; set; }
     public bool? IsParallel { get; set; }

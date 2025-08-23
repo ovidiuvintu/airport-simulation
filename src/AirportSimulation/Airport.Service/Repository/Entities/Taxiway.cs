@@ -4,5 +4,5 @@ namespace Airport.Service.Repository.Entities;
 
 public class Taxiway : BaseEntity
 {
-    public string? Name { get; set; }
+    public string Name { get; set; }
 }

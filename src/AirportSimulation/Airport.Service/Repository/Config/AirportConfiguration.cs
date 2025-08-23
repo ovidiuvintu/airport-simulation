@@ -13,11 +13,16 @@ internal sealed class AirportConfiguration : IEntityTypeConfiguration<Entities.A
         builder.Property(c => c.AirportCode)
             .IsRequired()
             .HasMaxLength(3);
+
         builder.Property(c => c.Name)
             .IsRequired()
             .HasMaxLength(120);
+
         builder.Property(c => c.Description)
-            .HasMaxLength(200);
+            .HasMaxLength(255);
+
+        builder.HasMany(c => c.Terminals)
+               .WithOne(c => c.Airport);
 
         builder.ToTable("Airport");
     }

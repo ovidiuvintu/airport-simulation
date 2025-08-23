@@ -20,7 +20,7 @@ public class Repository<TEntity> : IRepository<TEntity>
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<TEntity> GetByIdAsync(int id)
+    public async Task<TEntity?> GetByIdAsync(int id)
     {
         return await _dbSet.FindAsync(id);
     }
