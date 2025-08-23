@@ -1,4 +1,4 @@
-﻿using Infrastructure;
+﻿using Infrastructure.DTOs;
 using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.DTOs;

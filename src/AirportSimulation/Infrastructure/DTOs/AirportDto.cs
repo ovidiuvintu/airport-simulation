@@ -1,8 +1,9 @@
-﻿using Infrastructure;
+﻿using Infrastructure.DTOs;
 using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.DTOs;
 
+//dtos are transfer object between different layers or different microservices
 public class AirportDto : BaseDto
 {
     [Required]

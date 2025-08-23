@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\TaxiwayDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="DTOs\TaxiwayDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
   </ItemGroup>
 

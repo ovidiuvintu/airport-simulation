@@ -1,4 +1,4 @@
-﻿namespace Infrastructure;
+﻿namespace Infrastructure.DTOs;
 
 public abstract class BaseDto
 {

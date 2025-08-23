@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Airport.Service.Repository.Entities;
 
+//entities are table representations sql
 public class Airport : BaseEntity
 {
     [Required]

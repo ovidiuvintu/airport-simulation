@@ -45,8 +45,4 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="DTOs\TaxiwayDto.cs" />
-  </ItemGroup>
-
 </Project>
