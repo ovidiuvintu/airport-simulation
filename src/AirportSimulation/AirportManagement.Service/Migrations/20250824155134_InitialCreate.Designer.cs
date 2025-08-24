@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Airport.Service.Migrations
+namespace AirportManagement.Service.Migrations
 {
     [DbContext(typeof(AirportContext))]
-    [Migration("20250721031142_InitialCreate")]
+    [Migration("20250824155134_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Airport.Service.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Airport", b =>
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Airport", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,7 @@ namespace Airport.Service.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -45,26 +45,7 @@ namespace Airport.Service.Migrations
                     b.ToTable("Airport", (string)null);
                 });
 
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Concourse", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("TerminalId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Concourse", (string)null);
-                });
-
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Gate", b =>
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Gate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +70,7 @@ namespace Airport.Service.Migrations
                     b.ToTable("Gate", (string)null);
                 });
 
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Runway", b =>
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Runway", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +94,7 @@ namespace Airport.Service.Migrations
                     b.ToTable("Runway", (string)null);
                 });
 
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Taxiway", b =>
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Taxiway", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -127,7 +108,7 @@ namespace Airport.Service.Migrations
                     b.ToTable("Taxiway", (string)null);
                 });
 
-            modelBuilder.Entity("Airport.Service.Repository.Entities.Terminal", b =>
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Terminal", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,7 +124,25 @@ namespace Airport.Service.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AirportId");
+
                     b.ToTable("Terminal", (string)null);
+                });
+
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Terminal", b =>
+                {
+                    b.HasOne("AirportManagement.Service.Repository.Entities.Airport", "Airport")
+                        .WithMany("Terminals")
+                        .HasForeignKey("AirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Airport");
+                });
+
+            modelBuilder.Entity("AirportManagement.Service.Repository.Entities.Airport", b =>
+                {
+                    b.Navigation("Terminals");
                 });
 #pragma warning restore 612, 618
         }

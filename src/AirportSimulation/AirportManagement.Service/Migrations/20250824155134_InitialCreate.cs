@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Airport.Service.Migrations
+namespace AirportManagement.Service.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -17,25 +17,12 @@ namespace Airport.Service.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
                     AirportCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Airport", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Concourse",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TerminalId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Concourse", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,18 +78,23 @@ namespace Airport.Service.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Terminal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Terminal_Airport_AirportId",
+                        column: x => x.AirportId,
+                        principalTable: "Airport",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Terminal_AirportId",
+                table: "Terminal",
+                column: "AirportId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Airport");
-
-            migrationBuilder.DropTable(
-                name: "Concourse");
-
             migrationBuilder.DropTable(
                 name: "Gate");
 
@@ -114,6 +106,9 @@ namespace Airport.Service.Migrations
 
             migrationBuilder.DropTable(
                 name: "Terminal");
+
+            migrationBuilder.DropTable(
+                name: "Airport");
         }
     }
 }
