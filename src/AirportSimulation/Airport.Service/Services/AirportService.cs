@@ -34,7 +34,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         {
             Success = result != null,
             Error = string.Empty,
-            Data = result.FirstOrDefault(c=>c.AirportCode == code)
+            Data = result.FirstOrDefault(c=>c?.AirportCode == code)
         };
         return res;
     }
@@ -46,8 +46,22 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         {
             Success = result != null,
             Error = string.Empty,
-            Data = result.FirstOrDefault(c => c.Name == name)
+            Data = result.FirstOrDefault(c=>c?.Name == name)
         };
+
+        return res;
+    }
+
+    public async Task<Result<IEnumerable<Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken)
+    {
+        var result = await _repo.GetAllAsync();
+        Result<IEnumerable<Repository.Entities.Airport>> res = new()
+        {
+            Success = result != null,
+            Error = string.Empty,
+            Data = result
+        };
+
         return res;
     }
 
