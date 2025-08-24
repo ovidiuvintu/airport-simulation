@@ -1,26 +1,20 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var scheduleApi = builder.AddProject<Projects.Schedule_Service>("schedule-service");
+var airportApi = builder.AddProject<Projects.Airport_Service>("airport-service");
 
-var taxiApi = builder.AddProject<Projects.Taxi_Service>("taxi-service");
+var rampControllerApi = builder.AddProject<Projects.RampController_Service>("ramp-controller-service");
 
-var gateApi = builder.AddProject<Projects.Gate_Service>("gate-service");
+var groundMovementControllerApi = builder.AddProject<Projects.GroundMovementController_Service>("ground-movement-controller-service");
 
-var runwayApi = builder.AddProject<Projects.Runway_Service>("runway-service");
-
-var airportApi = builder.AddProject<Projects.Airport_Service>("airport-service")
-    .WaitFor(gateApi)
-    .WaitFor(runwayApi);
+var trafficControlTowerApi = builder.AddProject<Projects.TrafficControlTower_Service>("traffic-control-tower-service");
 
 builder.AddNpmApp("airport-simulation", "../airport-simulation-client")
-    .WithReference(scheduleApi)
-    .WaitFor(scheduleApi)
-    .WithReference(taxiApi)
-    .WaitFor(taxiApi)
-    .WithReference(gateApi)
-    .WaitFor(gateApi)
-    .WithReference(runwayApi)
-    .WaitFor(runwayApi)
+    .WithReference(trafficControlTowerApi)
+    .WaitFor(trafficControlTowerApi)
+    .WithReference(groundMovementControllerApi)
+    .WaitFor(groundMovementControllerApi)
+    .WithReference(rampControllerApi)
+    .WaitFor(rampControllerApi)
     .WithReference(airportApi)
     .WaitFor(airportApi)
     .WithEnvironment("BROWSER", "none") // Disable opening browser on npm start

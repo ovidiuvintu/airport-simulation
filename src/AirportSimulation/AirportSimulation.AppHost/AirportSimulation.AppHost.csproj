@@ -18,10 +18,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Airport.Service\Airport.Service.csproj" />
-    <ProjectReference Include="..\Gate.Service\Gate.Service.csproj" />
-    <ProjectReference Include="..\Runway.Service\Runway.Service.csproj" />
-    <ProjectReference Include="..\Schedule.Service\Schedule.Service.csproj" />
-    <ProjectReference Include="..\Taxi.Service\Taxi.Service.csproj" />
+    <ProjectReference Include="..\Gate.Service\RampController.Service.csproj" />
+    <ProjectReference Include="..\Schedule.Service\TrafficControlTower.Service.csproj" />
+    <ProjectReference Include="..\Taxi.Service\GroundMovementController.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -111,7 +111,7 @@ public static class AirportApi
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    private static async Task<IResult> AddAirportAsync([FromBody] CreateAirportDTO airport,
+    private static async Task<IResult> AddAirportAsync([FromBody] CreateAirportDto airport,
         IMediator mediator)
     {
         CreateAirportCommand createAirportCommand = new()
