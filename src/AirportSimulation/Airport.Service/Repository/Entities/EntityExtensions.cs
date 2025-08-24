@@ -14,6 +14,21 @@ public static class EntityExtensions
             airportEntity.Created, airportEntity.Updated);
     }
 
+    public static Airport AsAirportEntity(this AirportDTO airportDto)
+    {
+        return new Airport
+        {
+            Name = airportDto.Name,
+            Description = airportDto.Description,
+            AirportCode = airportDto.AirportCode
+        };
+    }
+
+    private static object GetTerminalEntities(IEnumerable<TerminalDto> terminals)
+    {
+        throw new NotImplementedException();
+    }
+
     private static IEnumerable<TerminalDto> GetTerminalDTOs(IEnumerable<Terminal> terminals)
     {
         var terminalDtos = new List<TerminalDto>();

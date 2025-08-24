@@ -116,11 +116,13 @@ public static class AirportApi
     {
         CreateAirportCommand createAirportCommand = new()
         {
-            AirportCode = airport.AirportCode,
-            Description = airport.Description,
-            Name = airport.Name
+            Airport = new Repository.Entities.Airport
+            {
+                AirportCode = airport.AirportCode,
+                Description = airport.Description,
+                Name = airport.Name
+            }
         };
-
         var response = await mediator.Send(createAirportCommand);
         if (response != null && response.Success)
         {

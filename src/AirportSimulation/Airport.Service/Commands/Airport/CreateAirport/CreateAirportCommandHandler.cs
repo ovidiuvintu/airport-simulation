@@ -9,12 +9,6 @@ internal sealed class CreateAirportCommandHandler(IAirportService airportService
 {
     public Task<Result<Repository.Entities.Airport>> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
     {
-        Repository.Entities.Airport airport = new()
-        {
-            AirportCode = request.AirportCode,
-            Name = request.Name
-        };
-
-        return airportService.AddAirportAsync(airport);
+        return airportService.AddAirportAsync(request.Airport);
     }
 }
