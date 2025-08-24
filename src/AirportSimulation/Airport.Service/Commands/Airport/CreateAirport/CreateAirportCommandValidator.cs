@@ -8,5 +8,6 @@ public sealed class CreateAirportCommandValidator : AbstractValidator<CreateAirp
     {
         RuleFor(airport => airport.AirportCode).NotNull().NotEmpty();
         RuleFor(airport => airport.AirportCode).Length(3);
+        RuleFor(airport => airport.Description).MaximumLength(256);
     }
 }

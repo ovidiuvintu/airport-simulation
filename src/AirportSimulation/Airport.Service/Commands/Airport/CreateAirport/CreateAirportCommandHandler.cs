@@ -4,7 +4,8 @@ using MediatR;
 
 namespace Airport.Service.Commands.Airport.CreateAirport;
 
-internal sealed class CreateAirportCommandHandler(IAirportService airportService) : IRequestHandler<CreateAirportCommand, Result<Repository.Entities.Airport>>
+internal sealed class CreateAirportCommandHandler(IAirportService airportService) 
+    : IRequestHandler<CreateAirportCommand, Result<Repository.Entities.Airport>>
 {
     public Task<Result<Repository.Entities.Airport>> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
     {

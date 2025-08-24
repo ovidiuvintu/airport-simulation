@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RampController.Service", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{650EB17F-D67E-4A0C-8B51-C46E679BC435}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airport.Service", "Airport.Service\Airport.Service.csproj", "{C3D4FB81-AA32-91A0-FC64-B7676B66E8B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Service", "Airport.Service\AirportManagement.Service.csproj", "{C3D4FB81-AA32-91A0-FC64-B7676B66E8B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

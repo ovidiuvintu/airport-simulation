@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var airportApi = builder.AddProject<Projects.Airport_Service>("airport-service");
+var airportManagementApi = builder.AddProject<Projects.AirportManagement_Service>("airport-management-service");
 
 var rampControllerApi = builder.AddProject<Projects.RampController_Service>("ramp-controller-service");
 
@@ -15,8 +15,8 @@ builder.AddNpmApp("airport-simulation", "../airport-simulation-client")
     .WaitFor(groundMovementControllerApi)
     .WithReference(rampControllerApi)
     .WaitFor(rampControllerApi)
-    .WithReference(airportApi)
-    .WaitFor(airportApi)
+    .WithReference(airportManagementApi)
+    .WaitFor(airportManagementApi)
     .WithEnvironment("BROWSER", "none") // Disable opening browser on npm start
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
