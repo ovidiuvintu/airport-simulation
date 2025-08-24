@@ -10,7 +10,16 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
 
     public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
-        return await _dbSet.ToListAsync();
+        try
+        {
+            return await _dbSet.ToListAsync();
+        }
+        catch (Exception e) when(e is OperationCanceledException ||
+                                 e is ArgumentNullException)
+        {
+            Console.WriteLine($"Caught ex while getting all record: {e.Message}");
+            throw;
+        }
     }
 
     public async Task<TEntity?> GetByIdAsync(int id)
@@ -20,14 +29,34 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
 
     public async Task<int> AddAsync(TEntity entity)
     {
-        await _dbSet.AddAsync(entity);
-        return await context.SaveChangesAsync();
+        try
+        {
+            await _dbSet.AddAsync(entity);
+            return await context.SaveChangesAsync();
+        }
+        catch (Exception e) when (e is OperationCanceledException || 
+                                  e is DbUpdateException ||
+                                  e is DbUpdateConcurrencyException)
+        {
+            Console.WriteLine($"Caught ex while adding a record: {e.Message}");
+            throw;
+        }
     }
 
     public async Task Update(TEntity entity)
     {
-        _dbSet.Update(entity);
-        await context.SaveChangesAsync();
+        try
+        {
+            _dbSet.Update(entity);
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e) when (e is OperationCanceledException ||
+                                  e is DbUpdateException ||
+                                  e is DbUpdateConcurrencyException)
+        {
+            Console.WriteLine($"Caught ex while updating a record: {e.Message}");
+            throw;
+        }
     }
 
     public void Delete(TEntity entity)

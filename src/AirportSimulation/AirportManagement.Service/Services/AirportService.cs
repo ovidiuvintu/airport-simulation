@@ -12,16 +12,26 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         try
         {
             ValidateModel(model);
+            var items = await _repo.GetAllAsync();
+            if (items != null && items.Any(item=>item.AirportCode == model.AirportCode))
+            {
+                return new()
+                {
+                    Success = false,
+                    Error = "Item already exists",
+                    Data = model,
+                };
+            }
+
             var result = await _repo.AddAsync(model);
-            Result<Repository.Entities.Airport> res = new()
+            return new()
             {
                 Success = result != 0,
-                Error = string.Empty,
+                Error = result == 0 ? $"An error occurred while adding {model.Name} airport" : string.Empty,
                 Data = model               
             };
-            return res;
         }
-        catch (Exception)
+        catch
         {
             throw;
         }            
@@ -30,13 +40,13 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
     public async  Task<Result<Repository.Entities.Airport>> GetAirportByCodeAsync(string code, CancellationToken cancellationToken)
     {
         var result = await _repo.GetAllAsync();
-        Result<Repository.Entities.Airport> res = new()
+        var item = result.FirstOrDefault(c => c?.AirportCode == code);
+        return new()
         {
-            Success = result != null,
-            Error = string.Empty,
+            Success = item != null,
+            Error = item == null ? $"Airport with code {code} not found" : string.Empty,
             Data = result.FirstOrDefault(c=>c?.AirportCode == code)
         };
-        return res;
     }
 
     public async Task<Result<Repository.Entities.Airport>> GetAirportByNameAsync(string name, CancellationToken cancellationToken)
