@@ -1,5 +1,6 @@
 ﻿using AirportManagement.Service.Commands;
 using AirportManagement.Service.Queries;
+using AirportManagement.Service.Repository.Entities;
 using Infrastructure.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -92,25 +93,21 @@ public static class AirportApi
     {
         GetAllAirportsQuery query = new GetAllAirportsQuery();
         var response = await mediator.Send(query);
-        return response != null && response.Success ? TypedResults.Ok(GetDtos(response.Data))
+        return response != null && response.Success ? TypedResults.Ok(GetAirportDtos(response.Data))
                                                     : TypedResults.BadRequest($"{response.Error}");
     }
 
-    private static IEnumerable<AirportDTO> GetDtos(IEnumerable<Repository.Entities.Airport> entities)
+    private static IEnumerable<AirportDTO> GetAirportDtos(IEnumerable<Repository.Entities.Airport> entities)
     {
-        var airportDtos = new List<AirportDTO>();
-        foreach (var entity in entities)
-        {
-            airportDtos.Add(new AirportDTO(entity.Id.ToString(),
-                entity.Name,
-                entity.Description,
-                entity.AirportCode,
+        List<AirportDTO> targetData = entities.Select(s => new AirportDTO(s.Id.ToString(),
+                s.Name,
+                s.Description,
+                s.AirportCode,
                 null,
-                entity.Created,
-                entity.Updated));
-        }
+                s.Created,
+                s.Updated)).ToList();
 
-        return airportDtos;
+        return targetData;
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
