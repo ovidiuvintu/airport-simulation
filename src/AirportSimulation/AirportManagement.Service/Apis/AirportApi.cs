@@ -88,10 +88,29 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<IEnumerable<AirportManagement.Service.Repository.Entities.Airport>>> GetAirportsAsync()
+    private static async Task<IResult> GetAirportsAsync(IMediator mediator)
     {
-        await Task.CompletedTask;
-        return TypedResults.Ok<IEnumerable<AirportManagement.Service.Repository.Entities.Airport>>([]);
+        GetAllAirportsQuery query = new GetAllAirportsQuery();
+        var response = await mediator.Send(query);
+        return response != null && response.Success ? TypedResults.Ok(GetDtos(response.Data))
+                                                    : TypedResults.BadRequest($"{response.Error}");
+    }
+
+    private static IEnumerable<AirportDTO> GetDtos(IEnumerable<Repository.Entities.Airport> entities)
+    {
+        var airportDtos = new List<AirportDTO>();
+        foreach (var entity in entities)
+        {
+            airportDtos.Add(new AirportDTO(entity.Id.ToString(),
+                entity.Name,
+                entity.Description,
+                entity.AirportCode,
+                null,
+                entity.Created,
+                entity.Updated));
+        }
+
+        return airportDtos;
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
