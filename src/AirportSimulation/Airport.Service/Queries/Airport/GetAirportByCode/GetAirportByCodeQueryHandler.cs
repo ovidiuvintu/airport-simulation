@@ -1,12 +1,14 @@
-﻿using Infrastructure;
+﻿using Airport.Service.Services;
+using Infrastructure;
 using MediatR;
 
 namespace Airport.Service.Queries.Airport.GetAirportByCode;
 
-public class GetAirportByCodeQueryHandler : RequestHandler<GetAirportByCodeQuery, Result<Repository.Entities.Airport>>
+internal sealed class GetAirportByCodeQueryHandler(IAirportService airportService) 
+    : IRequestHandler<GetAirportByCodeQuery, Result<Repository.Entities.Airport>>
 {
-    protected override Result<Repository.Entities.Airport> Handle(GetAirportByCodeQuery request)
+    public async Task<Result<Repository.Entities.Airport>> Handle(GetAirportByCodeQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await airportService.GetAirportByCodeAsync(request.Code, cancellationToken);
     }
 }

@@ -27,6 +27,30 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         }            
     }
 
+    public async  Task<Result<Repository.Entities.Airport>> GetAirportByCodeAsync(string code, CancellationToken cancellationToken)
+    {
+        var result = await _repo.GetAllAsync();
+        Result<Repository.Entities.Airport> res = new()
+        {
+            Success = result != null,
+            Error = string.Empty,
+            Data = result.FirstOrDefault(c=>c.AirportCode == code)
+        };
+        return res;
+    }
+
+    public async Task<Result<Repository.Entities.Airport>> GetAirportByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        var result = await _repo.GetAllAsync();
+        Result<Repository.Entities.Airport> res = new()
+        {
+            Success = result != null,
+            Error = string.Empty,
+            Data = result.FirstOrDefault(c => c.Name == name)
+        };
+        return res;
+    }
+
     public void ValidateModel(Repository.Entities.Airport model)
     {
         ArgumentNullException.ThrowIfNull(model);

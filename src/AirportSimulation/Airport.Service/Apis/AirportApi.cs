@@ -124,17 +124,8 @@ public static class AirportApi
             }
         };
         var response = await mediator.Send(createAirportCommand);
-        if (response != null && response.Success)
-        {
-            if (response.Success)
-            {
-                return TypedResults.Created($"/api/airports/{response.Data.Id}");
-            }
-            else
-                return TypedResults.BadRequest($"{response.Error}");
-        }
-
-        return TypedResults.BadRequest($"Unexpected error ocurred");
+        return response is not null && response.Success ? TypedResults.Created($"/api/airports/{response.Data.Id}")
+                                                        : TypedResults.BadRequest($"{response.Error}");
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
