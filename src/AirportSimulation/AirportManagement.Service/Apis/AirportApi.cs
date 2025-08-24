@@ -3,6 +3,7 @@ using AirportManagement.Service.Queries;
 using AirportManagement.Service.Repository.Entities;
 using Infrastructure.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -98,6 +99,7 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     private static async Task<IResult> GetAirportByIataCodeAsync([FromRoute] string iatacode, IMediator mediator)
     {
         GetAirportByCodeQuery getAirportByIataCode = new GetAirportByCodeQuery
@@ -106,11 +108,17 @@ public static class AirportApi
         }; 
 
         var response = await mediator.Send(getAirportByIataCode);
-        return response is not null && response.Success ? TypedResults.Ok(response.Data)
-                                                        : TypedResults.BadRequest($"{response.Error}");
+        if (response is not null)
+        {
+            return response.Success ? TypedResults.Ok(response.Data) 
+                                    : TypedResults.NotFound(response.Error);
+        }
+
+        return TypedResults.BadRequest($"An error occurred while retrieving airport {iatacode} information");
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     private static async Task<IResult> GetAirportByNameAsync([FromRoute] string name, IMediator mediator)
     {
         GetAirportByNameQuery getAirportByNameCode = new GetAirportByNameQuery
@@ -119,8 +127,13 @@ public static class AirportApi
         };
 
         var response = await mediator.Send(getAirportByNameCode);
-        return response is not null && response.Success ? TypedResults.Ok(response.Data)
-                                                        : TypedResults.BadRequest($"{response.Error}");
+        if (response is not null)
+        {
+            return response.Success ? TypedResults.Ok(response.Data)
+                                    : TypedResults.NotFound(response.Error);
+        }
+
+        return TypedResults.BadRequest($"An error occurred while retrieving airport {name} information");
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
@@ -143,14 +156,19 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> UpdateAirportAsync([FromRoute] Guid airportId)
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
+    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, IMediator mediator)
     {
-        await Task.CompletedTask;
+        UpdateAirportCommand updateAirportCommand = new()
+        {
+
+        };
+        var response = await mediator.Send(updateAirportCommand);
         return TypedResults.Ok();
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> DeleteAirportAsync([FromRoute] Guid airportId)
+    private static async Task<IResult> DeleteAirportAsync([FromRoute] Guid airportId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();

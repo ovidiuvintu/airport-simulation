@@ -1,6 +1,5 @@
 ﻿using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace Infrastructure;
 
@@ -41,12 +40,12 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
         }
     }
 
-    public async Task Update(TEntity entity)
+    public async Task<int> Update(TEntity entity)
     {
         try
         {
             _dbSet.Update(entity);
-            await context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
         catch (Exception e) when (e is not OperationCanceledException)
         {

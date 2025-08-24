@@ -75,6 +75,43 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         return res;
     }
 
+    public async Task<Result<Repository.Entities.Airport>> UpdateAirportAsync(Repository.Entities.Airport airport, CancellationToken cancellationToken)
+    {
+        ValidateModel(airport);
+        var result = await _repo.GetAllAsync();
+        if (result != null)
+        {
+            if (result.Any())
+            {
+                var airportToUpdate = result.FirstOrDefault(airport => airport.Id == airport.Id);
+                if (airportToUpdate != null)
+                {
+                    var ret = await _repo.Update(airport);
+                    return new()
+                    {
+                        Success = ret != 0 ? true : false,
+                        Error = ret == 0 ? $"An error occured while updating airport details"
+                                         : string.Empty,
+                    };
+                }
+            }
+            else
+            {
+                return new()
+                {
+                    Success = false,
+                    Error = $"Airport {airport.Name} not found"
+                };
+            }
+        }
+
+        return new()
+        {
+            Success = false,
+            Error = ""
+        };
+    }
+
     public void ValidateModel(Repository.Entities.Airport model)
     {
         ArgumentNullException.ThrowIfNull(model);

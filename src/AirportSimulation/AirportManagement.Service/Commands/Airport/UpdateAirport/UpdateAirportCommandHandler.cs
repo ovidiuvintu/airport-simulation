@@ -1,12 +1,14 @@
-﻿using Infrastructure;
+﻿using AirportManagement.Service.Services;
+using Infrastructure;
 using MediatR;
 
 namespace AirportManagement.Service.Commands;
 
-public class UpdateAirportCommandHandler : RequestHandler<UpdateAirportCommand, Result>
+public class UpdateAirportCommandHandler(IAirportService airportService)
+    : IRequestHandler<UpdateAirportCommand, Result>
 {
-    protected override Result Handle(UpdateAirportCommand request)
+    public async Task<Result> Handle(UpdateAirportCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await airportService.UpdateAirportAsync(request.Airport, cancellationToken);
     }
 }
