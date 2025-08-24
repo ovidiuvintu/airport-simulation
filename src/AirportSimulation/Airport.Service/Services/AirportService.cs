@@ -3,23 +3,22 @@ using Infrastructure.Interfaces;
 
 namespace Airport.Service.Services;
 
-public class AirportService : IAirportService
+public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAirportService
 {
-    private readonly IRepository<Repository.Entities.Airport> _repo;
+    private readonly IRepository<Repository.Entities.Airport> _repo = repo;
 
-    public AirportService(IRepository<Repository.Entities.Airport> repo)
-    {
-        _repo = repo;
-    }
-
-    public async Task<Result> AddAirportAsync(Repository.Entities.Airport model)
+    public async Task<Result<Repository.Entities.Airport>> AddAirportAsync(Repository.Entities.Airport model)
     {
         try
         {
             ValidateModel(model);
             var result = await _repo.AddAsync(model);
-            Result res = new Result();
-            res.Success = result != 0;
+            Result<Repository.Entities.Airport> res = new()
+            {
+                Success = result != 0,
+                Error = string.Empty,
+                Data = model               
+            };
             return res;
         }
         catch (Exception)
@@ -30,10 +29,7 @@ public class AirportService : IAirportService
 
     public void ValidateModel(Repository.Entities.Airport model)
     {
-        if (model == null)
-        {
-            throw new ArgumentNullException(nameof(model));
-        }
+        ArgumentNullException.ThrowIfNull(model);
 
         if (string.IsNullOrEmpty(model.AirportCode))
         {

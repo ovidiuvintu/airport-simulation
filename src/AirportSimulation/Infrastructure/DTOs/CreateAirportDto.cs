@@ -2,10 +2,10 @@
 
 namespace Infrastructure.DTOs;
 
-//dtos are transfer object between different layers or different microservices. Records are ideal
-public sealed record TerminalDto(
-    string Id,
+public sealed record CreateAirportDTO(
     [Required][StringLength(255, MinimumLength = 5)] string Name,
-    [Required] Guid AirportId,
+    [StringLength(255)] string? Description,
+    [Required][StringLength(5, MinimumLength = 3)] string AirportCode,
+    [Required] IEnumerable<TerminalDto> Terminals,
     [Required] DateTime DateCreated,
     [Required] DateTime DateUpdated);

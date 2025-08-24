@@ -1,7 +1,6 @@
-﻿using Infrastructure.DTOs;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Service.DTOs;
+namespace Infrastructure.DTOs;
 
 public class ConcourseDto : BaseDto
 {

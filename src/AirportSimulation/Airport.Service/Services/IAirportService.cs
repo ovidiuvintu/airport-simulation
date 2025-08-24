@@ -4,6 +4,6 @@ namespace Airport.Service.Services
 {
     public interface IAirportService
     {
-        Task<Result> AddAirportAsync(Repository.Entities.Airport model);
+        Task<Result<Repository.Entities.Airport>> AddAirportAsync(Repository.Entities.Airport model);
     }
 }

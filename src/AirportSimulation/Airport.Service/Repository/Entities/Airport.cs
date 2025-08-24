@@ -15,7 +15,6 @@ public class Airport : BaseEntity
     [StringLength(5, MinimumLength = 3)]
     public string AirportCode { get; set; }
 
-    [Required]
-    public IList<Terminal> Terminals { get; }
+    public IEnumerable<Terminal> Terminals { get; }
 
 }

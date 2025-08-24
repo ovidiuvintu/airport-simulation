@@ -111,7 +111,7 @@ public static class AirportApi
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    private static async Task<IResult> AddAirportAsync([FromBody] AirportDTO airport,
+    private static async Task<IResult> AddAirportAsync([FromBody] CreateAirportDTO airport,
         IMediator mediator)
     {
         CreateAirportCommand createAirportCommand = new()
@@ -125,7 +125,9 @@ public static class AirportApi
         if (response != null && response.Success)
         {
             if (response.Success)
-                return TypedResults.Created($"/api/airports/{airport.Id}");
+            {
+                return TypedResults.Created($"/api/airports/{response.Data.Id}");
+            }
             else
                 return TypedResults.BadRequest($"{response.Error}");
         }
