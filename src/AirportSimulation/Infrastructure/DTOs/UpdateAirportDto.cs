@@ -6,6 +6,4 @@ public sealed record UpdateAirportDto(
     [Required][StringLength(255, MinimumLength = 5)] string Name,
     [StringLength(255)] string? Description,
     [Required][StringLength(5, MinimumLength = 3)] string AirportCode,
-    [Required] IEnumerable<TerminalDto> Terminals,
-    [Required] DateTime DateCreated,
-    [Required] DateTime DateUpdated);
+    [Required] IEnumerable<TerminalDto> Terminals);
