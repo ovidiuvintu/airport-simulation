@@ -1,5 +1,6 @@
 ﻿
 using Airport.Service.Commands.Airport.CreateAirport;
+using Airport.Service.Queries.Airport.GetAirportByCode;
 using Airport.Service.Repository.Entities;
 using Infrastructure.DTOs;
 using MediatR;
@@ -96,17 +97,29 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<Repository.Entities.Airport>> GetAirportByIataCodeAsync([FromRoute] string iatacode)
+    private static async Task<IResult> GetAirportByIataCodeAsync([FromRoute] string iatacode, IMediator mediator)
     {
-        await Task.CompletedTask;
-        return TypedResults.Ok(new Repository.Entities.Airport());
+        GetAirportByCodeQuery getAirportByIataCode = new GetAirportByCodeQuery
+        {
+             Code = iatacode,
+        }; 
+
+        var response = await mediator.Send(getAirportByIataCode);
+        return response is not null && response.Success ? TypedResults.Ok(response.Data)
+                                                        : TypedResults.BadRequest($"{response.Error}");
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<Repository.Entities.Airport>> GetAirportByNameAsync([FromRoute] string name)
+    private static async Task<IResult> GetAirportByNameAsync([FromRoute] string name, IMediator mediator)
     {
-        await Task.CompletedTask;
-        return TypedResults.Ok(new Repository.Entities.Airport());
+        GetAirportByNameQuery getAirportByNameCode = new GetAirportByNameQuery
+        {
+            Name = name,
+        };
+
+        var response = await mediator.Send(getAirportByNameCode);
+        return response is not null && response.Success ? TypedResults.Ok(response.Data)
+                                                        : TypedResults.BadRequest($"{response.Error}");
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
