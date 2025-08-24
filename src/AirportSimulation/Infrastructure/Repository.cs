@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Infrastructure;
 
@@ -14,8 +15,7 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
         {
             return await _dbSet.ToListAsync();
         }
-        catch (Exception e) when(e is OperationCanceledException ||
-                                 e is ArgumentNullException)
+        catch (Exception e) when(e is not OperationCanceledException)
         {
             Console.WriteLine($"Caught ex while getting all record: {e.Message}");
             throw;
@@ -34,9 +34,7 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
             await _dbSet.AddAsync(entity);
             return await context.SaveChangesAsync();
         }
-        catch (Exception e) when (e is OperationCanceledException || 
-                                  e is DbUpdateException ||
-                                  e is DbUpdateConcurrencyException)
+        catch (Exception e) when (e is not OperationCanceledException)
         {
             Console.WriteLine($"Caught ex while adding a record: {e.Message}");
             throw;
@@ -50,17 +48,24 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
             _dbSet.Update(entity);
             await context.SaveChangesAsync();
         }
-        catch (Exception e) when (e is OperationCanceledException ||
-                                  e is DbUpdateException ||
-                                  e is DbUpdateConcurrencyException)
+        catch (Exception e) when (e is not OperationCanceledException)
         {
             Console.WriteLine($"Caught ex while updating a record: {e.Message}");
             throw;
         }
     }
 
-    public void Delete(TEntity entity)
+    public async Task DeleteAsync(TEntity entity)
     {
-        _dbSet.Remove(entity);
+        try
+        {
+            _dbSet.Remove(entity);
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e) when (e is not OperationCanceledException)
+        {
+            Console.WriteLine($"Caught ex while updating a record: {e.Message}");
+            throw;
+        }
     }
 }
