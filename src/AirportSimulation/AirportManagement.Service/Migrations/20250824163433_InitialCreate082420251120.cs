@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AirportManagement.Service.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreate082420251120 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,9 @@ namespace AirportManagement.Service.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
-                    AirportCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false)
+                    AirportCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Updated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +35,9 @@ namespace AirportManagement.Service.Migrations
                     ConcourseId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
                     GateType = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsInternational = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsInternational = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Updated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,7 +52,9 @@ namespace AirportManagement.Service.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     MagneticHeading = table.Column<int>(type: "INTEGER", nullable: true),
                     IsParallel = table.Column<bool>(type: "INTEGER", nullable: true),
-                    Position = table.Column<int>(type: "INTEGER", nullable: true)
+                    Position = table.Column<int>(type: "INTEGER", nullable: true),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Updated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +66,9 @@ namespace AirportManagement.Service.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Updated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +81,9 @@ namespace AirportManagement.Service.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     AirportId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Updated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

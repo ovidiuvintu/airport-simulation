@@ -28,6 +28,9 @@ namespace AirportManagement.Service.Migrations
                         .HasMaxLength(3)
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
@@ -35,6 +38,9 @@ namespace AirportManagement.Service.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -51,6 +57,9 @@ namespace AirportManagement.Service.Migrations
                     b.Property<Guid>("ConcourseId")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("GateType")
                         .HasColumnType("INTEGER");
 
@@ -62,6 +71,9 @@ namespace AirportManagement.Service.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Gate", (string)null);
@@ -71,6 +83,9 @@ namespace AirportManagement.Service.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("IsParallel")
@@ -86,6 +101,9 @@ namespace AirportManagement.Service.Migrations
                     b.Property<int?>("Position")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Runway", (string)null);
@@ -97,7 +115,13 @@ namespace AirportManagement.Service.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -114,9 +138,15 @@ namespace AirportManagement.Service.Migrations
                     b.Property<Guid>("AirportId")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

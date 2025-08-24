@@ -16,6 +16,6 @@ public class Airport : BaseEntity
     public string AirportCode { get; set; }
 
     [Required]
-    public IEnumerable<Terminal> Terminals { get; }
+    public IEnumerable<Terminal> Terminals { get; set; }
 
 }

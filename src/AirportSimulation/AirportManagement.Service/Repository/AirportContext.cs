@@ -25,4 +25,32 @@ public class AirportContext(DbContextOptions<AirportContext> options) : DbContex
         builder.ApplyConfiguration(new TaxiwayConfiguration());
         builder.ApplyConfiguration(new RunwayConfiguration());
     }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        foreach (var entry in ChangeTracker.Entries())
+        {
+            if (entry.Entity is Entities.Airport entityWithTimestamps)
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entityWithTimestamps.Created = DateTime.UtcNow;
+                        entityWithTimestamps.Updated = DateTime.UtcNow;
+                        break;
+                    case EntityState.Modified:
+                        entityWithTimestamps.Updated = DateTime.UtcNow;
+                        break;
+                }
+            }
+        }
+
+        // Call the base implementation to actually save the changes
+        var result = await base.SaveChangesAsync(cancellationToken);
+
+        // Add your custom logic here after saving
+        // For example, publishing domain events
+
+        return result;
+    }
 }

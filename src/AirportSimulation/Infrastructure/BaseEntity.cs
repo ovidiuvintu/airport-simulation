@@ -11,7 +11,7 @@ public class BaseEntity : IEntity
 
     public Guid Id { get; }
 
-    public DateTime Created { get; }
+    public DateTime Created { get; set; }
 
-    public DateTime Updated { get; }
+    public DateTime Updated { get; set; }
 }
