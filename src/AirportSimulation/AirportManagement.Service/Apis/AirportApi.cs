@@ -46,7 +46,7 @@ public static class AirportApi
            .WithTags("Airports");
 
         v1.MapPut("/airports/{airportId:Guid}", UpdateAirportAsync)
-           .WithName("UpdateAirportByName")
+           .WithName("UpdateAirportById")
            .WithSummary("Update airport details")
            .WithDisplayName("UpdateAirport")
            .WithDescription("Update airport details")
@@ -157,11 +157,11 @@ public static class AirportApi
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, IMediator mediator)
+    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid id, [FromBody] UpdateAirportDto airport, IMediator mediator)
     {
         UpdateAirportCommand updateAirportCommand = new()
         {
-
+             //Airport = airport
         };
         var response = await mediator.Send(updateAirportCommand);
         return TypedResults.Ok();
