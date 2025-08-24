@@ -10,5 +10,5 @@ public class Terminal : BaseEntity
     [Required]
     public Airport Airport { get; set; }
     [Required]
-    public required string Name { get; set; }
+    public string Name { get; set; }
 }

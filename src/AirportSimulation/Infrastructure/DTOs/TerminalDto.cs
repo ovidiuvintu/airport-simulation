@@ -6,6 +6,6 @@ namespace Infrastructure.DTOs;
 public sealed record TerminalDto(
     string Id,
     [Required][StringLength(255, MinimumLength = 5)] string Name,
-    [Required] Guid AirportId,
+    [Required][StringLength(4, MinimumLength = 1)] string AirportId,
     [Required] DateTime DateCreated,
     [Required] DateTime DateUpdated);

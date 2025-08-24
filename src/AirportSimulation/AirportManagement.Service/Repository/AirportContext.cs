@@ -10,7 +10,6 @@ public class AirportContext(DbContextOptions<AirportContext> options) : DbContex
 {
     public DbSet<Entities.Airport> Airports { get; set; }
     public DbSet<Entities.Terminal> Terminals { get; set; }
-    public DbSet<Entities.Concourse> Concourses { get; set; }
     public DbSet<Entities.Gate> Gates { get; set; }
     public DbSet<Entities.Taxiway> Taxyways { get; set; }
     public DbSet<Entities.Runway> Runways { get; set; }
@@ -22,7 +21,6 @@ public class AirportContext(DbContextOptions<AirportContext> options) : DbContex
 
         builder.ApplyConfiguration(new AirportConfiguration());
         builder.ApplyConfiguration(new TerminalConfiguration());
-        builder.ApplyConfiguration(new ConcourseConfiguration());
         builder.ApplyConfiguration(new GateConfiguration());
         builder.ApplyConfiguration(new TaxiwayConfiguration());
         builder.ApplyConfiguration(new RunwayConfiguration());
