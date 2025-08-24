@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirportManagement.Service.Migrations
 {
     [DbContext(typeof(AirportContext))]
-    [Migration("20250824163433_InitialCreate082420251120")]
+    [Migration("20250824165450_InitialCreate082420251120")]
     partial class InitialCreate082420251120
     {
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.DTOs;
 
@@ -7,5 +8,5 @@ public sealed record TerminalDto(
     string Id,
     [Required][StringLength(255, MinimumLength = 5)] string Name,
     [Required][StringLength(4, MinimumLength = 1)] string AirportId,
-    [Required] DateTime DateCreated,
-    [Required] DateTime DateUpdated);
+    [ReadOnly(true)] DateTime DateCreated,
+    [ReadOnly(true)] DateTime DateUpdated);

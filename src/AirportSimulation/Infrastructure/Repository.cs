@@ -24,9 +24,10 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
         return await context.SaveChangesAsync();
     }
 
-    public void Update(TEntity entity)
+    public async Task Update(TEntity entity)
     {
         _dbSet.Update(entity);
+        await context.SaveChangesAsync();
     }
 
     public void Delete(TEntity entity)
