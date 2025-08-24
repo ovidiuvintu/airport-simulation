@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using MediatR;
 
-namespace Airport.Service.Commands.Airport.DeleteAirport;
+namespace AirportManagement.Service.Commands;
 
 public class DeleteAirportCommand : IRequest<Result>
 {

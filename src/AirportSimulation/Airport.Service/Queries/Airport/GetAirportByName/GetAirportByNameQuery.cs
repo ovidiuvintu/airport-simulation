@@ -1,9 +1,10 @@
 ﻿using Infrastructure;
 using MediatR;
 
-namespace Airport.Service.Queries.Airport.GetAirportByCode;
+namespace AirportManagement.Service.Queries;
 
-public class GetAirportByNameQuery : IRequest<Result<Repository.Entities.Airport>>
+public class GetAirportByNameQuery : IRequest<Result<AirportManagement.Service.Repository.Entities.Airport>>
 {
     public string Name { get; set; }
 }
+

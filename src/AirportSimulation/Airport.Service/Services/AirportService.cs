@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using Infrastructure.Interfaces;
 
-namespace Airport.Service.Services;
+namespace AirportManagement.Service.Services;
 
 public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAirportService
 {
@@ -52,7 +52,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         return res;
     }
 
-    public async Task<Result<IEnumerable<Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<AirportManagement.Service.Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken)
     {
         var result = await _repo.GetAllAsync();
         Result<IEnumerable<Repository.Entities.Airport>> res = new()

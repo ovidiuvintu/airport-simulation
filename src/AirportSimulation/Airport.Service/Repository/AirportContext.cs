@@ -4,7 +4,7 @@ using Airport.Service.Repository.Config;
 //dotnet ef migrations add InitialCreate
 //To undo this action, use 'ef migrations remove'
 //dotnet ef database update
-namespace Airport.Service.Repository;
+namespace AirportManagement.Service.Repository;
 
 public class AirportContext(DbContextOptions<AirportContext> options) : DbContext(options)
 {

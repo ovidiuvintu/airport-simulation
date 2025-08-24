@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Airport.Service.Queries.Airport.GetAirportByCode;
+namespace AirportManagement.Service.Queries;
 
 public class GetairportByCodeQueryValidator : AbstractValidator<GetAirportByCodeQuery>
 {

@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using MediatR;
 
-namespace Airport.Service.Commands.Airport.UpdateAirport;
+namespace AirportManagement.Service.Commands;
 
 public class UpdateAirportCommandHandler : RequestHandler<UpdateAirportCommand, Result>
 {

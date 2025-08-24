@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
-namespace Airport.Service.Queries.Airport.GetAirportByCode;
+namespace AirportManagement.Service.Queries;
 
 public class GetairportByNameQueryValidator : AbstractValidator<GetAirportByNameQuery>
 {
     public GetairportByNameQueryValidator()
     {
         RuleFor(airport => airport.Name).NotNull().NotEmpty();
-        RuleFor(airport => airport.Name).MinimumLength(1).MaximumLength(80).NotEmpty();
+        RuleFor(airport => airport.Name).Length(3);
     }
 }

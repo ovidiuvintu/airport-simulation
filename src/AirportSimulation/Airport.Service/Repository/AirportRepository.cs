@@ -1,8 +1,8 @@
 ﻿using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Airport.Service.Repository;
+namespace AirportManagement.Service.Repository;
 
-public class AirportRepository(DbContext dbContext) : Repository<Repository.Entities.Airport>(dbContext)
+public class AirportRepository(DbContext dbContext) : Repository<AirportManagement.Service.Repository.Entities.Airport>(dbContext)
 {
 }

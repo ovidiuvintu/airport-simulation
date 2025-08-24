@@ -1,6 +1,6 @@
 ﻿using Infrastructure;
 
-namespace Airport.Service.Repository.Entities;
+namespace AirportManagement.Service.Repository.Entities;
 
 public class Taxiway : BaseEntity
 {

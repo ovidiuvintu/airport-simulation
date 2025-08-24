@@ -1,11 +1,11 @@
 ﻿using Infrastructure;
 
-namespace Airport.Service.Services;
+namespace AirportManagement.Service.Services;
 
 public interface IAirportService
 {
-    Task<Result<Repository.Entities.Airport>> AddAirportAsync(Repository.Entities.Airport model);
-    Task<Result<Repository.Entities.Airport>> GetAirportByCodeAsync(string code, CancellationToken cancellationToken);
-    Task<Result<Repository.Entities.Airport>> GetAirportByNameAsync(string name, CancellationToken cancellationToken);
-    Task<Result<IEnumerable<Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken);
+    Task<Result<AirportManagement.Service.Repository.Entities.Airport>> AddAirportAsync(AirportManagement.Service.Repository.Entities.Airport model);
+    Task<Result<AirportManagement.Service.Repository.Entities.Airport>> GetAirportByCodeAsync(string code, CancellationToken cancellationToken);
+    Task<Result<AirportManagement.Service.Repository.Entities.Airport>> GetAirportByNameAsync(string name, CancellationToken cancellationToken);
+    Task<Result<IEnumerable<AirportManagement.Service.Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken);
 }

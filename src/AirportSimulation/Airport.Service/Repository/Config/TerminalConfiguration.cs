@@ -4,9 +4,9 @@ using System.Reflection.Emit;
 
 namespace Airport.Service.Repository.Config;
 
-internal sealed class TerminalConfiguration : IEntityTypeConfiguration<Entities.Terminal>
+internal sealed class TerminalConfiguration : IEntityTypeConfiguration<AirportManagement.Service.Repository.Entities.Terminal>
 {
-    public void Configure(EntityTypeBuilder<Entities.Terminal> builder)
+    public void Configure(EntityTypeBuilder<AirportManagement.Service.Repository.Entities.Terminal> builder)
     {
         builder.HasKey(c => c.Id);// Set the primary key
         builder.Property(x => x.Id).ValueGeneratedOnAdd();

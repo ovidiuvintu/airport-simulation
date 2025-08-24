@@ -1,7 +1,7 @@
 ﻿using Infrastructure;
 using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Service.Repository.Entities;
+namespace AirportManagement.Service.Repository.Entities;
 
 public class Airport : BaseEntity
 {

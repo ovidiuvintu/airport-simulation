@@ -1,6 +1,6 @@
 ﻿using Infrastructure.DTOs;
 
-namespace Airport.Service.Repository.Entities;
+namespace AirportManagement.Service.Repository.Entities;
 
 public static class EntityExtensions
 {

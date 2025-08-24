@@ -1,13 +1,13 @@
-﻿using Airport.Service.Services;
+﻿using AirportManagement.Service.Services;
 using Infrastructure;
 using MediatR;
 
-namespace Airport.Service.Commands.Airport.CreateAirport;
+namespace AirportManagement.Service.Commands;
 
 internal sealed class CreateAirportCommandHandler(IAirportService airportService) 
-    : IRequestHandler<CreateAirportCommand, Result<Repository.Entities.Airport>>
+    : IRequestHandler<CreateAirportCommand, Result<AirportManagement.Service.Repository.Entities.Airport>>
 {
-    public Task<Result<Repository.Entities.Airport>> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
+    public Task<Result<AirportManagement.Service.Repository.Entities.Airport>> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
     {
         return airportService.AddAirportAsync(request.Airport);
     }

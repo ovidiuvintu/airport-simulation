@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Airport.Service.Commands.Airport.DeleteAirport;
+namespace AirportManagement.Service.Commands;
 
 public sealed class DeleteAirportCommandValidator : AbstractValidator<DeleteAirportCommand>
 {

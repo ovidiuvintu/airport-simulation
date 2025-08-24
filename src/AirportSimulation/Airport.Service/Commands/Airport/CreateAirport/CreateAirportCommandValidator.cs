@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Airport.Service.Commands.Airport.CreateAirport;
+namespace AirportManagement.Service.Commands;
 
 public sealed class CreateAirportCommandValidator : AbstractValidator<CreateAirportCommand>
 {

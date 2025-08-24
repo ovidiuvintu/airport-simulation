@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Airport.Service.Repository.Config;
 
-internal sealed class AirportConfiguration : IEntityTypeConfiguration<Entities.Airport>
+internal sealed class AirportConfiguration : IEntityTypeConfiguration<AirportManagement.Service.Repository.Entities.Airport>
 {
-    public void Configure(EntityTypeBuilder<Entities.Airport> builder)
+    public void Configure(EntityTypeBuilder<AirportManagement.Service.Repository.Entities.Airport> builder)
     {
         builder.HasKey(c => c.Id); // Set the primary key
         builder.Property(x => x.Id).ValueGeneratedOnAdd();

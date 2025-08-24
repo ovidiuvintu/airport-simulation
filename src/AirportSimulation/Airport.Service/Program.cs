@@ -1,7 +1,6 @@
-using Airport.Service.Apis;
-using Airport.Service.Commands.Airport.CreateAirport;
-using Airport.Service.Repository;
-using Airport.Service.Services;
+using AirportManagement.Service.Apis;
+using AirportManagement.Service.Repository;
+using AirportManagement.Service.Services;
 using AirportSimulation.ServiceDefaults;
 using Infrastructure;
 using Infrastructure.Interfaces;

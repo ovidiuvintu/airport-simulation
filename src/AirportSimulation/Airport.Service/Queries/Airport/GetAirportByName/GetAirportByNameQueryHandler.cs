@@ -1,15 +1,14 @@
-﻿using Airport.Service.Queries.Airport.GetAirportByCode;
-using Airport.Service.Services;
+﻿using AirportManagement.Service.Services;
 using Infrastructure;
 using MediatR;
 
-namespace Airport.Service.Queries.Airport.GetAirportByName;
+namespace AirportManagement.Service.Queries;
 
 internal sealed class GetAirportByNameQueryHandler(IAirportService airportService)
-        : IRequestHandler<GetAirportByNameQuery, Result<Repository.Entities.Airport>>
+    : IRequestHandler<GetAirportByNameQuery, Result<AirportManagement.Service.Repository.Entities.Airport>>
 {
-    public async Task<Result<Repository.Entities.Airport>> Handle(GetAirportByNameQuery request, CancellationToken cancellationToken)
+    public async Task<Result<AirportManagement.Service.Repository.Entities.Airport>> Handle(GetAirportByNameQuery request, CancellationToken cancellationToken)
     {
-        return await airportService.GetAirportByNameAsync(request.Name, cancellationToken);
+        return await airportService.GetAirportByCodeAsync(request.Name, cancellationToken);
     }
 }
