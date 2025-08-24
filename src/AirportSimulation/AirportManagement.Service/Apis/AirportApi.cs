@@ -93,21 +93,8 @@ public static class AirportApi
     {
         GetAllAirportsQuery query = new GetAllAirportsQuery();
         var response = await mediator.Send(query);
-        return response != null && response.Success ? TypedResults.Ok(GetAirportDtos(response.Data))
+        return response != null && response.Success ? TypedResults.Ok(response.Data.Select(s => s.AsAirportDto()))
                                                     : TypedResults.BadRequest($"{response.Error}");
-    }
-
-    private static IEnumerable<AirportDTO> GetAirportDtos(IEnumerable<Repository.Entities.Airport> entities)
-    {
-        List<AirportDTO> targetData = entities.Select(s => new AirportDTO(s.Id.ToString(),
-                s.Name,
-                s.Description,
-                s.AirportCode,
-                null,
-                s.Created,
-                s.Updated)).ToList();
-
-        return targetData;
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]

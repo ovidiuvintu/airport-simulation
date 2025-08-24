@@ -10,7 +10,8 @@ public static class EntityExtensions
             airportEntity.Name,
             airportEntity.Description,
             airportEntity.AirportCode,
-            GetTerminalDTOs(airportEntity.Terminals),
+            airportEntity.Terminals == null ? new List<TerminalDto>() 
+                                            : GetTerminalDTOs(airportEntity.Terminals),
             airportEntity.Created, airportEntity.Updated);
     }
 
@@ -22,11 +23,6 @@ public static class EntityExtensions
             Description = airportDto.Description,
             AirportCode = airportDto.AirportCode
         };
-    }
-
-    private static object GetTerminalEntities(IEnumerable<TerminalDto> terminals)
-    {
-        throw new NotImplementedException();
     }
 
     private static IEnumerable<TerminalDto> GetTerminalDTOs(IEnumerable<Terminal> terminals)
