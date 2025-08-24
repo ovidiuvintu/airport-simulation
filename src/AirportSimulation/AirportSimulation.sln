@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportSimulation.AppHost",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportSimulation.ServiceDefaults", "AirportSimulation.ServiceDefaults\AirportSimulation.ServiceDefaults.csproj", "{D5DF1E43-2442-7055-A5E3-E7C53B757BB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{650EB17F-D67E-4A0C-8B51-C46E679BC435}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Service", "AirportManagement.Service\AirportManagement.Service.csproj", "{9B3099A4-D620-3167-ACBD-B84F704C11B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroundMovementController.Service", "GroundMovementController.Service\GroundMovementController.Service.csproj", "{7B54D638-C2A9-715A-C7DC-60DC1AC52ED8}"
@@ -18,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RampController.Service", "RampController.Service\RampController.Service.csproj", "{91D76671-6529-943B-FF41-96C30ABD7B81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficControlTower.Service", "TrafficControlTower.Service\TrafficControlTower.Service.csproj", "{A45B119F-00D0-EC9B-5260-8A40ECD6B890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{D5DF1E43-2442-7055-A5E3-E7C53B757BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5DF1E43-2442-7055-A5E3-E7C53B757BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5DF1E43-2442-7055-A5E3-E7C53B757BB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{650EB17F-D67E-4A0C-8B51-C46E679BC435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{650EB17F-D67E-4A0C-8B51-C46E679BC435}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{650EB17F-D67E-4A0C-8B51-C46E679BC435}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{650EB17F-D67E-4A0C-8B51-C46E679BC435}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B3099A4-D620-3167-ACBD-B84F704C11B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B3099A4-D620-3167-ACBD-B84F704C11B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B3099A4-D620-3167-ACBD-B84F704C11B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,16 +49,20 @@ Global
 		{A45B119F-00D0-EC9B-5260-8A40ECD6B890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A45B119F-00D0-EC9B-5260-8A40ECD6B890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A45B119F-00D0-EC9B-5260-8A40ECD6B890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{650EB17F-D67E-4A0C-8B51-C46E679BC435} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9B3099A4-D620-3167-ACBD-B84F704C11B0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{7B54D638-C2A9-715A-C7DC-60DC1AC52ED8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{91D76671-6529-943B-FF41-96C30ABD7B81} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{A45B119F-00D0-EC9B-5260-8A40ECD6B890} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{5872AEB3-BAA3-FE31-B0EB-0FB6DBEDCF83} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A693BB17-F28B-42DC-B968-C8F92C2CB079}
