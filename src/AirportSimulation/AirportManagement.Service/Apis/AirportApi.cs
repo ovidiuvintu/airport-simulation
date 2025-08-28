@@ -157,12 +157,18 @@ public static class AirportApi
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid id, [FromBody] UpdateAirportDto airport, IMediator mediator)
+    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, [FromBody] UpdateAirportDto airport, IMediator mediator)
     {
         UpdateAirportCommand updateAirportCommand = new()
         {
-             //Airport = airport
+              Airport = new Repository.Entities.Airport
+              {
+                   AirportCode = airport.AirportCode,
+                   Name = airport.Name,
+                   Description = airport.Description,
+              }
         };
+
         var response = await mediator.Send(updateAirportCommand);
         return TypedResults.Ok();
     }

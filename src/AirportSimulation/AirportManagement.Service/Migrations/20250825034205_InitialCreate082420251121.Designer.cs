@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirportManagement.Service.Migrations
 {
     [DbContext(typeof(AirportContext))]
-    [Migration("20250824165450_InitialCreate082420251120")]
-    partial class InitialCreate082420251120
+    [Migration("20250825034205_InitialCreate082420251121")]
+    partial class InitialCreate082420251121
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,11 @@ namespace AirportManagement.Service.Migrations
                         .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");

@@ -33,7 +33,9 @@ public static class EntityExtensions
         {
             Name = airportDto.Name,
             Description = airportDto.Description,
-            AirportCode = airportDto.AirportCode
+            AirportCode = airportDto.AirportCode,
+            Created = airportDto.DateCreated,
+            Updated = airportDto.DateUpdated,
         };
     }
 

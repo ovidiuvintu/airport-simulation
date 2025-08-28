@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AirportManagement.Service.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate082420251120 : Migration
+    public partial class InitialCreate082420251121 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,33 @@ namespace AirportManagement.Service.Migrations
                 {
                     table.PrimaryKey("PK_Airport", x => x.Id);
                 });
+
+            migrationBuilder.AddColumn<byte[]>(
+                name: "Timestamp",
+                table: "Airport",
+                rowVersion: true,
+                nullable: true);
+
+            migrationBuilder.Sql(
+                @"
+                    CREATE TRIGGER SetContactTimestampOnUpdate
+                    AFTER UPDATE ON Contacts
+                    BEGIN
+                        UPDATE Contacts
+                        SET Timestamp = randomblob(8)
+                        WHERE rowid = NEW.rowid;
+                    END
+                ");
+                        migrationBuilder.Sql(
+                            @"
+                    CREATE TRIGGER SetContactTimestampOnInsert
+                    AFTER INSERT ON Contacts
+                    BEGIN
+                        UPDATE Contacts
+                        SET Timestamp = randomblob(8)
+                        WHERE rowid = NEW.rowid;
+                    END
+            ");
 
             migrationBuilder.CreateTable(
                 name: "Gate",

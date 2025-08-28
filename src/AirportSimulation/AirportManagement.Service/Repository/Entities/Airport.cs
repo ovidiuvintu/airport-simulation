@@ -18,4 +18,6 @@ public class Airport : BaseEntity
     [Required]
     public IEnumerable<Terminal> Terminals { get; set; }
 
+    [Timestamp]
+    public byte[] Timestamp { get; set; }
 }

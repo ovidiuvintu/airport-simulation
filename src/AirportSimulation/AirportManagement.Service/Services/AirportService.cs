@@ -27,7 +27,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
             return new()
             {
                 Success = result != 0,
-                Error = result == 0 ? $"An error occurred while adding {model.Name} airport" : string.Empty,
+                Error = result == 0 ? $"An error occurred while adding {model.Name} model" : string.Empty,
                 Data = model               
             };
         }
@@ -75,9 +75,9 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         return res;
     }
 
-    public async Task<Result<Repository.Entities.Airport>> UpdateAirportAsync(Repository.Entities.Airport airport, CancellationToken cancellationToken)
+    public async Task<Result<Repository.Entities.Airport>> UpdateAirportAsync(Repository.Entities.Airport model, CancellationToken cancellationToken)
     {
-        ValidateModel(airport);
+        ValidateModel(model);
         var result = await _repo.GetAllAsync();
         if (result != null)
         {
@@ -86,12 +86,11 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
                 var airportToUpdate = result.FirstOrDefault(airport => airport.Id == airport.Id);
                 if (airportToUpdate != null)
                 {
-                    var ret = await _repo.Update(airport);
+                    await _repo.Update(model);
                     return new()
                     {
-                        Success = ret != 0 ? true : false,
-                        Error = ret == 0 ? $"An error occured while updating airport details"
-                                         : string.Empty,
+                        Success = true,
+                        Error = string.Empty
                     };
                 }
             }
@@ -100,7 +99,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
                 return new()
                 {
                     Success = false,
-                    Error = $"Airport {airport.Name} not found"
+                    Error = $"Airport {model.Name} not found"
                 };
             }
         }

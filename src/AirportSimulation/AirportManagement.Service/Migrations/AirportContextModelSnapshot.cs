@@ -40,6 +40,11 @@ namespace AirportManagement.Service.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
                     b.Property<DateTime>("Updated")
                         .HasColumnType("TEXT");
 
