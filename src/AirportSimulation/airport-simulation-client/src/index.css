@@ -5,104 +5,94 @@ body,
 #root,
 .app,
 .content {
-  height: 100%;
-  width: 100%;
-  font-family: "Source Sans Pro", sans-serif;
+    height: 100%;
+    width: 100%;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 .app {
-  display: flex;
-  position: relative;
+    display: flex;
+    position: relative;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+    background: #e0e0e0;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+    background: #888;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    background: #1F2A40;
 }
 
-section
-{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 75vh;
-  background: #1F2A40;
+section .runway {
+    position: relative;
+    width: 300px;
+    height: 75vh;
+    background: #3e4396;
+    border-left: 20px solid rgba(0,0,0,0.25);
+    border-right: 20px solid rgba(0,0,0,0.25);
+    transition: transform 1s;
 }
 
-section .runway
-{
-  margin-left: 800px;
-  position: relative;
-  width: 300px;
-  height: 75vh;
-  background:  #3e4396;
-  border-left: 20px solid rgba(0,0,0,0.25);
-  border-right: 20px solid rgba(0,0,0,0.25);
-  transition: transform 1s;
-}
-section:active
-{
-  transform: scaleX(0.7);
-}
-section .runway::before
-{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15px;
-  height: 100%;
-  background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
-  background-size: 20px 320px;
-  animation: animateRunway 0.5s linear infinite;
+section:active {
+    transform: scaleX(0.7);
 }
 
-section:active .runway::before
-{
-  animation: animateRunway 0.25s linear infinite;
+section .runway::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 100%;
+    background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
+    background-size: 20px 320px;
+    animation: animateRunway 0.5s linear infinite;
 }
 
-@keyframes animateRunway
-{
-  0%
-  {
-    background-position-y: 0px;
-  }
-  100%
-  {
-    background-position-y: 640px;
-  }
-  
+section:active .runway::before {
+    animation: animateRunway 0.25s linear infinite;
 }
 
-.plane
-{
-  margin-left: 800px;
-  position: absolute;
-  bottom: 100px;
-  max-width: 250px;
-  pointer-events: none;
-  filter: drop-shadow(10px 10px 0 rgba(0,0,0,0.5));
-  transition: 5s;
+@keyframes animateRunway {
+    0% {
+        background-position-y: 0px;
+    }
+
+    100% {
+        background-position-y: 640px;
+    }
 }
 
-section:active .plane
-{
-  max-width: 500px;
-  filter: drop-shadow(200px 200px 0 rgba(0,0,0,0));
+.plane {
+    position: absolute;
+    bottom: 100px;
+    max-width: 250px;
+    pointer-events: none;
+    filter: drop-shadow(10px 10px 0 rgba(0,0,0,0.5));
+    transition: 5s;
+}
+
+section:active .plane {
+    max-width: 500px;
+    filter: drop-shadow(200px 200px 0 rgba(0,0,0,0));
 }
