@@ -4,11 +4,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import ButtonGroup from '@mui/material/ButtonGroup';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stop from '@mui/icons-material/Stop';
 
@@ -22,15 +19,18 @@ const AppToolbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ bgcolor: colors.blueAccent[700] }} position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: colors.primary[100] }}>
             Simulations
           </Typography>
-          <IconButton aria-label="play" onClick={() => console.log('Play button clicked!')}>
-              <PlayArrowIcon />
-          </IconButton>
-          <IconButton aria-label="play" onClick={() => console.log('Play button clicked!')}>
-              <Stop />
-          </IconButton>
+
+                  <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} variant="outlined" startIcon={<PlayArrowIcon />}>
+            Start
+          </Button>
+
+                  <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} variant="outlined" startIcon={<Stop />}>
+            Stop
+          </Button>
+
         </Toolbar>
       </AppBar>
     </Box>
