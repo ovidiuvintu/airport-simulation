@@ -33,3 +33,74 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+section
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  background: #034071;
+}
+
+section .runway
+{
+  position: relative;
+  width: 300px;
+  height: 75vh;
+  background:  #1378bc;
+  border-left: 20px solid rgba(0,0,0,0.25);
+  border-right: 20px solid rgba(0,0,0,0.25);
+  transition: transform 1s;
+}
+section:active
+{
+  transform: scaleX(0.7);
+}
+section .runway::before
+{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 100%;
+  background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
+  background-size: 20px 320px;
+  animation: animateRunway 0.5s linear infinite;
+}
+
+section:active .runway::before
+{
+  animation: animateRunway 0.25s linear infinite;
+}
+
+@keyframes animateRunway
+{
+  0%
+  {
+    background-position-y: 0px;
+  }
+  100%
+  {
+    background-position-y: 640px;
+  }
+  
+}
+
+.plane
+{
+  position: absolute;
+  bottom: 100px;
+  max-width: 250px;
+  pointer-events: none;
+  filter: drop-shadow(10px 10px 0 rgba(0,0,0,0.5));
+  transition: 5s;
+}
+
+section:active .plane
+{
+  max-width: 500px;
+  filter: drop-shadow(200px 200px 0 rgba(0,0,0,0));
+}
