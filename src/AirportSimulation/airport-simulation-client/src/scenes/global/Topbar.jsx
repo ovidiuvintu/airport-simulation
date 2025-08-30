@@ -1,16 +1,30 @@
+import * as React from 'react';
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContext);
+    const colorMode = useContext(ColorModeContext);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -35,9 +49,29 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-            <SettingsOutlinedIcon />
-        </IconButton>
+        <div>
+            <IconButton
+                aria-label="settings"
+                aria-controls={open ? 'settings-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+            >
+                <SettingsOutlinedIcon />
+            </IconButton>
+            <Menu
+                id="settings-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'settings-button',
+                }}
+                  >
+                <MenuItem onClick={handleClose}>Setup new airport</MenuItem>
+                <MenuItem onClick={handleClose}>Edit existing airport</MenuItem>
+            </Menu>
+        </div>
       </Box>
     </Box>
   );

@@ -8,9 +8,11 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { FlightLandOutlined } from "@mui/icons-material";
 import { FlightTakeoffOutlined } from "@mui/icons-material";
 import { AirlinesOutlined } from "@mui/icons-material";
-import { Flight } from "@mui/icons-material";
-import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
+import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import FenceIcon from '@mui/icons-material/Fence';
+import TerminalIcon from '@mui/icons-material/Terminal';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -93,6 +95,21 @@ const Sidebar = () => {
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
+                      />
+
+            <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+            >
+                Airports
+            </Typography>
+            <Item
+                title="Details"
+                to="/airportdetails"
+                icon={<LocalAirportIcon />}
+                selected={selected}
+                setSelected={setSelected}
             />
 
             <Typography
