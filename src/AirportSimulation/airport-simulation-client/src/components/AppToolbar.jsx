@@ -8,6 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
+import ButtonGroup from '@mui/material/ButtonGroup';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import Stop from '@mui/icons-material/Stop';
 
 
 const AppToolbar = () => {
@@ -22,8 +25,12 @@ const AppToolbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Simulations
           </Typography>
-          <Button color="inherit">Start</Button>
-          <Button color="inherit">Stop</Button>
+          <IconButton aria-label="play" onClick={() => console.log('Play button clicked!')}>
+              <PlayArrowIcon />
+          </IconButton>
+          <IconButton aria-label="play" onClick={() => console.log('Play button clicked!')}>
+              <Stop />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
