@@ -9,7 +9,6 @@ import { FlightLandOutlined } from "@mui/icons-material";
 import { FlightTakeoffOutlined } from "@mui/icons-material";
 import { AirlinesOutlined } from "@mui/icons-material";
 import { Flight } from "@mui/icons-material";
-import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
@@ -101,21 +100,6 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Airports
-            </Typography>
-            <Item
-                title="Airports"
-                to="/airports"
-                icon={<ConnectingAirportsIcon />}
-                selected={selected}
-                setSelected={setSelected}>
-            </Item>
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
               Flights
             </Typography>
             <Item
@@ -144,21 +128,6 @@ const Sidebar = () => {
               title="Airlines List"
               to="/airlines"
               icon={<AirlinesOutlined />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Aircraft
-            </Typography>
-            <Item
-              title="Heavy"
-              to="/bar"
-              icon={<Flight />}
               selected={selected}
               setSelected={setSelected}
             />
