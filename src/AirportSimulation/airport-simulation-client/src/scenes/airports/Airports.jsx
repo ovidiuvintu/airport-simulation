@@ -60,7 +60,7 @@ const Airports = () => {
 
   const [name, iatacode] = useState(''); // State for the input field
 
-  const steps = ['Airport Details', 'Runways', 'Terminals', 'Gates'];
+  const steps = ['Airport Details', 'Runways', 'Terminals'];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
