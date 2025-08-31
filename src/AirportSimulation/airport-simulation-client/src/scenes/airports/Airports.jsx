@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Stepper, Step, StepLabel, Button, Box } from '@mui/material';
+import { 
+  Stepper, 
+  Step, 
+  StepLabel, 
+  Button, 
+  Box, 
+  TextField } from '@mui/material';
+
 import Header from "../../components/Header";
 
 // Subcomponent for the repetitive part
@@ -25,7 +32,9 @@ const Airports = () => {
     step3Field: '',
   });
 
-  const steps = ['Step 1', 'Repetitive Substeps', 'Step 3'];
+  const [name, iatacode] = useState(''); // State for the input field
+
+  const steps = ['Airport Details', 'Runways', 'Terminals'];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -52,19 +61,30 @@ const Airports = () => {
     switch (step) {
       case 0:
         return (
-          <Box>
-            <p>Content for Step 1</p>
-            <input
-              type="text"
-              value={stepData.step1Field}
-              onChange={(e) => setStepData({ ...stepData, step1Field: e.target.value })}
+         <Box>
+            <p>Airport Details</p>
+            <TextField  style={{width:"200px"}}
+                        required
+                        width="200"
+                        id="outlined-required"
+                        label="Airport Name"
+                        defaultValue=""
+                        name='airportName'
+            />
+            <TextField  style={{width:"200px",marginLeft:"15px"}}
+                        required
+                        width="200"
+                        id="outlined-required"
+                        label="Airport IATA Code"
+                        defaultValue=""
+                        name='airportIataCode'
             />
           </Box>
         );
       case 1:
         return (
           <Box>
-            <p>Content for Repetitive Substeps</p>
+            <p>Runways</p>
             {stepData.repetitiveSubsteps.map((data, index) => (
               <RepetitiveSubstep
                 key={index}
@@ -73,13 +93,13 @@ const Airports = () => {
                 onDataChange={handleRepetitiveSubstepChange}
               />
             ))}
-            <Button onClick={addRepetitiveSubstep}>Add another substep</Button>
+            <Button onClick={addRepetitiveSubstep}>Add another runway</Button>
           </Box>
         );
       case 2:
         return (
           <Box>
-            <p>Content for Step 3</p>
+            <p>Terminals</p>
             <input
               type="text"
               value={stepData.step3Field}
