@@ -7,9 +7,10 @@ export const useCounterStore = create((set) => ({
 }));
 
 // The store holds the state and the logic to update it
-export const useVisibilityStore = create((set) => ({
-  isVisible: false, // The boolean state for visibility
-  
-  // Action to toggle the state from true to false, or vice versa
-  toggleVisibility: () => set((state) => ({ isVisible: !state.isVisible })),
+export const useRunwayVisibilityStore = create((set) => ({
+    isVisible: false, // The boolean state for visibility
+    
+    // Action to toggle the state from true to false, or vice versa
+    setRunwayVisible: () => set({ isVisible: true }),
+    setRunwayHidden: () => set({ isVisible: false })
 }));

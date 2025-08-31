@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,12 +8,12 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stop from '@mui/icons-material/Stop';
-import { useVisibilityStore } from '../store/useStore';
+import { useRunwayVisibilityStore } from '../store/useStore';
 
 
 const AppToolbar = () => {
   
-  const { isVisible, toggleVisibility } = useVisibilityStore();
+  const { setRunwayVisible, setRunwayHidden } = useRunwayVisibilityStore();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -30,8 +29,7 @@ const AppToolbar = () => {
           <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} 
                   variant="outlined" 
                   onClick={() => {
-                    toggleVisibility();
-                    alert(isVisible)
+                    setRunwayVisible()
                   }}
                   startIcon={<PlayArrowIcon />}>
             Start
@@ -40,8 +38,7 @@ const AppToolbar = () => {
           <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} 
                   variant="outlined" 
                   onClick={() => {
-                    toggleVisibility();
-                    alert(isVisible)
+                    setRunwayHidden()
                   }}
                   startIcon={<Stop />}>
             Stop
