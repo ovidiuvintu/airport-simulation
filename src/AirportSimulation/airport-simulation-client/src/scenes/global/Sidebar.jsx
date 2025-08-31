@@ -10,8 +10,6 @@ import { FlightTakeoffOutlined } from "@mui/icons-material";
 import { AirlinesOutlined } from "@mui/icons-material";
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import FenceIcon from '@mui/icons-material/Fence';
-import TerminalIcon from '@mui/icons-material/Terminal';
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -106,7 +104,7 @@ const Sidebar = () => {
             </Typography>
             <Item
                 title="Details"
-                to="/airportdetails"
+                to="/airports"
                 icon={<LocalAirportIcon />}
                 selected={selected}
                 setSelected={setSelected}

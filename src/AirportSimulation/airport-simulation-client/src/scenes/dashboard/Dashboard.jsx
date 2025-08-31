@@ -18,10 +18,11 @@ const TwoBoxesSideBySide = () => {
         <Box sx={{ display: 'flex', gap: '16px', my: '10px' }}> {/* Parent Box with flex display and gap */}
             <Box sx={{ flex: 1, bgcolor: colors.primary[400], display: 'flex', alignItems: 'left', justifyContent: 'left', color: 'white' }}>
                 {isVisible?
-                <section>
-                    <div class="runway" />
-                    <img src="plane.png" class="plane"/>
-                </section>:<section />}
+                    <section>
+                        <div class="runway" />
+                        <img src="plane.png" class="plane"/>
+                    </section>:
+                    <section />}
             </Box>
             <Box sx={{ flex: 3, bgcolor: colors.primary[400], display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', color: 'white' }}>
                 <Stack sx={{ spacing: '1', bgcolor: colors.primary[400] }} >
