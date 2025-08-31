@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,9 +9,12 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stop from '@mui/icons-material/Stop';
+import { useVisibilityStore } from '../store/useStore';
 
 
 const AppToolbar = () => {
+  
+  const { isVisible, toggleVisibility } = useVisibilityStore();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -23,14 +27,25 @@ const AppToolbar = () => {
             Simulations
           </Typography>
 
-                  <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} variant="outlined" startIcon={<PlayArrowIcon />}>
+          <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} 
+                  variant="outlined" 
+                  onClick={() => {
+                    toggleVisibility();
+                    alert(isVisible)
+                  }}
+                  startIcon={<PlayArrowIcon />}>
             Start
           </Button>
 
-                  <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} variant="outlined" startIcon={<Stop />}>
+          <Button sx={{ marginLeft: '16px', color: colors.primary[100] }} 
+                  variant="outlined" 
+                  onClick={() => {
+                    toggleVisibility();
+                    alert(isVisible)
+                  }}
+                  startIcon={<Stop />}>
             Stop
           </Button>
-
         </Toolbar>
       </AppBar>
     </Box>
