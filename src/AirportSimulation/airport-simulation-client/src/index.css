@@ -53,7 +53,34 @@ section .runway {
 }
 
 section:active {
-    transform: scaleX(0.7);
+    transform: scaleX(0.9);
+}
+
+section .runwaypaused {
+    position: relative;
+    width: 300px;
+    height: 75vh;
+    background: #3d3d3d;
+    border-left: 20px solid rgba(0,0,0,0.25);
+    border-right: 20px solid rgba(0,0,0,0.25);
+    transition: transform 1s;
+}
+
+section .runwaypaused::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 100%;
+    background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
+    background-size: 20px 320px;
+    animation: animateRunway 0.5s linear infinite paused;
+}
+
+section:active .runwaypaused::before {
+    animation: animateRunway 0.25s linear infinite paused;
 }
 
 section .runway::before {
@@ -96,34 +123,3 @@ section:active .plane {
     max-width: 500px;
     filter: drop-shadow(200px 200px 0 rgba(0,0,0,0));
 }
-
-.form {
-  width: 700px;
-  margin: 0 auto;
-  background-color: #fafafa;
-  padding: 25px 15px;
-}
-
-.form-group {
-  text-align: center
-}
-
-.form-group__element {
-  margin: 10px auto;
-}
-
-.form-group__label {
-  display: block;
-  width: 300px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.form-group__input {
-  width: 300px;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 3px;
-  border: 1px solid #003487;
-}
-

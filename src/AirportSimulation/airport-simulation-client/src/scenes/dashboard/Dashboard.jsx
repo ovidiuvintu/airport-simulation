@@ -23,7 +23,10 @@ const TwoBoxesSideBySide = () => {
                         <div class="runway" />
                         <img src="plane.png" class="plane"/>
                     </section>:
-                    <section />}
+
+                    <section>
+                        <div class="runwaypaused" />
+                    </section>}
             </Box>
             <Box sx={{ flex: 3, bgcolor: colors.primary[400], display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', color: 'white' }}>
                 <Stack sx={{ spacing: '1', bgcolor: colors.primary[400] }} >
