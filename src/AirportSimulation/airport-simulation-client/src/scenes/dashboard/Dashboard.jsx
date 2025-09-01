@@ -52,7 +52,7 @@ const Dashboard = () => {
   
   return (
     <Box m="20px">        
-          <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+          {/* <Header title="DASHBOARD" subtitle="Welcome to your dashboard" /> */}
           <AppToolbar />   
           <TwoBoxesSideBySide />
     </Box>

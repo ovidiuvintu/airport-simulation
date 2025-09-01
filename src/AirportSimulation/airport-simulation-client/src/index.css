@@ -94,10 +94,14 @@ section .runway::before {
     background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
     background-size: 20px 320px;
     animation: animateRunway 0.5s linear infinite;
+    /* animation-duration: 5s; */
+    /*animation-timing-function: ease-in-out;*/
 }
 
 section:active .runway::before {
     animation: animateRunway 0.25s linear infinite;
+    /* animation-duration: 5s; */
+    /*animation-timing-function: ease-in-out;*/
 }
 
 @keyframes animateRunway {
