@@ -6,6 +6,7 @@ import { tokens } from "../../theme";
 import { useRunwayVisibilityStore } from '../../store/useStore';
 
 import AppToolbar from "../../components/AppToolbar";
+import Header from "../../components/Header";
 
 import '../../index.css';
 
@@ -47,7 +48,8 @@ const TwoBoxesSideBySide = () => {
 const Dashboard = () => {
   
   return (
-    <Box m="20px">
+    <Box m="20px">        
+          <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
           <AppToolbar />   
           <TwoBoxesSideBySide />
     </Box>

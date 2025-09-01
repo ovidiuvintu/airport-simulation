@@ -13,7 +13,7 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
 // Subcomponent for the repetitive part
-const RepetitiveSubstep = ({ data, onDataChange, index }) => {
+const RunwaySubstep = ({ data, onDataChange, index }) => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -42,6 +42,44 @@ const RepetitiveSubstep = ({ data, onDataChange, index }) => {
                   label="Runway Name"
                   defaultValue=""
                   name='runwayName'
+                  onChange={handleChange}
+            />
+    </Box>
+  );
+};
+
+
+// Subcomponent for the repetitive part
+const TerminalSubstep = ({ data, onDataChange, index }) => {
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  // Manage internal state for this instance of the substep
+  const handleChange = (event) => {
+    onDataChange(index, event.target.value);
+  };
+
+  return (
+    <Box sx={{ mt: 2 }}>
+      <p>Terminal {index + 1}</p>
+      {/* <input type="text" value={data} onChange={handleChange} /> */}
+      <TextField  style={{width:"200px"}}
+                  InputLabelProps={{
+                  sx: {
+                        '&.Mui-focused': {
+                            color: colors.greenAccent[100], // Sets the label color to green when focused
+                        },
+                    },
+                  }}
+                  required
+                  variant='filled'
+                  width="200"
+                  id="outlined-required"
+                  label="Terminal Name"
+                  defaultValue=""
+                  onChange={handleChange}
+                  name='terminalName'
             />
     </Box>
   );
@@ -51,14 +89,12 @@ const Airports = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [stepData, setStepData] = useState({
     step1Field: '',
-    repetitiveSubsteps: [''], // Initial repetitive substep
-    step3Field: '',
+    runwaySubsteps: [''], // Initial repetitive substep
+    terminalSubsteps: [''], // Initial repetitive substep
   });
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  const [name, iatacode] = useState(''); // State for the input field
 
   const steps = ['Airport Details', 'Runways', 'Terminals'];
 
@@ -70,16 +106,29 @@ const Airports = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleRepetitiveSubstepChange = (index, value) => {
-    const newSubsteps = [...stepData.repetitiveSubsteps];
+  const handleRunwayChange = (index, value) => {
+    const newSubsteps = [...stepData.runwaySubsteps];
     newSubsteps[index] = value;
-    setStepData({ ...stepData, repetitiveSubsteps: newSubsteps });
+    setStepData({ ...stepData, runwaySubsteps: newSubsteps });
   };
 
-  const addRepetitiveSubstep = () => {
+  const addRunway = () => {
     setStepData({
       ...stepData,
-      repetitiveSubsteps: [...stepData.repetitiveSubsteps, ''],
+      runwaySubsteps: [...stepData.runwaySubsteps, ''],
+    });
+  };
+
+  const handleTerminalChange = (index, value) => {
+    const newSubsteps = [...stepData.terminalSubsteps];
+    newSubsteps[index] = value;
+    setStepData({ ...stepData, terminalSubsteps: newSubsteps });
+  };
+
+  const addTerminal = () => {
+    setStepData({
+      ...stepData,
+      terminalSubsteps: [...stepData.terminalSubsteps, ''],
     });
   };
 
@@ -127,26 +176,30 @@ const Airports = () => {
         return (
           <Box>
             <p>Runways</p>
-            {stepData.repetitiveSubsteps.map((data, index) => (
-              <RepetitiveSubstep
+            {stepData.runwaySubsteps.map((data, index) => (
+              <RunwaySubstep
                 key={index}
                 index={index}
                 data={data}
-                onDataChange={handleRepetitiveSubstepChange}
+                onDataChange={handleRunwayChange}
               />
             ))}
-            <Button color='inherit' onClick={addRepetitiveSubstep}>Add another runway</Button>
+            <Button color='inherit' onClick={addRunway}>Add another runway</Button>
           </Box>
         );
       case 2:
         return (
           <Box>
             <p>Terminals</p>
-            <input
-              type="text"
-              value={stepData.step3Field}
-              onChange={(e) => setStepData({ ...stepData, step3Field: e.target.value })}
-            />
+             {stepData.terminalSubsteps.map((data, index) => (
+              <TerminalSubstep
+                key={index}
+                index={index}
+                data={data}
+                onDataChange={handleTerminalChange}
+              />
+            ))}
+            <Button color='inherit' onClick={addTerminal}>Add another terminal</Button>
           </Box>
         );
       default:
