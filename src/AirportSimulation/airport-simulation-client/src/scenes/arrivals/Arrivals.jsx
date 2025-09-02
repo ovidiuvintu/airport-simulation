@@ -23,7 +23,7 @@ const Arrivals = () => {
       {/* GRID & CHARTS */}
       <Box
         m="40px 0 0 0"
-        height="75vh"
+        height="80vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
