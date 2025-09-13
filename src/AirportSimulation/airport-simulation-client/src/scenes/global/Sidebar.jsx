@@ -38,6 +38,7 @@ const Sidebar = () => {
 
   return (
     <Box
+      height="98vh"
       sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,

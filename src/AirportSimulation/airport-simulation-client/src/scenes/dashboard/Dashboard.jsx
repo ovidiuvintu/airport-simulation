@@ -16,9 +16,9 @@ const TwoBoxesSideBySide = () => {
     const { isVisible } = useRunwayVisibilityStore();
 
     return (
-            <Box sx={{ height:"60vh", display: 'flex', gap: '16px', my: '10px' }}> {/* Parent Box with flex display and gap */}
+            <Box sx={{ height:"65vh", display: 'flex', gap: '16px', my: '10px' }}> {/* Parent Box with flex display and gap */}
                 <Box sx={{flex: 3, bgcolor: colors.primary[400], display: 'flex', alignItems: 'left', justifyContent: 'left', color: 'white' }}>
-                    {isVisible?
+                    {/* {isVisible?
                         <section>
                             <div class="runway" />
                             <img src="plane.png" class="plane"/>
@@ -26,23 +26,23 @@ const TwoBoxesSideBySide = () => {
 
                         <section>
                             <div class="runwaypaused" />
-                        </section>}
+                        </section>} */}
                 </Box>
                 <Box sx={{ flex: 3, bgcolor: colors.primary[400], display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', color: 'white' }}>
-                    <Stack sx={{ spacing: '1', bgcolor: colors.primary[400] }} >
+                    {/* <Stack sx={{ spacing: '1', bgcolor: colors.primary[400] }} >
                         <Typography sx={{ display: "block", variant: "h4", color: colors.greenAccent[100] }} >Flight Details</Typography>
                         <Typography sx={{ display: "block", variant: "h6", color: colors.greenAccent[100] }}>Flight Number:</Typography>
                         <Typography sx={{ display: "block", variant: "h6", color: colors.greenAccent[100] }}>Time:</Typography>
                         <Typography sx={{ display: "block", variant: "h6", color: colors.greenAccent[100] }}>Origin/Destination:</Typography>
-                    </Stack>
+                    </Stack> */}
                 </Box>
                 <Box sx={{ flex: 3, bgcolor: colors.primary[400], display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', color: 'white' }}>
-                    <Stack sx={{ spacing: '1', bgcolor: colors.primary[400] }} >
+                    {/* <Stack sx={{ spacing: '1', bgcolor: colors.primary[400] }} >
                         <Typography sx={{ display: "block", variant: "h4", color: colors.greenAccent[100] }}>Next Flight Details</Typography>
                         <Typography sx={{ display: "block", variant: "h6", color: colors.greenAccent[100] }}>Flight Number:</Typography>
                         <Typography sx={{ display: "block", variant: "h6", color: colors.greenAccent[100] }}>Time:</Typography>
                         <Typography sx={{ display: "block", variant: "h6", color: colors.greenAccent[100] }}>Origin/Destination:</Typography>
-                    </Stack>
+                    </Stack> */}
                 </Box>
             </Box>
     );
