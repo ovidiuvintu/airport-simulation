@@ -20,7 +20,7 @@ const TwoBoxesSideBySide = () => {
                 <Grid container spacing={2}> {/* Grid container */}
                     <Grid item xs={12} sm={3}> {/* Child Box 1: 1/3 width on small screens and up */}
                         <Box sx={{ p: 2, bgcolor: 'primary.main', color: 'white' }}>
-                            {/* {isVisible?
+                            {isVisible?
                                 <section>
                                     <div class="runway" />
                                     <img src="plane.png" class="plane"/>
@@ -28,7 +28,7 @@ const TwoBoxesSideBySide = () => {
 
                                 <section>
                                     <div class="runwaypaused" />
-                                </section>} */}
+                                </section>}
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={4.5}> {/* Child Box 2: 1/2 width on small screens and up */}

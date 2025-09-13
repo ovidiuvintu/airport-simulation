@@ -38,14 +38,14 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 75vh;
+    min-height: 62vh;
     background: #c2c2c2;
 }
 
 section .runway {
     position: relative;
     width: 300px;
-    height: 75vh;
+    height: 62vh;
     background: #3d3d3d;
     border-left: 20px solid rgba(0,0,0,0.25);
     border-right: 20px solid rgba(0,0,0,0.25);
@@ -59,7 +59,7 @@ section:active {
 section .runwaypaused {
     position: relative;
     width: 300px;
-    height: 75vh;
+    height: 62vh;
     background: #3d3d3d;
     border-left: 20px solid rgba(0,0,0,0.25);
     border-right: 20px solid rgba(0,0,0,0.25);
@@ -73,7 +73,7 @@ section .runwaypaused::before {
     left: 50%;
     transform: translateX(-50%);
     width: 15px;
-    height: 100%;
+    height: 62vh;
     background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
     background-size: 20px 320px;
     animation: animateRunway 0.5s linear infinite paused;
@@ -90,7 +90,7 @@ section .runway::before {
     left: 50%;
     transform: translateX(-50%);
     width: 15px;
-    height: 100%;
+    height: 62vh;
     background: repeating-linear-gradient(transparent 0%,transparent 50%,#fff 50%,#fff 100%);
     background-size: 20px 320px;
     animation: animateRunway 0.5s linear infinite;
