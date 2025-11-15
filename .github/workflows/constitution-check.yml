@@ -1,0 +1,24 @@
+name: Constitution Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  constitution-check:
+    name: Run Constitution Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run prerequisite discovery
+        shell: pwsh
+        run: |
+          pwsh ./.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks | ConvertFrom-Json | Write-Output
+
+      - name: Run Constitution Check (conservative)
+        shell: pwsh
+        run: |
+          pwsh ./.specify/scripts/powershell/constitution-check.ps1 -Json

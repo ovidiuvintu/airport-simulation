@@ -9,6 +9,12 @@ internal sealed class RunwayConfiguration : IEntityTypeConfiguration<AirportMana
     {
         builder.HasKey(c => c.Id); // Set the primary key
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
+        builder.Property(c => c.AirportId)
+            .IsRequired();
+
+         builder.HasOne(r => r.Airport)
+             .WithMany(a => a.Runways)
+             .HasForeignKey(r => r.AirportId);
 
         builder.ToTable("Runway");
     }

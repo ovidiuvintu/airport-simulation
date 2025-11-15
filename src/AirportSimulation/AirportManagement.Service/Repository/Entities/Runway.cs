@@ -18,4 +18,9 @@ public class Runway : BaseEntity
     public int? MagneticHeading { get; set; }
     public bool? IsParallel { get; set; }
     public Position? Position { get; set; }
+
+    // Airport relationship
+    [Required]
+    public Guid AirportId { get; set; }
+    public Airport Airport { get; set; }
 }

@@ -39,7 +39,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
 
     public async  Task<Result<Repository.Entities.Airport>> GetAirportByCodeAsync(string code, CancellationToken cancellationToken)
     {
-        var result = await _repo.GetAllAsync();
+        var result = await _repo.GetAllAsync(a => a.Terminals);
         var item = result.FirstOrDefault(c => c?.AirportCode == code);
         return new()
         {
@@ -51,7 +51,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
 
     public async Task<Result<Repository.Entities.Airport>> GetAirportByNameAsync(string name, CancellationToken cancellationToken)
     {
-        var result = await _repo.GetAllAsync();
+        var result = await _repo.GetAllAsync(a => a.Terminals);
         Result<Repository.Entities.Airport> res = new()
         {
             Success = result != null,
@@ -64,7 +64,7 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
 
     public async Task<Result<IEnumerable<Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken)
     {
-        var result = await _repo.GetAllAsync();
+        var result = await _repo.GetAllAsync(a => a.Terminals);
         Result<IEnumerable<Repository.Entities.Airport>> res = new()
         {
             Success = result != null,

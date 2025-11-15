@@ -8,7 +8,5 @@ public class Terminal : BaseEntity
     [Required]
     public Guid AirportId { get; set; }
     [Required]
-    public Airport Airport { get; set; }
-    [Required]
     public string Name { get; set; }
 }

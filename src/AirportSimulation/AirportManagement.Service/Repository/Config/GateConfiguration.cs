@@ -17,6 +17,13 @@ internal sealed class GateConfiguration : IEntityTypeConfiguration<AirportManage
         builder.Property(c => c.ConcourseId)
             .IsRequired();
 
+        builder.Property(c => c.AirportId)
+            .IsRequired();
+
+         builder.HasOne(g => g.Airport)
+             .WithMany(a => a.Gates)
+             .HasForeignKey(g => g.AirportId);
+
         builder.Property(c => c.IsInternational)
             .IsRequired();
 

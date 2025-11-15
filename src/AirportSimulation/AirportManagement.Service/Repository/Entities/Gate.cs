@@ -14,6 +14,14 @@ public class Gate : BaseEntity
 {
     [Required]
     public Guid ConcourseId { get; set; }
+
+    // New FK to Airport
+    [Required]
+    public Guid AirportId { get; set; }
+
+    // Navigation
+    public Airport Airport { get; set; }
+
     [Required]
     public required string Name { get; set; } //A-38
     [Required]

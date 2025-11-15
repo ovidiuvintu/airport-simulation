@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infrastructure;
 
@@ -17,6 +18,28 @@ public class Repository<TEntity>(DbContext context) : IRepository<TEntity>
         catch (Exception e) when(e is not OperationCanceledException)
         {
             Console.WriteLine($"Caught ex while getting all record: {e.Message}");
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
+    {
+        try
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (includes != null && includes.Length > 0)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.ToListAsync();
+        }
+        catch (Exception e) when (e is not OperationCanceledException)
+        {
+            Console.WriteLine($"Caught ex while getting all record with includes: {e.Message}");
             throw;
         }
     }

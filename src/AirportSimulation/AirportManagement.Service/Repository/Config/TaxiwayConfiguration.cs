@@ -10,6 +10,13 @@ internal sealed class TaxiwayConfiguration : IEntityTypeConfiguration<AirportMan
         builder.HasKey(c => c.Id); // Set the primary key
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
+        builder.Property(c => c.AirportId)
+            .IsRequired();
+
+         builder.HasOne(t => t.Airport)
+             .WithMany(a => a.Taxiways)
+             .HasForeignKey(t => t.AirportId);
+
         builder.ToTable("Taxiway");
     }
 }

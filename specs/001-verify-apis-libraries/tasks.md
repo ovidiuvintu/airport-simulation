@@ -19,6 +19,14 @@
 - [ ] T009 [US1] Create a local quickstart in `specs/001-verify-apis-libraries/quickstart.md` with commands to build the service and run the contract tests (`pytest tests/contract/airportmanagement`)
 - [ ] T010 [US1] Add a CI job step in `.github/workflows/verify-apis.yml` that runs the contract tests and publishes `tests/contract/airportmanagement/report.json`
 
+- [ ] T017 [P1][US1-Security] Implement authentication/authorization contract tests for protected endpoints
+	- Description: Add tests and helpers under `tests/contract/auth/` that exercise endpoints requiring auth (tokens, scopes, roles). Provide test fixtures to obtain valid tokens via a test token issuer or via mocked/stubbed identity provider.
+	- Acceptance: Protected endpoints return authorized responses when valid tokens provided and 401/403 when not; tests run locally and in CI.
+
+- [ ] T018 [P1][CI] CI secret provisioning / test token strategy for tests
+	- Description: Add CI steps and support scripts to provision short-lived test credentials securely into CI (via secrets) or to use an in-process test auth helper for protected-endpoint tests. Prefer CI-injected test credentials or an in-process stub over a networked mock server. Document the chosen approach in `specs/001-verify-apis-libraries/research.md`.
+	- Acceptance: CI pipeline can run auth-protected contract and smoke tests without exposing production secrets. Document secret names or in-process helper behavior in `specs/001-verify-apis-libraries/research.md`.
+
 **Phase 4: User Story 2 — Runtime smoke tests (Priority: P2)**
 - [ ] T011 [US2] Create smoke tests for each service under `tests/smoke/<service>/` (health, minimal core endpoints)
 - [ ] T012 [US2] Add CI steps to run smoke tests after container image builds and fail fast on startup errors
@@ -30,6 +38,8 @@
 **Final Phase: Polish & Cross-Cutting Concerns**
 - [ ] T015 [P] Add observability and reporting: upload test artifacts to CI artifacts, update `specs/001-verify-apis-libraries/checklists/requirements.md` with validation results
 - [ ] T016 Finalize `specs/001-verify-apis-libraries/plan.md`, re-run constitution checks with `.specify/scripts/powershell/update-agent-context.ps1`, and open a PR from `001-verify-apis-libraries` → `main`
+
+- [ ] T016a [P] Add `Constitution Check` CI job and automation: implement a CI workflow or script that verifies public API endpoints do not expose persistence entities (DTO-only responses) and fails PRs on violations. Add supporting scripts under `.specify/scripts/` and document the validation criteria.
 
 **Dependencies**
 - Contract generation (T004) must complete before writing contract tests (T008).

@@ -16,7 +16,12 @@ public class Airport : BaseEntity
     public string AirportCode { get; set; }
 
     [Required]
-    public IEnumerable<Terminal> Terminals { get; set; }
+    public ICollection<Terminal> Terminals { get; set; } = new List<Terminal>();
+
+    // Navigation collections
+    public ICollection<Gate> Gates { get; set; } = new List<Gate>();
+    public ICollection<Runway> Runways { get; set; } = new List<Runway>();
+    public ICollection<Taxiway> Taxiways { get; set; } = new List<Taxiway>();
 
     [Timestamp]
     public byte[] Timestamp { get; set; }
