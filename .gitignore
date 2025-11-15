@@ -120,6 +120,12 @@ _Chutzpah*
 .db-shm
 .db-wal
 
+# Local SQLite DB artifacts created during tests/local runs
+# Ignore the airport database files and their WAL/SHM pieces
+/src/AirportSimulation/AirportManagement.Service/*.db
+/src/AirportSimulation/AirportManagement.Service/*.db-shm
+/src/AirportSimulation/AirportManagement.Service/*.db-wal
+
 
 # Visual C++ cache files
 ipch/
