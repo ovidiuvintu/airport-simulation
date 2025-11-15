@@ -141,14 +141,33 @@ public static class AirportApi
     private static async Task<IResult> AddAirportAsync([FromBody] CreateAirportDto airport,
         IMediator mediator)
     {
+        // Build the airport entity. BaseEntity ctor will create a new Id which we can use
+        var airportEntity = new AirportManagement.Service.Repository.Entities.Airport
+        {
+            AirportCode = airport.AirportCode,
+            Description = airport.Description,
+            Name = airport.Name,
+            Terminals = airport.Terminals?.Select(t => new AirportManagement.Service.Repository.Entities.Terminal
+            {
+                Name = t.Name,
+                // ignore any AirportId sent by the client and assign the newly created airport id
+                AirportId = Guid.Empty,
+            }).ToList() ?? new List<AirportManagement.Service.Repository.Entities.Terminal>()
+        };
+
+        // Ensure each terminal references the airport's generated Id
+        if (airportEntity.Terminals is not null)
+        {
+            foreach (var term in airportEntity.Terminals)
+            {
+                term.AirportId = airportEntity.Id;
+                term.Airport = airportEntity;
+            }
+        }
+
         CreateAirportCommand createAirportCommand = new()
         {
-            Airport = new AirportManagement.Service.Repository.Entities.Airport
-            {
-                AirportCode = airport.AirportCode,
-                Description = airport.Description,
-                Name = airport.Name
-            }
+            Airport = airportEntity
         };
         var response = await mediator.Send(createAirportCommand);
         return response is not null && response.Success ? TypedResults.Created($"/api/airports/{response.Data.Id}")
