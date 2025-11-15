@@ -45,27 +45,27 @@ public static class AirportApi
            .WithDescription("Add a new airport")
            .WithTags("Airports");
 
-        v1.MapPut("/airports/{airportId:Guid}", UpdateAirportAsync)
+        v1.MapPut("/airports/{airportId:guid}", UpdateAirportAsync)
            .WithName("UpdateAirportById")
            .WithSummary("Update airport details")
            .WithDisplayName("UpdateAirport")
            .WithDescription("Update airport details")
            .WithTags("Airports");
 
-        v1.MapDelete("/airports/{airportId:Guid}", DeleteAirportAsync)
-           .WithName("DeleteAirportByName")
+        v1.MapDelete("/airports/{airportId:guid}", DeleteAirportAsync)
+              .WithName("DeleteAirportById")
            .WithSummary("Delete airport")
            .WithDisplayName("DeleteAirport")
            .WithDescription("Delete airport")
            .WithTags("Airports");
 
-        v1.MapGet("airports/{airportId:guid}/terminals", GetAirportTerminalsAsync)
+        v1.MapGet("/airports/{airportId:guid}/terminals", GetAirportTerminalsAsync)
             .WithName("GetTerminals")
             .WithSummary("List airport terminals")
             .WithDescription("Get airport terminals")
             .WithTags("Terminals");
 
-        v1.MapPost("airports/{airportId:guid}/terminals", AddAirportTerminalAsync)
+        v1.MapPost("/airports/{airportId:guid}/terminals", AddAirportTerminalAsync)
            .WithName("AddTerminal")
            .WithSummary("Add a new terminal")
            .WithDisplayName("AddTerminal")
@@ -157,17 +157,18 @@ public static class AirportApi
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, [FromBody] UpdateAirportDto airport, IMediator mediator)
+        private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, [FromBody] UpdateAirportDto airport, IMediator mediator)
     {
-        UpdateAirportCommand updateAirportCommand = new()
-        {
+          UpdateAirportCommand updateAirportCommand = new()
+          {
+              AirportId = airportId,
               Airport = new Repository.Entities.Airport
               {
-                   AirportCode = airport.AirportCode,
-                   Name = airport.Name,
-                   Description = airport.Description,
+                 AirportCode = airport.AirportCode,
+                 Name = airport.Name,
+                 Description = airport.Description,
               }
-        };
+          };
 
         var response = await mediator.Send(updateAirportCommand);
         return TypedResults.Ok();
@@ -181,7 +182,7 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<List<AirportManagement.Service.Repository.Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] string airportId)
+    private static async Task<Ok<List<AirportManagement.Service.Repository.Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] Guid airportId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok(new List<AirportManagement.Service.Repository.Entities.Terminal>());
@@ -195,14 +196,14 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> UpdateAirportTerminalAsync([FromRoute] string airportId, [FromRoute] Guid terminalId)
+    private static async Task<Ok> UpdateAirportTerminalAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> DeleteAirportTerminalAsync([FromRoute] string airportId, [FromRoute] Guid terminalId)
+    private static async Task<Ok> DeleteAirportTerminalAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();

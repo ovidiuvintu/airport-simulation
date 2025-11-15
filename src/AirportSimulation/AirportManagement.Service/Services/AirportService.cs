@@ -75,39 +75,44 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         return res;
     }
 
-    public async Task<Result<Repository.Entities.Airport>> UpdateAirportAsync(Repository.Entities.Airport model, CancellationToken cancellationToken)
+    public async Task<Result<Repository.Entities.Airport>> UpdateAirportAsync(Guid airportId, Repository.Entities.Airport model, CancellationToken cancellationToken)
     {
         ValidateModel(model);
-        var result = await _repo.GetAllAsync();
-        if (result != null)
+
+        var all = await _repo.GetAllAsync();
+        if (all == null || !all.Any())
         {
-            if (result.Any())
+            return new()
             {
-                var airportToUpdate = result.FirstOrDefault(airport => airport.Id == airport.Id);
-                if (airportToUpdate != null)
-                {
-                    await _repo.Update(model);
-                    return new()
-                    {
-                        Success = true,
-                        Error = string.Empty
-                    };
-                }
-            }
-            else
-            {
-                return new()
-                {
-                    Success = false,
-                    Error = $"Airport {model.Name} not found"
-                };
-            }
+                Success = false,
+                Error = $"Airport {model.Name} not found"
+            };
         }
+
+        // Find the existing airport by the provided airportId
+        var airportToUpdate = all.FirstOrDefault(a => a != null && a.Id == airportId);
+        if (airportToUpdate == null)
+        {
+            return new()
+            {
+                Success = false,
+                Error = $"Airport with id {airportId} not found"
+            };
+        }
+
+        // apply changes to the tracked entity so EF preserves concurrency token
+        airportToUpdate.Name = model.Name;
+        airportToUpdate.Description = model.Description;
+        airportToUpdate.AirportCode = model.AirportCode;
+        airportToUpdate.Terminals = model.Terminals;
+
+        await _repo.Update(airportToUpdate);
 
         return new()
         {
-            Success = false,
-            Error = ""
+            Success = true,
+            Error = string.Empty,
+            Data = airportToUpdate
         };
     }
 

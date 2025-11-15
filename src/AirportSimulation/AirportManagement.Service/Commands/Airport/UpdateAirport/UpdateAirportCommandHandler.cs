@@ -8,7 +8,7 @@ public class UpdateAirportCommandHandler(IAirportService airportService)
     : IRequestHandler<UpdateAirportCommand, Result>
 {
     public async Task<Result> Handle(UpdateAirportCommand request, CancellationToken cancellationToken)
-    {
-        return await airportService.UpdateAirportAsync(request.Airport, cancellationToken);
+        {
+            return await airportService.UpdateAirportAsync(request.AirportId, request.Airport, cancellationToken);
     }
 }
