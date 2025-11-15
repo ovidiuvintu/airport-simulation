@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Infrastructure.DTOs;
 
 namespace AirportManagement.Service.Commands;
 
@@ -6,10 +7,10 @@ public sealed class UpdateAirportCommandValidator : AbstractValidator<UpdateAirp
 {
     public UpdateAirportCommandValidator()
     {
-        RuleFor(airport => airport.Airport).NotNull();
-        RuleFor(airport => airport.Airport.Name).NotNull().NotEmpty();
-        RuleFor(airport => airport.Airport.AirportCode).Length(3);
-        RuleFor(airport => airport.Airport.Description).MaximumLength(256);
+        RuleFor(cmd => cmd.Airport).NotNull();
+        RuleFor(cmd => cmd.Airport.Name).NotNull().NotEmpty();
+        RuleFor(cmd => cmd.Airport.AirportCode).Length(3);
+        RuleFor(cmd => cmd.Airport.Description).MaximumLength(256);
     }
 }
 

@@ -1,6 +1,5 @@
 ﻿using AirportManagement.Service.Commands;
 using AirportManagement.Service.Queries;
-using AirportManagement.Service.Repository.Entities;
 using Infrastructure.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
@@ -45,46 +44,46 @@ public static class AirportApi
            .WithDescription("Add a new airport")
            .WithTags("Airports");
 
-        v1.MapPut("/airports/{airportId:Guid}", UpdateAirportAsync)
+        v1.MapPut("/airports/{airportId:guid}", UpdateAirportAsync)
            .WithName("UpdateAirportById")
            .WithSummary("Update airport details")
            .WithDisplayName("UpdateAirport")
            .WithDescription("Update airport details")
            .WithTags("Airports");
 
-        v1.MapDelete("/airports/{airportId:Guid}", DeleteAirportAsync)
-           .WithName("DeleteAirportByName")
+        v1.MapDelete("/airports/{airportId:guid}", DeleteAirportAsync)
+              .WithName("DeleteAirportById")
            .WithSummary("Delete airport")
            .WithDisplayName("DeleteAirport")
            .WithDescription("Delete airport")
            .WithTags("Airports");
 
-        v1.MapGet("airports/{airportId:guid}/terminals", GetAirportTerminalsAsync)
+        v1.MapGet("/airports/{airportId:guid}/terminals", GetAirportTerminalsAsync)
             .WithName("GetTerminals")
             .WithSummary("List airport terminals")
             .WithDescription("Get airport terminals")
             .WithTags("Terminals");
 
-        v1.MapPost("airports/{airportId:guid}/terminals", AddAirportTerminalAsync)
-           .WithName("AddTerminal")
-           .WithSummary("Add a new terminal")
-           .WithDisplayName("AddTerminal")
-           .WithDescription("Add a new terminal")
-           .WithTags("Terminals");
+          v1.MapPost("/airports/{airportId:guid}/terminals", AddAirportTerminalAsync)
+              .WithName("AddTerminal")
+              .WithSummary("Add a new terminal")
+              .WithDisplayName("AddTerminal")
+              .WithDescription("Add a new terminal")
+              .WithTags("Terminals");
 
-        v1.MapPut("/airports/{airportId:guid}/terminals/{terminalId:guid}", UpdateAirportTerminalAsync)
-           .WithName("UpdateTerminal")
-           .WithSummary("Update terminal")
-           .WithDisplayName("UpdateTerminal")
-           .WithDescription("Update terminal")
-           .WithTags("Terminals");
+          v1.MapPut("/airports/{airportId:guid}/terminals/{terminalId:guid}", UpdateAirportTerminalAsync)
+              .WithName("UpdateTerminal")
+              .WithSummary("Update terminal")
+              .WithDisplayName("UpdateTerminal")
+              .WithDescription("Update terminal")
+              .WithTags("Terminals");
 
-        v1.MapDelete("/airports/{airportId:guid}/terminals/{terminalId:guid}", DeleteAirportTerminalAsync)
-           .WithName("DeleteTerminal")
-           .WithSummary("Delete terminal")
-           .WithDisplayName("DeleteTerminal")
-           .WithDescription("Delete terminal")
-           .WithTags("Terminals");
+          v1.MapDelete("/airports/{airportId:guid}/terminals/{terminalId:guid}", DeleteAirportTerminalAsync)
+              .WithName("DeleteTerminal")
+              .WithSummary("Delete terminal")
+              .WithDisplayName("DeleteTerminal")
+              .WithDescription("Delete terminal")
+              .WithTags("Terminals");
 
         return app;
     }
@@ -94,7 +93,7 @@ public static class AirportApi
     {
         GetAllAirportsQuery query = new GetAllAirportsQuery();
         var response = await mediator.Send(query);
-        return response != null && response.Success ? TypedResults.Ok(response.Data.Select(s => s.AsAirportDto()))
+            return response != null && response.Success ? TypedResults.Ok(response.Data)
                                                     : TypedResults.BadRequest($"{response.Error}");
     }
 
@@ -141,15 +140,13 @@ public static class AirportApi
     private static async Task<IResult> AddAirportAsync([FromBody] CreateAirportDto airport,
         IMediator mediator)
     {
-        CreateAirportCommand createAirportCommand = new()
+        // API no longer constructs persistence entities; pass DTO to command handler
+
+        var createAirportCommand = new CreateAirportCommand
         {
-            Airport = new AirportManagement.Service.Repository.Entities.Airport
-            {
-                AirportCode = airport.AirportCode,
-                Description = airport.Description,
-                Name = airport.Name
-            }
+            Airport = airport
         };
+
         var response = await mediator.Send(createAirportCommand);
         return response is not null && response.Success ? TypedResults.Created($"/api/airports/{response.Data.Id}")
                                                         : TypedResults.BadRequest($"{response.Error}");
@@ -157,20 +154,17 @@ public static class AirportApi
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
-    private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, [FromBody] UpdateAirportDto airport, IMediator mediator)
+        private static async Task<IResult> UpdateAirportAsync([FromRoute] Guid airportId, [FromBody] UpdateAirportDto airport, IMediator mediator)
     {
-        UpdateAirportCommand updateAirportCommand = new()
+        var updateAirportCommand = new UpdateAirportCommand
         {
-              Airport = new Repository.Entities.Airport
-              {
-                   AirportCode = airport.AirportCode,
-                   Name = airport.Name,
-                   Description = airport.Description,
-              }
+            AirportId = airportId,
+            Airport = airport
         };
 
         var response = await mediator.Send(updateAirportCommand);
-        return TypedResults.Ok();
+        return response is not null && response.Success ? TypedResults.Ok()
+                                                         : TypedResults.BadRequest(response?.Error);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
@@ -181,28 +175,31 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok<List<AirportManagement.Service.Repository.Entities.Terminal>>> GetAirportTerminalsAsync([FromRoute] string airportId)
+    private static async Task<IResult> GetAirportTerminalsAsync([FromRoute] Guid airportId, IMediator mediator)
     {
+        // TODO: implement terminal query — currently return empty list of TerminalDto
         await Task.CompletedTask;
-        return TypedResults.Ok(new List<AirportManagement.Service.Repository.Entities.Terminal>());
+        return TypedResults.Ok(new List<TerminalDto>());
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Created> AddAirportTerminalAsync([FromRoute] Guid airportId, [FromBody] AirportManagement.Service.Repository.Entities.Terminal terminal)
+    private static async Task<IResult> AddAirportTerminalAsync([FromRoute] Guid airportId, [FromBody] TerminalCreateDto terminal)
     {
+        // TODO: dispatch AddTerminal command via MediatR; return created with generated id
         await Task.CompletedTask;
-        return TypedResults.Created($"/api/airports/{airportId}/terminals/{terminal.Id}");
+        var newId = Guid.NewGuid();
+        return TypedResults.Created($"/api/airports/{airportId}/terminals/{newId}");
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> UpdateAirportTerminalAsync([FromRoute] string airportId, [FromRoute] Guid terminalId)
+    private static async Task<Ok> UpdateAirportTerminalAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<Ok> DeleteAirportTerminalAsync([FromRoute] string airportId, [FromRoute] Guid terminalId)
+    private static async Task<Ok> DeleteAirportTerminalAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId)
     {
         await Task.CompletedTask;
         return TypedResults.Ok();

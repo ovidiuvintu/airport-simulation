@@ -21,8 +21,9 @@ internal sealed class AirportConfiguration : IEntityTypeConfiguration<AirportMan
         builder.Property(c => c.Description)
             .HasMaxLength(255);
 
-        builder.HasMany(c => c.Terminals)
-               .WithOne(c => c.Airport);
+         builder.HasMany(c => c.Terminals)
+             .WithOne()
+             .HasForeignKey("AirportId");
 
         builder.ToTable("Airport");
     }

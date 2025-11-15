@@ -52,7 +52,7 @@ public static class EntityExtensions
         var terminalDtos = new List<TerminalDto>();
         foreach (var terminal in terminals)
         {
-            terminal.AsTerminalDto();
+            terminalDtos.Add(terminal.AsTerminalDto());
         }
 
         return terminalDtos;

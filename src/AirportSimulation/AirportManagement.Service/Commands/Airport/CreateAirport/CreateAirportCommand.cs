@@ -1,9 +1,10 @@
 ﻿using Infrastructure;
 using MediatR;
+using Infrastructure.DTOs;
 
 namespace AirportManagement.Service.Commands;
 
-public class CreateAirportCommand : IRequest<Result<AirportManagement.Service.Repository.Entities.Airport>>
+public class CreateAirportCommand : IRequest<Result<AirportDTO>>
 {
-    public AirportManagement.Service.Repository.Entities.Airport Airport { get; set; }
+    public CreateAirportDto Airport { get; set; }
 }

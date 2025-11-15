@@ -1,0 +1,34 @@
+name: Verify APIs (contracts & smoke)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [ 001-verify-apis-libraries ]
+
+jobs:
+  verify-apis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+
+      - name: Run Tests (integration)
+        run: |
+          dotnet build src/AirportSimulation/AirportSimulation.sln -c Release
+          dotnet test tests/AirportManagement.Service.Tests/AirportManagement.Service.Tests.csproj --logger "trx;LogFileName=test_results.trx"
+        shell: bash
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-results
+          path: tests/AirportManagement.Service.Tests/TestResults/test_results.trx
