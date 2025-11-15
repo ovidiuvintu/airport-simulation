@@ -33,27 +33,6 @@ namespace AirportManagement.Service.Migrations
                 rowVersion: true,
                 nullable: true);
 
-            migrationBuilder.Sql(
-                @"
-                    CREATE TRIGGER SetContactTimestampOnUpdate
-                    AFTER UPDATE ON Contacts
-                    BEGIN
-                        UPDATE Contacts
-                        SET Timestamp = randomblob(8)
-                        WHERE rowid = NEW.rowid;
-                    END
-                ");
-                        migrationBuilder.Sql(
-                            @"
-                    CREATE TRIGGER SetContactTimestampOnInsert
-                    AFTER INSERT ON Contacts
-                    BEGIN
-                        UPDATE Contacts
-                        SET Timestamp = randomblob(8)
-                        WHERE rowid = NEW.rowid;
-                    END
-            ");
-
             migrationBuilder.CreateTable(
                 name: "Gate",
                 columns: table => new

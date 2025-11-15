@@ -52,14 +52,14 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
     public async Task<Result<Repository.Entities.Airport>> GetAirportByNameAsync(string name, CancellationToken cancellationToken)
     {
         var result = await _repo.GetAllAsync(a => a.Terminals);
-        Result<Repository.Entities.Airport> res = new()
-        {
-            Success = result != null,
-            Error = string.Empty,
-            Data = result.FirstOrDefault(c=>c?.Name == name)
-        };
+        var item = result?.FirstOrDefault(c => c?.Name == name);
 
-        return res;
+        return new Result<Repository.Entities.Airport>
+        {
+            Success = item != null,
+            Error = item == null ? $"Airport with name {name} not found" : string.Empty,
+            Data = item
+        };
     }
 
     public async Task<Result<IEnumerable<Repository.Entities.Airport>>> GetAllAirportsAsync(CancellationToken cancellationToken)
@@ -113,6 +113,67 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
             Success = true,
             Error = string.Empty,
             Data = airportToUpdate
+        };
+    }
+
+    public async Task<Result> DeleteAirportAsync(Guid airportId, CancellationToken cancellationToken)
+    {
+        var all = await _repo.GetAllAsync();
+        if (all == null || !all.Any())
+        {
+            return new()
+            {
+                Success = false,
+                Error = $"Airport with id {airportId} not found"
+            };
+        }
+
+        var airportToDelete = all.FirstOrDefault(a => a != null && a.Id == airportId);
+        if (airportToDelete == null)
+        {
+            return new()
+            {
+                Success = false,
+                Error = $"Airport with id {airportId} not found"
+            };
+        }
+
+        await _repo.DeleteAsync(airportToDelete);
+
+        return new()
+        {
+            Success = true,
+            Error = string.Empty
+        };
+    }
+
+    public async Task<Result<Repository.Entities.Terminal>> AddTerminalAsync(Guid airportId, Repository.Entities.Terminal terminal, CancellationToken cancellationToken)
+    {
+        var all = await _repo.GetAllAsync(a => a.Terminals);
+        var airport = all?.FirstOrDefault(a => a != null && a.Id == airportId);
+        if (airport == null)
+        {
+            return new()
+            {
+                Success = false,
+                Error = $"Airport with id {airportId} not found"
+            };
+        }
+
+        terminal.AirportId = airportId;
+        airport.Terminals ??= new List<Repository.Entities.Terminal>();
+        airport.Terminals.Add(terminal);
+
+        await _repo.Update(airport);
+
+        // Return the newly added terminal (match by Id)
+        var created = airport.Terminals.FirstOrDefault(t => t.Id == terminal.Id) ?? terminal;
+
+        return new()
+        {
+            Success = true,
+            Error = string.Empty,
+            Data = created
         };
     }
 

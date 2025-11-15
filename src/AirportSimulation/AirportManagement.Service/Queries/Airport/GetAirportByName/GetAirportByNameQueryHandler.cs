@@ -12,9 +12,9 @@ internal sealed class GetAirportByNameQueryHandler(IAirportService airportServic
     public async Task<Result<AirportDTO>> Handle(GetAirportByNameQuery request, CancellationToken cancellationToken)
     {
         var result = await airportService.GetAirportByNameAsync(request.Name, cancellationToken);
-        if (!result.Success)
+        if (!result.Success || result.Data == null)
         {
-            return new Result<AirportDTO> { Success = false, Error = result.Error };
+            return new Result<AirportDTO> { Success = false, Error = result.Error ?? $"Airport with name {request.Name} not found" };
         }
 
         return new Result<AirportDTO> { Success = true, Data = result.Data.AsAirportDto() };

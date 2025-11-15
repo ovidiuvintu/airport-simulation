@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Airport.Service.Repository.Config;
+using Infrastructure;
 
 //dotnet ef migrations add InitialCreate
 //To undo this action, use 'ef migrations remove'
@@ -28,9 +29,22 @@ public class AirportContext(DbContextOptions<AirportContext> options) : DbContex
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        UpdateTimestamps();
+        var result = await base.SaveChangesAsync(cancellationToken);
+        return result;
+    }
+
+    public override int SaveChanges()
+    {
+        UpdateTimestamps();
+        return base.SaveChanges();
+    }
+
+    private void UpdateTimestamps()
+    {
         foreach (var entry in ChangeTracker.Entries())
         {
-            if (entry.Entity is Entities.Airport entityWithTimestamps)
+            if (entry.Entity is BaseEntity entityWithTimestamps)
             {
                 switch (entry.State)
                 {
@@ -44,13 +58,5 @@ public class AirportContext(DbContextOptions<AirportContext> options) : DbContex
                 }
             }
         }
-
-        // Call the base implementation to actually save the changes
-        var result = await base.SaveChangesAsync(cancellationToken);
-
-        // Add your custom logic here after saving
-        // For example, publishing domain events
-
-        return result;
     }
 }

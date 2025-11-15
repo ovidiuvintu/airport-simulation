@@ -168,10 +168,16 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<IResult> DeleteAirportAsync([FromRoute] Guid airportId)
+    private static async Task<IResult> DeleteAirportAsync([FromRoute] Guid airportId, IMediator mediator)
     {
-        await Task.CompletedTask;
-        return TypedResults.Ok();
+        var cmd = new DeleteAirportCommand { AirportId = airportId };
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while deleting the airport");
+        }
+
+        return response.Success ? TypedResults.NoContent() : TypedResults.BadRequest(response.Error);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
@@ -183,12 +189,17 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<IResult> AddAirportTerminalAsync([FromRoute] Guid airportId, [FromBody] TerminalCreateDto terminal)
+    private static async Task<IResult> AddAirportTerminalAsync([FromRoute] Guid airportId, [FromBody] TerminalCreateDto terminal, IMediator mediator)
     {
-        // TODO: dispatch AddTerminal command via MediatR; return created with generated id
-        await Task.CompletedTask;
-        var newId = Guid.NewGuid();
-        return TypedResults.Created($"/api/airports/{airportId}/terminals/{newId}");
+        var cmd = new AddAirportTerminalCommand { AirportId = airportId, Terminal = terminal };
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while creating terminal");
+        }
+
+        return response.Success ? TypedResults.Created($"/api/airports/{airportId}/terminals/{response.Data.Id}")
+                                : TypedResults.BadRequest(response.Error);
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]

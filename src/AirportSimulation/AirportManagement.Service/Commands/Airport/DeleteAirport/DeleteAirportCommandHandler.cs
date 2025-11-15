@@ -1,12 +1,14 @@
-﻿using Infrastructure;
+﻿using AirportManagement.Service.Services;
+using Infrastructure;
 using MediatR;
 
 namespace AirportManagement.Service.Commands;
 
-public class DeleteAirportCommandHandler : RequestHandler<DeleteAirportCommand, Result>
+internal sealed class DeleteAirportCommandHandler(IAirportService airportService) : IRequestHandler<DeleteAirportCommand, Result>
 {
-    protected override Result Handle(DeleteAirportCommand request)
+    public async Task<Result> Handle(DeleteAirportCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = await airportService.DeleteAirportAsync(request.AirportId, cancellationToken);
+        return new Result { Success = result.Success, Error = result.Error };
     }
 }

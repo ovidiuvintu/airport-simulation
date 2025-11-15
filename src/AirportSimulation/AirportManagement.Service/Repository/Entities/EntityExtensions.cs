@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DTOs;
+using System.Linq;
 
 namespace AirportManagement.Service.Repository.Entities;
 
@@ -6,14 +7,19 @@ public static class EntityExtensions
 {
     public static AirportDTO AsAirportDto(this Airport airportEntity)
     {
+        if (airportEntity == null) throw new ArgumentNullException(nameof(airportEntity));
+
+        var terminals = airportEntity.Terminals == null
+            ? Enumerable.Empty<TerminalDto>()
+            : GetTerminalDTOs(airportEntity.Terminals);
+
         return new AirportDTO(
             airportEntity.Id.ToString(),
             airportEntity.Name,
             airportEntity.Description,
             airportEntity.AirportCode,
-            airportEntity.Terminals == null ? [] 
-                                            : GetTerminalDTOs(airportEntity.Terminals),
-            airportEntity.Created, 
+            terminals,
+            airportEntity.Created,
             airportEntity.Updated);
     }
 

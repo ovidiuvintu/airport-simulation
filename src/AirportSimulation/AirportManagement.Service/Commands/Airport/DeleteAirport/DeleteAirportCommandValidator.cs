@@ -6,6 +6,6 @@ public sealed class DeleteAirportCommandValidator : AbstractValidator<DeleteAirp
 {
     public DeleteAirportCommandValidator()
     {
-        
+        RuleFor(x => x.AirportId).NotEmpty().WithMessage("AirportId must be provided");
     }
 }
