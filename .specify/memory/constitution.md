@@ -1,19 +1,20 @@
 <!--
 Sync Impact Report
 
-- Version change: template -> 1.0.0
-- Modified principles: added/defined Principles I through XIV based on project requirements
-- Added sections: Additional Constraints, Development Workflow
+- Version history: template -> 1.0.0 -> 1.1.0
+- Latest change: added 'XV. Frontend UI & JavaScript Guidelines'
+- Modified principles: added/defined Principles I through XV based on project requirements
+- Added sections: Additional Constraints, Development Workflow, Frontend UI guidelines
 - Removed sections: none
 - Templates requiring updates:
-	- .specify/templates/plan-template.md ✅ updated
-	- .specify/templates/spec-template.md ✅ reviewed (no change required)
-	- .specify/templates/tasks-template.md ✅ reviewed (no change required)
-	- .specify/templates/checklist-template.md ✅ reviewed (no change required)
-	- .specify/templates/agent-file-template.md ✅ reviewed (no change required)
+    - .specify/templates/plan-template.md ✅ updated
+    - .specify/templates/spec-template.md ✅ reviewed (no change required)
+    - .specify/templates/tasks-template.md ✅ reviewed (no change required)
+    - .specify/templates/checklist-template.md ✅ reviewed (no change required)
+    - .specify/templates/agent-file-template.md ✅ reviewed (no change required)
 - Follow-up TODOs:
-	- TODO(RATIFICATION_DATE): Ratification date unknown; project should set original adoption date.
-	- Ensure automated checks read `.specify/memory/constitution.md` for the "Constitution Check" gate.
+    - TODO(RATIFICATION_DATE): Ratification date unknown; project should set original adoption date.
+    - Ensure automated checks read `.specify/memory/constitution.md` for the "Constitution Check" gate.
 -->
 
 # airport-simulation Constitution
@@ -108,6 +109,44 @@ changes in transactions where consistency is required. Rationale: maintain data 
 	key rules (async usage, presence of DTOs for public endpoints, migrations added).
 - Use scoped DI registration in composition roots and avoid service locators.
 
+### XV. Frontend UI & JavaScript Guidelines
+Frontend applications and UI components written in JavaScript (or TypeScript) MUST follow
+the same architectural discipline as backend services: separate presentation, application,
+and data access concerns. The frontend MUST adhere to the following rules:
+
+- **Component Boundaries**: UI components MUST be small, focused, and reusable. Business
+	logic MUST live in services/hooks/state managers, not in presentational components.
+- **Typed Contracts**: Prefer TypeScript for all new UI code. When TypeScript is not
+	available, use clear runtime validations and shared DTO shapes to map API responses to
+	UI models. Public API contracts (DTOs) MUST be explicitly typed or validated.
+- **Async-First Networking**: All network calls and I/O in the UI MUST use async/await
+	patterns. UI operations that call services MUST not block the main thread; use web
+	workers for CPU-heavy tasks where needed.
+- **State Management & DI**: Use explicit state management (context, stores, or hooks) and
+	dependency-injection patterns appropriate to the framework. Avoid global mutable singletons
+	that hide dependencies.
+- **Security & Sanitization**: Sanitize any user-provided content before rendering. Enforce
+	Content Security Policy (CSP) and use parameterized API calls. Do not persist secrets in
+	client code. Escape or strip HTML from untrusted sources; prefer structured data.
+- **Accessibility (A11Y)**: All UI features MUST meet WCAG AA accessibility guidelines
+	where applicable. Include automated a11y checks in CI and manual verification in reviews.
+- **Performance & Bundling**: Apply code-splitting, lazy loading, and tree-shaking to
+	minimize bundle size. Measure and set performance budgets; CI SHOULD warn if budgets are
+	exceeded.
+- **Logging & Telemetry**: Emit structured client-side logs and include the request
+	correlation ID (if provided by the backend) to tie frontend events to backend traces.
+	Avoid logging sensitive user data.
+- **Testing**: Unit tests MUST cover components and services; integration/E2E tests MUST
+	exercise critical user flows. Use headless browsers or Playwright/Cypress for E2E. Tests
+	MUST be isolated and runnable in CI with an in-memory or mock backend.
+- **Linting & Formatting**: Enforce `eslint`, `prettier`, and framework-specific style rules
+	in CI. PRs failing lint/format checks MUST be blocked until resolved.
+- **Documentation & Contracts**: Document public UI component APIs and shared DTO shapes;
+	keep API contract examples in OpenAPI/contract files so frontend and backend align.
+
+Rationale: The frontend is part of the system boundary and must maintain the same
+reliability, security, and maintainability guarantees as backend services.
+
 ## Governance
 
 Amendments: Proposals to change this constitution MUST be published as a spec, include a
@@ -122,4 +161,4 @@ Compliance reviews: Every PR that implements architecture, security, or data cha
 MUST include a checklist referencing relevant principles. CI will fail the merge if
 Constitution Check gates are violated.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): project must set original adoption date | **Last Amended**: 2025-11-15
+**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): project must set original adoption date | **Last Amended**: 2025-11-15
