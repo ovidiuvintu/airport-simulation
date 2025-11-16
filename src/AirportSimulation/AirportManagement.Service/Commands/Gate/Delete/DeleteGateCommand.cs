@@ -7,4 +7,5 @@ public sealed class DeleteGateCommand : IRequest<Result>
 {
     public Guid AirportId { get; set; }
     public Guid GateId { get; set; }
+    public Guid TerminalId { get; set; }
 }

@@ -352,9 +352,9 @@ public static class AirportApi
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
-    private static async Task<IResult> DeleteAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid gateId, IMediator mediator)
+    private static async Task<IResult> DeleteAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromRoute] Guid gateId, IMediator mediator)
     {
-        var cmd = new AirportManagement.Service.Commands.Gate.Delete.DeleteGateCommand { AirportId = airportId, GateId = gateId };
+        var cmd = new AirportManagement.Service.Commands.Gate.Delete.DeleteGateCommand { AirportId = airportId, TerminalId = terminalId, GateId = gateId };
         var response = await mediator.Send(cmd);
         if (response is null)
         {
@@ -367,11 +367,12 @@ public static class AirportApi
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    private static async Task<IResult> PatchAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid gateId, [FromBody] JsonElement patchDoc, HttpContext httpContext, IMediator mediator)
+    private static async Task<IResult> PatchAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromRoute] Guid gateId, [FromBody] JsonElement patchDoc, HttpContext httpContext, IMediator mediator)
     {
         var cmd = new AirportManagement.Service.Commands.Gate.Patch.PatchGateCommand
         {
             AirportId = airportId,
+            TerminalId = terminalId,
             GateId = gateId,
             PatchDocument = patchDoc
         };
