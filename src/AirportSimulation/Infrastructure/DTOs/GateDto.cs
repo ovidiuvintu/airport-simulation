@@ -1,7 +1,7 @@
-﻿using Infrastructure.DTOs;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Service.DTOs;
+namespace Infrastructure.DTOs;
 
 public enum GateType
 {
@@ -10,18 +10,12 @@ public enum GateType
     Transfer
 }
 
-public class GateDto : BaseDto
-{
-    [Required]
-    public required Guid ConcourseId { get; set; }
-    [Required]
-    public required string Name { get; set; } //A-38
-    [Required]
-    public required GateType GateType { get; set; }
-    [Required]
-    public required bool IsInternational { get; set; }
-    [Required]
-    public required DateTime DateCreated { get; set; }
-    [Required]
-    public required DateTime DateUpdated { get; set; }
-}
+public sealed record GateDto(
+    string Id,
+    [Required] string ConcourseId,
+    [Required] string Name,
+    [Required] GateType GateType,
+    [Required] bool IsInternational,
+    [ReadOnly(true)] DateTime DateCreated,
+    [ReadOnly(true)] DateTime DateUpdated
+);
