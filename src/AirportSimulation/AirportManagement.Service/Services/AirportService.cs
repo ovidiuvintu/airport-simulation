@@ -3,9 +3,10 @@ using Infrastructure.Interfaces;
 
 namespace AirportManagement.Service.Services;
 
-public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAirportService
+public class AirportService(IRepository<Repository.Entities.Airport> repo, IRepository<Repository.Entities.Terminal> terminalRepo) : IAirportService
 {
     private readonly IRepository<Repository.Entities.Airport> _repo = repo;
+    private readonly IRepository<Repository.Entities.Terminal> _terminalRepo = terminalRepo;
 
     public async Task<Result<Repository.Entities.Airport>> AddAirportAsync(Repository.Entities.Airport model)
     {
@@ -161,19 +162,14 @@ public class AirportService(IRepository<Repository.Entities.Airport> repo) : IAi
         }
 
         terminal.AirportId = airportId;
-        airport.Terminals ??= new List<Repository.Entities.Terminal>();
-        airport.Terminals.Add(terminal);
-
-        await _repo.Update(airport);
-
-        // Return the newly added terminal (match by Id)
-        var created = airport.Terminals.FirstOrDefault(t => t.Id == terminal.Id) ?? terminal;
+        // Add the terminal directly so EF performs an INSERT instead of attempting to UPDATE the parent graph
+        await _terminalRepo.AddAsync(terminal);
 
         return new()
         {
             Success = true,
             Error = string.Empty,
-            Data = created
+            Data = terminal
         };
     }
 

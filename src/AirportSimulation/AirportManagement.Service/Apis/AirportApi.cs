@@ -3,6 +3,7 @@ using AirportManagement.Service.Queries;
 using Infrastructure.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Text.Json;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -84,6 +85,17 @@ public static class AirportApi
               .WithDisplayName("DeleteTerminal")
               .WithDescription("Delete terminal")
               .WithTags("Terminals");
+
+        // PATCH endpoints (JSON Merge Patch RFC 7396)
+        v1.MapMethods("/airports/{airportId:guid}", new[] { "PATCH" }, PatchAirportAsync)
+            .WithName("PatchAirport")
+            .WithSummary("Patch airport")
+            .WithTags("Airports");
+
+        v1.MapMethods("/airports/{airportId:guid}/terminals/{terminalId:guid}", new[] { "PATCH" }, PatchAirportTerminalAsync)
+            .WithName("PatchTerminal")
+            .WithSummary("Patch terminal")
+            .WithTags("Terminals");
 
         return app;
     }
@@ -186,6 +198,70 @@ public static class AirportApi
         // TODO: implement terminal query — currently return empty list of TerminalDto
         await Task.CompletedTask;
         return TypedResults.Ok(new List<TerminalDto>());
+    }
+
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    private static async Task<IResult> PatchAirportAsync([FromRoute] Guid airportId, [FromBody] JsonElement patchDoc, HttpContext httpContext, IMediator mediator)
+    {
+        var cmd = new AirportManagement.Service.Commands.Airport.PatchAirport.PatchAirportCommand
+        {
+            AirportId = airportId,
+            PatchDocument = patchDoc,
+        };
+
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while patching airport");
+        }
+
+        if (!response.Success)
+        {
+            return response.Error switch
+            {
+                "NotFound" => TypedResults.NotFound("Airport not found"),
+                "PreconditionFailed" => TypedResults.StatusCode(StatusCodes.Status412PreconditionFailed),
+                "ReadOnlyFieldOrCollectionNotAllowed" => TypedResults.BadRequest("Patch attempts to modify read-only field or collection"),
+                _ => TypedResults.BadRequest(response.Error)
+            };
+        }
+
+        // success - return 204 No Content
+        return TypedResults.NoContent();
+    }
+
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    private static async Task<IResult> PatchAirportTerminalAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromBody] JsonElement patchDoc, HttpContext httpContext, IMediator mediator)
+    {
+        var cmd = new AirportManagement.Service.Commands.Terminal.PatchTerminal.PatchTerminalCommand
+        {
+            AirportId = airportId,
+            TerminalId = terminalId,
+            PatchDocument = patchDoc
+        };
+
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while patching terminal");
+        }
+
+        if (!response.Success)
+        {
+            return response.Error switch
+            {
+                "NotFound" => TypedResults.NotFound("Terminal not found"),
+                "PreconditionFailed" => TypedResults.StatusCode(StatusCodes.Status412PreconditionFailed),
+                "ReadOnlyFieldNotAllowed" => TypedResults.BadRequest("Patch attempts to modify read-only field"),
+                _ => TypedResults.BadRequest(response.Error)
+            };
+        }
+
+        return TypedResults.NoContent();
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]

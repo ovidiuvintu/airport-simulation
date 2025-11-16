@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Commands\Terminal\**" />
     <Compile Remove="Extensions\**" />
-    <Content Remove="Commands\Terminal\**" />
     <Content Remove="Extensions\**" />
-    <EmbeddedResource Remove="Commands\Terminal\**" />
     <EmbeddedResource Remove="Extensions\**" />
-    <None Remove="Commands\Terminal\**" />
     <None Remove="Extensions\**" />
   </ItemGroup>
 

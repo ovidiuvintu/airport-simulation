@@ -10,7 +10,7 @@ internal sealed class AddAirportTerminalCommandHandler(IAirportService airportSe
 {
     public async Task<Result<TerminalDto>> Handle(AddAirportTerminalCommand request, CancellationToken cancellationToken)
     {
-        var terminalEntity = new Terminal
+        var terminalEntity = new AirportManagement.Service.Repository.Entities.Terminal
         {
             Name = request.Terminal.Name,
         };
