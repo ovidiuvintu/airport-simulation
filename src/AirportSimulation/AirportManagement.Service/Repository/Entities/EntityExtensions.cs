@@ -53,6 +53,29 @@ public static class EntityExtensions
         };
     }
 
+    public static GateDto AsGateDto(this Gate gateEntity)
+    {
+        return new GateDto(
+            gateEntity.Id.ToString(),
+            gateEntity.ConcourseId.ToString(),
+            gateEntity.Name,
+            (Infrastructure.DTOs.GateType)gateEntity.GateType,
+            gateEntity.IsInternational,
+            gateEntity.Created,
+            gateEntity.Updated);
+    }
+
+    public static Gate AsGateEntity(this GateDto gateDto)
+    {
+        return new Gate
+        {
+            Name = gateDto.Name,
+            ConcourseId = Guid.TryParse(gateDto.ConcourseId, out var c) ? c : Guid.Empty,
+            IsInternational = gateDto.IsInternational,
+            GateType = (GateType)gateDto.GateType
+        };
+    }
+
     private static IEnumerable<TerminalDto> GetTerminalDTOs(IEnumerable<Terminal> terminals)
     {
         var terminalDtos = new List<TerminalDto>();

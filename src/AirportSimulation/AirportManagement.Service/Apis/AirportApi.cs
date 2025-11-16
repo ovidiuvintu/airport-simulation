@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Components.Forms;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using AirportManagement.Service.Repository.Entities;
 
 namespace AirportManagement.Service.Apis;
 
@@ -96,6 +99,32 @@ public static class AirportApi
             .WithName("PatchTerminal")
             .WithSummary("Patch terminal")
             .WithTags("Terminals");
+
+        // Gates (per-terminal)
+        v1.MapGet("/airports/{airportId:guid}/terminals/{terminalId:guid}/gates", GetGatesByTerminalAsync)
+            .WithName("GetGatesByTerminal")
+            .WithSummary("List gates for a terminal")
+            .WithTags("Gates");
+
+        v1.MapPost("/airports/{airportId:guid}/terminals/{terminalId:guid}/gates", AddAirportGateAsync)
+            .WithName("AddGate")
+            .WithSummary("Add a new gate to terminal")
+            .WithTags("Gates");
+
+        v1.MapPut("/airports/{airportId:guid}/terminals/{terminalId:guid}/gates/{gateId:guid}", UpdateAirportGateAsync)
+            .WithName("UpdateGate")
+            .WithSummary("Update gate")
+            .WithTags("Gates");
+
+        v1.MapDelete("/airports/{airportId:guid}/terminals/{terminalId:guid}/gates/{gateId:guid}", DeleteAirportGateAsync)
+            .WithName("DeleteGate")
+            .WithSummary("Delete gate")
+            .WithTags("Gates");
+
+        v1.MapMethods("/airports/{airportId:guid}/terminals/{terminalId:guid}/gates/{gateId:guid}", new[] { "PATCH" }, PatchAirportGateAsync)
+            .WithName("PatchGate")
+            .WithSummary("Patch gate")
+            .WithTags("Gates");
 
         return app;
     }
@@ -276,6 +305,96 @@ public static class AirportApi
 
         return response.Success ? TypedResults.Created($"/api/airports/{airportId}/terminals/{response.Data.Id}")
                                 : TypedResults.BadRequest(response.Error);
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task<IResult> GetGatesByTerminalAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, IMediator mediator)
+    {
+        var query = new AirportManagement.Service.Queries.Gate.GetGatesByTerminal.GetGatesByTerminalQuery
+        {
+            AirportId = airportId,
+            TerminalId = terminalId
+        };
+
+        var response = await mediator.Send(query);
+        return response != null && response.Success ? TypedResults.Ok(response.Data) : TypedResults.BadRequest(response?.Error);
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    private static async Task<IResult> AddAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromBody] Infrastructure.DTOs.GateDto gate, IMediator mediator)
+    {
+        var cmd = new AirportManagement.Service.Commands.Gate.Create.CreateGateCommand { AirportId = airportId, TerminalId = terminalId, Gate = gate };
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while creating gate");
+        }
+
+        return response.Success ? TypedResults.Created($"/api/airports/{airportId}/terminals/{terminalId}/gates/{response.Data.Id}")
+                                : TypedResults.BadRequest(response.Error);
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
+    private static async Task<IResult> UpdateAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromRoute] Guid gateId, [FromBody] Infrastructure.DTOs.GateDto gate, IMediator mediator)
+    {
+        var cmd = new AirportManagement.Service.Commands.Gate.Update.UpdateGateCommand
+        {
+            AirportId = airportId,
+            TerminalId = terminalId,
+            GateId = gateId,
+            Gate = gate
+        };
+
+        var response = await mediator.Send(cmd);
+        return response != null && response.Success ? TypedResults.Ok() : TypedResults.BadRequest(response?.Error);
+    }
+
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    private static async Task<IResult> DeleteAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromRoute] Guid gateId, IMediator mediator)
+    {
+        var cmd = new AirportManagement.Service.Commands.Gate.Delete.DeleteGateCommand { AirportId = airportId, TerminalId = terminalId, GateId = gateId };
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while deleting the gate");
+        }
+
+        return response.Success ? TypedResults.NoContent() : TypedResults.BadRequest(response.Error);
+    }
+
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    private static async Task<IResult> PatchAirportGateAsync([FromRoute] Guid airportId, [FromRoute] Guid terminalId, [FromRoute] Guid gateId, [FromBody] JsonElement patchDoc, HttpContext httpContext, IMediator mediator)
+    {
+        var cmd = new AirportManagement.Service.Commands.Gate.Patch.PatchGateCommand
+        {
+            AirportId = airportId,
+            TerminalId = terminalId,
+            GateId = gateId,
+            PatchDocument = patchDoc
+        };
+
+        var response = await mediator.Send(cmd);
+        if (response is null)
+        {
+            return TypedResults.BadRequest("An error occurred while patching gate");
+        }
+
+        if (!response.Success)
+        {
+            return response.Error switch
+            {
+                "NotFound" => TypedResults.NotFound("Gate not found"),
+                "PreconditionFailed" => TypedResults.StatusCode(StatusCodes.Status412PreconditionFailed),
+                "ReadOnlyFieldOrCollectionNotAllowed" => TypedResults.BadRequest("Patch attempts to modify read-only field or collection"),
+                _ => TypedResults.BadRequest(response.Error)
+            };
+        }
+
+        return TypedResults.NoContent();
     }
 
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
